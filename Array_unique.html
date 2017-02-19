@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		//去重
+		Array.prototype.unique = function() {
+			var n = [];
+			var obj = {};
+
+			for(var i = 0; i<this.length; i++) {
+				var item = this[i];
+				var key = typeof(item) + item;
+				
+               if(!obj[key]){
+               	  n.push(this[i])
+                  obj[key] = true
+               }
+			}
+			return n;
+		}
+		// 排序
+		Array.prototype.paixu = function (){
+			var company=function (a,b) {
+				return a-b;
+			}
+			return this.sort(company);
+		}
+
+		//伪数组转化为数组
+		var makeArray = function (arr) {
+			return Array.prototype.slice.call(arr,0)
+		}
+		// var a = Array.prototype.slice.call(arguments);
+		var obj = {
+			aa:1,
+			bb:2
+		}
+		console.log(makeArray(obj).push(1))
+		// console.log(Array)
+		// var arr= [1,2,34,55,2]
+		// console.log(arr.paixu())
+	</script>
+
+
+</head>
+<body>
+	
+</body>
+</html>

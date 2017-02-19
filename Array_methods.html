@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		Array.prototype.unique = function() {
+			var n = [];
+			var obj = {};
+
+			for(var i = 0; i<this.length; i++) {
+				var item = this[i];
+				var key = typeof(item) + item;
+				
+               if(!obj[key]){
+               	  n.push(this[i])
+                  obj[key] = true
+               }
+			}
+			return n;
+		}
+
+		var arr = [1,2,33,'33'];
+		console.log(arr.unique())
+	</script>
+
+
+</head>
+<body>
+	
+</body>
+</html>
