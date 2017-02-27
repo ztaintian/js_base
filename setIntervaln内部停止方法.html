@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script>
+	
+	 //方法一 
+	// var int=self.setInterval("clock()",1000);
+	// var i = 1; 
+	// 	function clock() { 
+	// 		var t=new Date(); 
+	// 		document.getElementById("clock").value=t;
+	// 		i=i*1+1;
+	// 		if(i>10){
+	// 			int=window.clearInterval(int);
+	// 			alert("stop");
+	// 		}
+	// 	} 
+
+
+	// 方法二
+	var i = 1; 
+	var int=setInterval(function (){ 
+			var t=new Date(); 
+			document.getElementById("clock").value=t;
+			i=i*1+1;
+			if(i>10){
+				window.clearInterval(int);
+				alert("stop");
+			}
+		} ,1000);
+	
+	// 小技巧 时间大小对比判断
+	var time = new Date();
+	var data = time.getHours()+':'+time.getMinutes();
+	console.log(data)
+	console.log('20:00' <'23:00') //true
+	console.log('24:00' <'23:00') //false
+</script> 
+<body>
+	<input type="text" id="clock" size="35" /> 
+</body>
+</html>
