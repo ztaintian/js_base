@@ -30,7 +30,7 @@
 			bottom:0;
 			background: red;
 		}
-		section{
+		#container{
 			position: absolute;
 			bottom:50px;
 			top:50px;
@@ -45,6 +45,7 @@
 		window.onload=function(){
 			var iscroll=new iScroll('container',{
 				 onScrollMove:function(){
+				 	console.log(this.wrapperH,this.y,this.scrollerH)
 					if(this.wrapperH-this.y>this.scrollerH){
 						this.pushState = true;
 						console.log(this.pushState)
@@ -87,8 +88,8 @@
 </script>
 <body>
 	<header></header>
-	<section id="container">
-		<article id="wrapper">
+	<div id="container">
+		<div id="wrapper">
 			<div id="first">
 				<span>上拉刷新</span>
 			</div>
@@ -115,8 +116,8 @@
 			<div id="last">
 				<span>下拉加载</span>
 			</div>
-		</article>
-	</section>
+		</div>
+	</div>
 	<footer></footer>
 </body>
 </html>
