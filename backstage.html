@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" href="base/css/two.css">
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="stylesheet" type="text/css" href="component/time/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="component/time/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet" href="base/css/common.css">
+<link rel="stylesheet" href="base/css/order.css"><!-- 订单样式-高-->
+<link rel="stylesheet" type="text/css" href="component/ryCom/css/jsCss.css">  <!--插件样式-->
+
+<link rel="stylesheet" type="text/css" href="component/laydate/need/laydate.css">
+<link rel="stylesheet" type="text/css" href="component/laydate/skins/default/laydate.css">
+<link rel="stylesheet" type="text/css" href="component/ueditor/themes/default/css/ueditor.min.css">
+<link href="component/tagsinput/jquery.tagsinput.css" rel="stylesheet" type="text/css" />  <!-- 自定义标签-->
+<script src="constants.js" ></script>
+
+<script src="component/jquery/jquery.js"></script>
+<script src="base/js/logload.js"></script>
+<script>
+	$(function(){
+		$('body').mask();
+	})
+</script>
+<!--[if (gte IE 6)&(lte IE 8)]>
+<script type="text/javascript" src="Backstage/basic/commodity/client/leimu/js/selectivizr-min.js"></script>
+<noscript><link rel="stylesheet" href="[fallback css]" /></noscript>
+<![endif]-->
+
+<!--百度统计-->
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?61d7725879e1ef32cec9e03392ca529b";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+<body ms-controller="root">
+	<!--头部-->
+	<div class="header">
+		<div class='headerTop blue'>
+			<div class="w1190 clearfix margin_auto">
+				<div class='left'>欢迎走进智能商机时代！&nbsp;&nbsp;|&nbsp;&nbsp;
+					<span id="loginBox">
+					</span>
+				</div>
+				<!--<div class='right'>
+					<a href="backstage.html#!" class="zyGzt">我的工作台<span class='ion-arrow-down-b ml5'></span></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a href="frontpage.html#!/FrontPage/listing/template/goods-list">购物车</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a href="frontpage.html#!/FrontPage/other/service">帮助中心</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<a href="frontpage.html#!/FrontPage/other/download">App下载</a>
+				</div>-->
+
+					<div class="right">
+
+						<ul class="caidan">
+							<li>
+									<a href="frontpage.html#!/FrontPage/listing/template/trading-hall" class="left" style=" margin-left:-10px;">首页</a>
+									|
+							</li>
+							<li class="zyGzt prelative pb10">
+								<a href="javascript:;" class="clickMy">我的工作台<span class='ion-arrow-down-b ml5'></span></a>|
+								<!--<p class="myWork-nr">
+
+
+									<a href="javascript:;">买家</a>
+									<a href="javascript:;">卖家</a>
+								</p>-->
+							</li>
+							<li><a href="frontpage.html#!/FrontPage/listing/template/goods-list">购物车<span class="numShu"></span></a>|</li>
+							<li><a href="Help-center.html#!/FrontPage/other/service">帮助中心</a>|</li>
+							<li><a href="frontpage.html#!/FrontPage/other/download">App下载</a></li>
+						</ul>
+
+
+					</div>
+
+			</div>
+		</div>
+		<div class="headCenter bluebg borderE7t borderE7b h84 tc"  ms-include-src="{{platformTop}}" >
+
+		</div>
+		</div>
+
+
+	<div class="clearfix" ms-if="!styleTwo" ms-include-src="{{platform}}"  data-include-rendered="callback">
+
+	</div>
+
+
+
+	<!--中间部分-->
+	<div class="content clearfix" ms-if="styleTwo" >
+	    <!--左侧边栏-->
+	    <div class="leftContent left">
+	        <h3 class="pzpzpz"></h3>
+
+	        <!--卖家中心-->
+	       <!--<ul class="lyy-mylist" >
+	        	<li ms-repeat-elem="twoJi">
+	        		<a class="bigA" href="javascript:;" ms-html="elem.menuName"  ></a>
+	        		<p class="lyy-hidden">
+	        			<a ms-repeat-item="elem.mores" ms-href="item.menuUrl"  ms-html="item.menuName">&gt;&nbsp;&nbsp;</a>
+	        		</p>
+	        	</li>
+	        </ul>-->
+	        <!--卖家中心-->
+	        <ul class="lyy-mylist lyy-mylist-ohth" id="upMenu2" >
+	        	<!--<li>
+	        		<a class="bigA" href="javascript:;" ></a>
+	        		<p class="lyy-hidden">
+	        			<a >&gt;&nbsp;&nbsp;</a>
+	        		</p>
+	        	</li>-->
+	        </ul>
+
+
+
+
+	        <!--买家中心-->
+	        <ul class="lyy-mylist lyy-mylist-buy"  ms-if="isBuy">
+	        	<li>
+	        		<a class="bigA" href="javascript:;" >商品管理</a>
+	        		<p class="lyy-hidden">
+		        		<a href="backstage.html#!/Backstage/platform/template/product-list?buy=true">&gt;&nbsp;&nbsp;商品管理</a>
+	        		</p>
+	        	</li>
+	        	<li>
+	        		<a class="bigA" href="javascript:;" >我的挂牌</a>
+	        		<p class="lyy-hidden">
+		        		<a href="backstage.html#!/Backstage/procurement/template/procurement-transaction?buy=true">&gt;&nbsp;&nbsp;采购挂牌列表</a>
+	        		</p>
+	        	</li>
+	        	<li>
+	        		<a class="bigA"  href="javascript:;">我的竞价</a>
+	        		<p class="lyy-hidden">
+	        			<a href="backstage.html#!/Backstage/bidding/template/mybid?buy=true">&gt;&nbsp;&nbsp;我参与的竞买</a>
+	        			<a href="backstage.html#!/Backstage/auction/template/manage-list?buy=true">&gt;&nbsp;&nbsp;竞卖管理</a>
+	        			<a href="backstage.html#!/Backstage/auction/template/manage-list-guanli?buy=true">&gt;&nbsp;&nbsp;竞卖跟踪</a>
+	        		</p>
+	        	</li>
+	        	<li>
+	        		<a class="bigA" href="javascript:;" >我的订单</a>
+	        		<p class="lyy-hidden">
+	        			<a href="backstage.html#!/Backstage/platform/template/buyer-order-centre?buy=true">&gt;&nbsp;&nbsp;我的订单</a>
+	        		</p>
+	        	</li>
+	        	<!--<li>
+	        		<a class="bigA" href="backstage.html#!/Backstage/platform/template/buyer-contract-man?buy=true">我的合同</a>
+	        	</li>-->
+	        	<li>
+	        		<a class="bigA"  href="javascript:;">我的提单</a>
+	        		<p class="lyy-hidden">
+	        			<a href="backstage.html#!/Backstage/platform/template/buyer-bill-man?buy=true">&gt;&nbsp;&nbsp;我的提单</a>
+	        			<a href="backstage.html#!/Backstage/platform/template/buyer-parcel-man?buy=true">&gt;&nbsp;&nbsp;发货通知单</a>
+	        		</p>
+	        	</li>
+	        	<li>
+	        		<a class="bigA"  href="javascript:;">我的资讯</a>
+	        		<p class="lyy-hidden">
+	        			<a href="backstage.html#!/Backstage/sociality/template/myInformation-list?buy=true">&gt;&nbsp;&nbsp;我的资讯</a>
+	        		</p>
+	        	</li>
+
+	        	<li>
+	        		<a class="bigA" href="javascript:;">我的账户</a>
+	        		<p class="lyy-hidden">
+	                	<a href="backstage.html#!/Backstage/workbench/template/security-setting?buy=true">&gt;&nbsp;&nbsp;安全设置</a>
+	                	<a href="backstage.html#!/Backstage/workbench/template/personal-data?buy=true">&gt;&nbsp;&nbsp;个人资料</a>
+	                	<!-- <a href="backstage.html#!/Backstage/workbench/template/account-bind?buy=true">&gt;&nbsp;&nbsp;账号绑定</a>
+	                	<a href="backstage.html#!/Backstage/workbench/template/attention-setting?buy=true">&gt;&nbsp;&nbsp;我关注的</a>
+	                	<a href="backstage.html#!/Backstage/workbench/template/my-service-certs?buy=true">&gt;&nbsp;&nbsp;我的服务</a> -->
+	                	<a href="backstage.html#!/Backstage/workbench/template/invited-customer-emp?buy=true">&gt;&nbsp;&nbsp;我邀请的客户</a>
+	        		</p>
+	        	</li>	        	
+
+	        	<li>
+	        		<a class="bigA" href="javascript:;">平台资金管理</a>
+	        		<p class="lyy-hidden">
+	                	<a href="backstage.html#!/Backstage/platformFundManagement/template/individual-management?buy=true">&gt;&nbsp;&nbsp;企业资金帐户管理</a>
+	                	<a href="backstage.html#!/Backstage/platformFundManagement/template/details-capital?buy=true">&gt;&nbsp;&nbsp;企业资金往来明细</a>
+	                	<a href="backstage.html#!/Backstage/platformFundManagement/template/account-management?buy=true">&gt;&nbsp;&nbsp;个人会员帐户管理</a>
+	                	<a href="backstage.html#!/Backstage/platformFundManagement/template/member-funds?buy=true">&gt;&nbsp;&nbsp;个人会员资金流水</a>
+	                	<a href="backstage.html#!/Backstage/platformFundManagement/template/settlement-application?buy=true">&gt;&nbsp;&nbsp;会员结算申请</a>
+	                	<a href="backstage.html#!/Backstage/platformFundManagement/template/platform-account-management?buy=true">&gt;&nbsp;&nbsp;平台帐户管理</a>
+	                	<a href="backstage.html#!/Backstage/platformFundManagement/template/account-flow?buy=true">&gt;&nbsp;&nbsp;平台帐户资金流水</a>
+	        		</p>
+	        	</li>
+	        </ul>
+
+
+           <!-- <ul class="lyy-mylist" >
+	        	<li>
+	        		<a class="bigA" href="javascript:;">竞卖</a>
+	        		<p class="lyy-hidden">
+	                	<a href="backstage.html#!/Backstage/auction/template/manage-list">&gt;&nbsp;&nbsp;列表</a>
+	                	<a href="backstage.html#!/Backstage/auction/template/manage-list-pl">&gt;&nbsp;&nbsp;平台</a>
+	                	<a href="backstage.html#!/Backstage/auction/template/review">&gt;&nbsp;&nbsp;审核</a>
+	                	<a href="backstage.html#!/Backstage/auction/template/mybid">&gt;&nbsp;&nbsp;我参与的竞价</a>
+	                	<a href="backstage.html#!/Backstage/bidding/template/mybid">&gt;&nbsp;&nbsp;我参与的竞价</a>
+	        		</p>
+	        	</li>
+	       </ul>-->
+
+	       <!--<ul class="lyy-mylist" >
+	        	<li>
+	        		<a class="bigA" href="javascript:;">1121212</a>
+	        		<p class="lyy-hidden">
+	                	<a href="backstage.html#!/Backstage/workbench/template/security-setting">&gt;&nbsp;&nbsp;安全设置</a>
+	                	<a href="backstage.html#!/Backstage/workbench/template/personal-data">&gt;&nbsp;&nbsp;个人资料</a>
+	                	<a href="backstage.html#!/Backstage/workbench/template/account-bind">&gt;&nbsp;&nbsp;账号绑定</a>
+	                	<a href="backstage.html#!/Backstage/workbench/template/attention-setting">&gt;&nbsp;&nbsp;我关注的</a>
+	                	<a href="backstage.html#!/Backstage/workbench/template/my-service-certs">&gt;&nbsp;&nbsp;我的服务</a>
+	                	<a href="backstage.html#!/Backstage/workbench/template/invited-customer-emp">&gt;&nbsp;&nbsp;我邀请的客户</a>
+	        		</p>
+	        	</li>
+	       </ul>-->
+
+
+	    </div>
+	    <!--右边内容-->
+	    <div class="rightContent right"  ms-include-src="{{platform}}"  data-include-rendered="callback">
+
+	    </div>
+	</div>
+
+
+
+	<!--底部部分-->
+	<div  ms-include-src="{{bottomHtml}}"></div>
+
+
+	<!--<div class="footer">
+		<div class="w1190 clearfix">
+			<div class="left logoF">
+				<a href="index.html">
+					<img src="base/img/logoconfirm.png"  width="192" height="60" class="mt-5"/>
+				</a>
+			</div>
+			<div class="left">
+				<ul class="links clearfix">
+					<li>
+						<h3>快速上手</h3>
+						<a href="javascript:;">我要买货</a>
+						<a href="javascript:;">我要卖货</a>
+						<a href="javascript:;">我是撮合员</a>
+						<a href="javascript:;">我是分析师</a>
+					</li>
+					<li>
+						<h3>平台规则</h3>
+						<a href="javascript:;">平台总则</a>
+						<a href="javascript:;">挂牌交易规则</a>
+						<a href="javascript:;">竞买交易规则</a>
+						<a href="javascript:;">用户认证细则</a>
+						<a href="javascript:;">争议处理细则</a>
+					</li>
+					<li>
+						<h3>帮助中心</h3>
+						<a href="javascript:;">常见问题</a>
+						<a href="javascript:;">业务速读</a>
+						<a href="javascript:;">成为撮合员</a>
+						<a href="javascript:;">成为分析师</a>
+					</li>
+					<li>
+						<h3>关于我们</h3>
+						<a href="javascript:;">走进百联大宗</a>
+						<a href="javascript:;">在线客服</a>
+						<a href="javascript:;">客服电话</a>
+						<a href="javascript:;">合作联系</a>
+						<a href="javascript:;">人才招聘</a>
+					</li>
+				</ul>
+			</div>
+			<div class="right codeF pr">
+				<a href="frontpage.html#!/FrontPage/intention/template/intention"><img src="base/img/Appdown.png" /></a>
+				<img class="fdicode" src="https://test.bldz.com/app/appdownload/mobile_download.png" />
+				<img class="pa" style="right:62px;top:0;width:0;height:0" src="https://test.bldz.com/app/appdownload/mobile_download.png">
+			</div>
+		</div>
+		<div class="tc">
+			<p class="f14 bais pr" style="margin-left:-50px;">
+				<a style="float: left;" href="http://webscan.360.cn/index/checkwebsite/url/test.bldz.com"><img border="0" src="http://img.webscan.360.cn/status/pai/hash/f302d7d467ef7b453be510649fb72c8a"/></a>
+				<a class='white pr aboutus' href='javascript:;'><span>关于我们</span><span class="forward tc pa display_ib" style="width:0px;height:0;font-size:20px;right:60px;bottom:0;opacity:0.6;overflow:hidden;background:rgba(241,241,241,0.3)">敬&nbsp;请&nbsp;期&nbsp;待</span></a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href='javascript:;'>联系我们</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href='javascript:;'>合作伙伴</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<a href='javascript:;'>百联集团</a>&nbsp;&nbsp;|&nbsp;&nbsp; 客服热线：021-53023863
+
+			</p>
+			<p>Copyright © 2016 百联大宗版权所有 沪ICP备16045015号-1</p>
+		</div>
+
+	</div>-->
+
+	<!--<script src="component/require/require.js" data-main="frontpage"></script>-->
+	<script src="component/require/require.js" defer async data-main="main"></script>
+	<script type="text/javascript">
+		$(".platrules").hover(function() {
+			$(this).children().stop().animate({
+				width: "95px",
+				height: "30px",
+				lineHeight: "30px"
+			}, "normal")
+		}, function() {
+			$(this).children().stop().animate({
+				width: "0px",
+				height: "0px",
+				lineHeight: "0px"
+			}, "normal")
+		});
+			$(".services").hover(function() {
+			$(this).children(".phone").stop().animate({
+				width: "300px",
+				height: "30px",
+				lineHeight: "30px"
+			}, "normal")
+		}, function() {
+			$(this).children(".phone").stop().animate({
+				width: "0px",
+				height: "0px",
+				lineHeight: "0px"
+			}, "normal")
+		});
+		$(".cooperation").hover(function() {
+			$(this).children(".contact").stop().animate({
+				width: "320px",
+				height: "60px",
+				lineHeight: "30px"
+			}, "normal")
+		}, function() {
+			$(this).children(".contact").stop().animate({
+				width: "0px",
+				height: "0px",
+				lineHeight: "0px"
+			}, "normal")
+		})
+
+
+				$(".common").hover(function() {
+			$(this).children(".problem").stop().animate({
+				width: "90px",
+				height: "30px",
+				lineHeight: "30px"
+			}, "normal")
+		}, function() {
+			$(this).children(".problem").stop().animate({
+				width: "0px",
+				height: "0px",
+				lineHeight: "0px"
+			}, "normal")
+		})
+
+
+				$(".personnel").hover(function() {
+			$(this).children(".recruit").stop().animate({
+				width: "90px",
+				height: "30px",
+				lineHeight: "30px"
+			}, "normal")
+		}, function() {
+			$(this).children(".recruit").stop().animate({
+				width: "0px",
+				height: "0px",
+				lineHeight: "0px"
+			}, "normal")
+		})
+	</script>
+</body>
+</html>
