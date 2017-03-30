@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	.dott{
+		height:40px;
+		width:40px;
+		border-radius: 20px;
+	}
+	.dott1{
+		background: red;
+	}
+	.dott2{
+		background: yellow;
+	}
+	.dott3{
+		background: green;
+	}
+</style>
+
+<body>
+	<div  class="dott dott1" style="margin-left: 0;"></div>
+	<div  class="dott dott2" style="margin-left: 0;"></div>
+	<div  class="dott dott3" style="margin-left: 0;"></div>
+
+<script>
+		var dott1 = document.querySelector('.dott1');
+		var dott2 = document.querySelector('.dott2');
+		var dott3 = document.querySelector('.dott3');
+		// var Promise = new Promise();
+		// function animation (ball,distance,cb){
+		// 	console.log(ball.style.marginLeft)
+		// 	setTimeout(function(){
+		// 		var marginLeft = parseInt(ball.style.marginLeft);
+		// 		if(marginLeft == distance){
+		// 			cb && cb()
+		// 		}else{
+		// 			if(marginLeft < distance){
+		// 				marginLeft++
+		// 			}else{
+		// 				marginLeft--
+		// 			}
+		// 			console.log(marginLeft)
+		// 			ball.style.marginLeft = marginLeft+'px'
+		// 			animation(ball,distance,cb)
+		// 		}
+		// 	}, 13)
+		// }
+		// animation(dott1,200,function(){
+		// 	animation(dott2,300,function(){
+
+		// 	})
+		// })
+
+		var Promise = window.Promise;
+
+			function promiseAnimation(ball,distance){
+				return new Promise(function(resolve,reject){
+
+					function animation(){
+
+						setTimeout(function(){	
+							var marginLeft = parseInt(ball.style.marginLeft);
+							if(marginLeft === distance){
+								resolve()
+							}else{
+								if(marginLeft < distance){
+									marginLeft++
+								}else{
+									marginLeft--
+								}
+								console.log(marginLeft)
+								ball.style.marginLeft = marginLeft+'px'
+								animation()
+							}
+						}, 13)
+					}
+					animation()
+				})
+			}
+
+			promiseAnimation(dott1,200).then(function(){
+				return promiseAnimation(dott2,300)
+			}).then(function(){
+
+			})
+</script>
+</body>
+</html>
