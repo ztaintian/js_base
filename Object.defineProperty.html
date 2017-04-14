@@ -5,15 +5,63 @@
 	<title>Object.defineProperty</title>
 </head>
 <script>
-	 var a= {}
-	Object.defineProperty(a,'b',{
-		value:'123'
-	})
-	console.log(a.b) //123
-	// 第一个参数:目标对象。
-	// 第二个参数:需要定义的属性或方法的名字。
-	// 第三个参数:目标属性所拥有的特性。（descriptor）
-	// 很简单，，它接受三个参数，而且都是必填的。。
+	//1、Object.defineProperty
+	// var pattern = {
+	//     get: function () {
+	//         return 'I alway return this string,whatever you have assigned';
+	//     },
+	//     set: function () {
+	//         this.vv = 'this is my name string';
+	//     }
+	// };
+
+
+	// function TestDefineSetAndGet() {
+	//     Object.defineProperty(this, 'myproperty', pattern);
+	// }
+
+
+	// var instance = new TestDefineSetAndGet();
+	// console.log(instance)
+	// instance.myproperty = 'test';
+	// instance.vv = 'hhhh'
+
+	// // 'I alway return this string,whatever you have assigned'
+	// console.log(instance.myproperty);
+	// // 'this is my name string'
+	// console.log(instance.vv);
+
+	//2、Object.getPrototypeOf(object);
+	//console.log(Object.getPrototypeOf(instance))//返回对象的原型
+	
+	// 3、Object.assign() 方法用于将所有可枚举的属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。
+	// let a = {a:1}, b= {b:2}, c={c:3}; //相同键会被后面的覆盖掉 如：b={a:2}
+	// let abc = Object.assign({},a,b,c);
+	// console.log(abc,a,b,c)
+
+
+	//4、constructor 属性返回对创建此对象的数组函数的引用。
+
+	var test=new Array();
+		console.log(test)
+	if (test.constructor==Array){
+		document.write("This is an Array");
+	}
+	if (test.constructor==Boolean){
+		document.write("This is a Boolean");
+	}
+	if (test.constructor==Date){
+		document.write("This is a Date");
+	}
+	if (test.constructor==String){
+		document.write("This is a String");
+	}
+
+	var a = {
+		A:1
+	}
+
+	console.log(a.A)
 </script>
 <body>
 	
