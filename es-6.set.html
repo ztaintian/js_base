@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<script>
+	var arr = [321,21,3,4,5,6,3,2,4,9];
+	var a = [...new Set(arr)]//set去重
+	console.log(arr,a);
+	var s = new Set();
+	[1,2,3,4,5,6,76,2,3,5,9].forEach(x => s.add(x))
+
+	for(let i of s){
+		console.log(i)
+	}
+</script>
+<body>
+	
+</body>
+</html>

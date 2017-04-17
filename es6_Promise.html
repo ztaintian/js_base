@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+	// var p = new Promise(function(resolve, reject){
+ //    	//做一些异步操作
+	//     setTimeout(function(){
+	//         console.log('执行完成');
+	//         resolve('随便什么数据');
+	//     }, 2000);
+	// });
+
+		// console.log(Promise)
+
+
+		// 执行成功resolve
+		function asyc(){
+			var p = new Promise(function(resolve,reject){
+				setTimeout(function(){
+					console.log('执行完成');
+					resolve('data')
+				},2000)
+			})
+			return p;
+		}
+
+		function asyc1(){
+			var p = new Promise(function(resolve,reject){
+				setTimeout(function(){
+					console.log('执行完成1')
+					resolve('data1')
+				},2000)
+			})
+			return p;
+		}
+		asyc().then(function(data){
+			console.log(data)
+			return asyc1();
+		}).then(function(data1){
+			console.log(data1);
+			return '直接返回数据';
+		}).then(function(data2){
+			console.log(data2);
+		})
+
+
+		// 执行失败reject
+		// function asyc(){
+		// 	var p = new Promise(function(resolve,reject){
+
+		// 	})
+		// }
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
