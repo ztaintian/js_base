@@ -5,19 +5,42 @@
 	<title>Object 对象与继承</title>
 </head>
 <script>
-	function Fubar(foo, bar){
-	  if (!(this instanceof Fubar)) {
-	    return new Fubar(foo, bar);
-	  }
-
-	  this._foo = foo;
-	  this._bar = bar;
+	function M1() {
+		this.hello = 'hello';
 	}
 
-	console.log(Fubar(1, 2)._bar) // 1
-	console.log((new Fubar(1, 2))._foo) // 1
+	function M2() {
+		this.world = 'world';
+	}
+
+	function S() {
+		M1.call(this);
+		M2.call(this);
+	}
+	console.log(S.prototype , M1.prototype);
+	var s = new S();
+	console.log(s)
+	console.log(s.hello) // 'hello'
 </script>
+<style>
+	html,body{
+		position: relative;
+		width:100%;
+		height:100%;
+	}
+	.s{
+		width: 100px;
+	    height: 100px;
+	    position: absolute;
+	    top:0;
+	    left: 0;
+	    bottom:0;
+	    right:0;
+	    background: red;
+	    margin: auto;   
+	}
+</style>
 <body>
-	
+	<div class="s"></div>
 </body>
 </html> 
