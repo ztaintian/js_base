@@ -5,7 +5,7 @@
 	<title>js循环</title>
 </head>
 <script>
-	var arr = [10,20,30,50];
+	var arr = [60,40,30,50];
 	arr.filter(function(e,i){
 		console.log(e,i)
 	})
@@ -15,6 +15,11 @@
 	arr.forEach(function(e,i){
 		console.log(e,i)
 	})
+
+	var aa = arr.every(function(e,r){
+		return e>=47
+	});
+	console.log(aa)
 </script>
 <body>
 	
