@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <title>滚动信息</title>
+ <style>
+  *{padding:0;margin:0;font-size:12px;}
+  #wrap{width:300px;background:#eee;}
+  #wrap li{height:22px;line-height:22px;}
+</style>
+</head>
+<body>
+<div style="margin:20px;">
+<div id="wrap" style="overflow:hidden;height:100px;">  <!--  height值一定要比box1的offsetHeight(亦即box2的offsetTop)要小 -->
+  <ul id="box1">
+    <li>1、100素材网http://www.100sucai.com</li>
+    <li>2、100素材网http://www.100sucai.com</li>
+    <li>3、100素材网http://www.100sucai.com</li>
+    <li>4、100素材网http://www.100sucai.com</li>
+    <li>5、100素材网http://www.100sucai.com</li>
+    <li>6、100素材网http://www.100sucai.com</li>
+  </ul>
+  <ul id="box2"></ul>
+</div>
+<!-- 无他，放参考值尔 -->
+<div id="refer">
+</div>
+</div>
+<script type="text/javascript">
+    var speed=50;
+    var $$=function(id){return document.getElementById(id);}
+    $$('box2').innerHTML=box1.innerHTML;
+    function roll(){
+      if($$('box2').offsetTop-$$('wrap').scrollTop<=0)  {  //当滚动到第二部分的顶部位置时
+        $$('wrap').scrollTop-=$$('box1').offsetHeight;    //重置至第一部分顶部位置,相当于$$('box').scrollTop=0;
+        }
+      else{
+        $$('wrap').scrollTop++ ;
+        $$('refer').innerHTML=$$('box2').offsetTop+' '+$$('wrap').offsetHeight+' '+$$('wrap').scrollTop  //无他，参考值尔
+      }
+    }
+    var start=setInterval(roll,speed);
+    $$('wrap').onmouseover=function() {clearInterval(start)};
+    $$('wrap').onmouseout=function() {start=setInterval(roll,speed)};
+</script>
+</body>
+</html>
