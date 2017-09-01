@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>无缝滚动</title>
+</head>
+<style>
+	*{
+		padding:0;
+		margin:0;
+	}
+	.wrap{
+		width:600px;
+		height:300px;
+		margin:0 auto;
+		background: #eee;
+		overflow: hidden;
+	}
+	.box p{
+		height:40px;
+		line-height: 40px;
+	}
+</style>
+<body>
+	<div class="wrap">
+		<div class="box">
+			<p>qqqqqqqqqqqqqqqqqqqqqqq</p>
+			<p>eeeeeeeeeeeeeeeeeeeeeeeeeee</p>
+			<p>ttttttttttttttttttttttttttt</p>
+			<p>yyyyyyyyyyyyyyyyyyyyyyyyyyyy</p>
+			<p>yuuuuuuuuuuuuuuuuuuuuuuuuuuuu</p>
+			<p>hhhhhhhhhhhhhhhhhhhhhhhhhhhhh</p>
+			<p>nnnnnnnnnnnnnnnnnnnnnnnnnnnnnn</p>
+			<p>mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</p>
+			<p>kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk</p>
+			<p>rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr</p>
+			<p>bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</p>
+			<p>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+		</div>
+	</div>
+<script type="text/javascript">
+	const speed = 100;
+	let wrapObj = document.querySelector('.wrap');
+	let boxObj = document.querySelector('.box');
+	boxObj.innerHTML += boxObj.innerHTML; 
+	function roll(){
+		console.log(boxObj.offsetHeight)
+		console.log(wrapObj.scrollTop)
+		if(boxObj.offsetHeight/2 - wrapObj.scrollTop <= 0 ){
+			wrapObj.scrollTop = 0;
+		}else{
+			wrapObj.scrollTop++;
+		}
+	}
+	let start = setInterval(roll,speed);
+	wrapObj.onmouseover = function () {clearInterval(start);};
+	wrapObj.onmouseleave = function () {start = setInterval(roll,speed);};
+
+</script>
+</body>
+</html>
