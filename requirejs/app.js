@@ -11,7 +11,24 @@ requirejs.config({
 　　}
 });
 
-requirejs(['Backbone'],function(bb) {
-    console.log(bb)
-  $('body').html('ee')
+require(['Backbone','api'],function(backbone,api) {
+	 // $.fn = jQuery.prototype
+   // $.fn.extend({
+   // 	pageSwich: function(){
+   // 		this.css({
+   // 			'color':'red'
+   // 		})
+   // 	}
+   // })
+   // $.fn.PageSwich = function(){
+  	// this.css({
+   // 			'color':'red'
+   //  		}) 	
+   // }
+  api.getUse().then(function(data){
+    console.log(data)
+  })
+
+
 });
+
