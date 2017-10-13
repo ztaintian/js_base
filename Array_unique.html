@@ -12,7 +12,6 @@
 			for(var i = 0; i<this.length; i++) {
 				var item = this[i];
 				var key = typeof(item) + item;
-				
                if(!obj[key]){
                	  n.push(this[i])
                   obj[key] = true
@@ -41,11 +40,17 @@
 		// console.log(Array)
 		// var arr= [1,2,34,55,2]
 		// console.log(arr.paixu())
+
+		//冒泡排序
+		//arr移动后面m位的方法
+
+		var targetKeys = [1,2,3,4,5,6,7],
+    	tempArr = targetKeys.splice(2, 3);
+    	targetKeys.splice(3, 0, ...tempArr);
 	</script>
 
 
 </head>
 <body>
-	
 </body>
 </html>

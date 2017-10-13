@@ -4,23 +4,36 @@
 	<meta charset="UTF-8">
 	<title>数组去重包括类型判断</title>
 	<script>
-		Array.prototype.unique = function() {
-			var n = [];
-			var obj = {};
+		//数组去重包括类型判断
+		// Array.prototype.unique = function() {
+		// 	var n = [];
+		// 	var obj = {};
 
-			for(var i = 0; i<this.length; i++) {
-				var item = this[i];
-				var key = typeof(item) + item;
-               if(!obj[key]){
-               	  n.push(this[i])
-                  obj[key] = true
-               }
-			}
-			return n;
+		// 	for(var i = 0; i<this.length; i++) {
+		// 		var item = this[i];
+		// 		var key = typeof(item) + item;
+  //              if(!obj[key]){
+  //              	  n.push(this[i])
+  //                 obj[key] = true
+  //              }
+		// 	}
+		// 	return n;
+		// }
+
+		// var arr = [1,2,33,33];
+		// console.log(arr.unique())
+
+		//arr后移m位
+		var arr = [1,2,3,4,5,6,7];
+		function paixu(arr,m){
+			var popArr = arr.splice(0,m);
+			// es6
+			// arr.push(...popArr)
+			//es5
+			Array.prototype.push.apply(arr,popArr)
+			console.log(arr);
 		}
-
-		var arr = [1,2,33,33];
-		console.log(arr.unique())
+		paixu(arr,1);
 	</script>
 
 
