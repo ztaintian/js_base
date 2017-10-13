@@ -27,16 +27,36 @@
 		var arr = [1,2,3,4,5,6,7];
 		function paixu(arr,m){
 			var popArr = arr.splice(0,m);
-			// es6
-			// arr.push(...popArr)
-			//es5
-			// 方法一
-			// Array.prototype.push.apply(arr,popArr)
-			// 方法二  比一好
-			var arr1 = arr.concat(popArr)
-			console.log(arr1);
+		// 	// es6
+				//方法一
+		// 	// arr.push(...popArr)
+				//方法二  比一好
+				var arr1 = [...arr,...popArr];
+				console.log(arr1)
+		// 	//es5
+		// 	// 方法一
+		// 	// Array.prototype.push.apply(arr,popArr)
+		// 	// 方法二  比一好
+		// 	var arr1 = arr.concat(popArr);
+		// 	console.log(arr1);
 		}
 		paixu(arr,1);
+		//冒泡排序
+		// var  arr = [3,2,8,5,7];
+		// function maoPai(arr){
+		// 	for(var i=0;i<arr.length-1;i++){
+		// 		var temp ;
+		// 		for(var j=0;j<arr.length-i-1;j++){
+		// 			if(arr[j] > arr[j+1]){
+		// 				temp = arr[j];
+		// 				arr[j] = arr[j+1];
+		// 				arr[j+1] = temp;
+		// 			}
+		// 		}
+		// 	}
+		// 	console.log(arr)
+		// }
+		// maoPai(arr)
 	</script>
 
 
