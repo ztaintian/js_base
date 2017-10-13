@@ -30,8 +30,11 @@
 			// es6
 			// arr.push(...popArr)
 			//es5
-			Array.prototype.push.apply(arr,popArr)
-			console.log(arr);
+			// 方法一
+			// Array.prototype.push.apply(arr,popArr)
+			// 方法二  比一好
+			var arr1 = arr.concat(popArr)
+			console.log(arr1);
 		}
 		paixu(arr,1);
 	</script>
