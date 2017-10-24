@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>快速排序</title>
+</head>
+<script>
+	var arr = [46,67,8,9,88,3,7,7,6]
+	console.log(quick(arr))
+	function quick(arr){
+		if(arr.length <=1){
+			return arr
+		}
+		var leftArr = []
+		var rightArr = []
+		var firstArr = arr[0]
+		for(let i=1;i<arr.length;i++){
+			if(arr[i]<firstArr){
+				leftArr.push(arr[i])
+			}else{
+				rightArr.push(arr[i])
+			}
+		}
+		return [].concat(quick(leftArr),[firstArr],quick(rightArr))
+	}
+</script>
+<body>
+</body>
+</html>
