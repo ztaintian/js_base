@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ji继承</title>
+</head>
+<body>
+	
+</body>
+<script>
+	// (一) 原型链继承
+	// function Parent(name) { 
+	//     this.name = name;
+	// }
+	// Parent.prototype.sayName = function() {
+	//     console.log('parent name:', this.name);
+	// }
+	// function Child(name) {
+	//     this.name = name;
+	// }
+
+	// Child.prototype = new Parent('father');
+	// Child.prototype.constructor = Child;
+
+	// Child.prototype.sayName = function() {
+	//     console.log('child name:', this.name);
+	// }
+
+	// var child = new Child('son');
+	// child.sayName();
+
+
+	// (二) 类式继承：
+	// function Parent(name) { 
+	//     this.name = name;
+	// }
+	// Parent.prototype.sayName = function() {
+	//     console.log('parent name:', this.name);
+	// }
+	// Parent.prototype.doSomthing = function() {
+	//     console.log('parent do something!');
+	// }
+	// function Child(name, parentName) {
+	//     Parent.call(this, parentName);
+	//     this.name = name;
+	// }
+
+	// Child.prototype.sayName = function() {
+	//     console.log('child name:', this.name);
+	// }
+
+	// var child = new Child('son');
+	// child.sayName();      // child name: son
+	// child.doSomthing(); 
+
+	// (三) 组合式继承：前两种方式的结合
+	// function Parent(name) { 
+	//     this.name = name;
+	// }
+
+	// Parent.prototype.sayName = function() {
+	//     console.log('parent name:', this.name);
+	// }
+	// Parent.prototype.doSomething = function() {
+	//     console.log('parent do something!');
+	// }
+	// function Child(name, parentName) {
+	//     Parent.call(this, parentName);
+	//     this.name = name;
+	// }
+
+	// Child.prototype = new Parent();      
+	// Child.prototype.constructor = Child;
+	// Child.prototype.sayName = function() {
+	//     console.log('child name:', this.name);
+	// }
+
+	// var child = new Child('son');
+	// child.sayName();       // child name: son
+	// child.doSomething();   // parent do something!
+	// 
+	// (四) 寄生组合式继承：
+	// function Parent(name) {
+	//     this.name = name;
+	// }
+	// Parent.prototype.sayName = function() {
+	//     console.log('parent name:', this.name);
+	// }
+
+	// function Child(name, parentName) {
+	//     Parent.call(this, parentName);  
+	//     this.name = name;    
+	// }
+
+	// function create(proto) {
+	//     function F(){}
+	//     F.prototype = proto;
+	//     return new F();
+	// }
+
+	// Child.prototype = create(Parent.prototype);
+	// Child.prototype.sayName = function() {
+	//     console.log('child name:', this.name);
+	// }
+	// Child.prototype.constructor = Child;
+
+	// var parent = new Parent('father');
+	// parent.sayName();    // parent name: father
+
+
+	// var child = new Child('son', 'father');
+	// child.sayName();     // child name: son
+	// 
+	// 
+	// es5
+	function Parent(name) {
+	    this.name = name;
+	}
+	Parent.prototype.sayName = function() {
+	    console.log('parent name:', this.name);
+	}
+
+	function Child(name, parentName) {
+	    Parent.call(this, parentName);  
+	    this.name = name;    
+	}
+
+	function inheritPrototype(Parent, Child) {
+	    Child.prototype = Object.create(Parent.prototype);   //修改
+	    Child.prototype.constructor = Child;
+	}
+
+	inheritPrototype(Parent, Child);
+
+	Child.prototype.sayName = function() {
+	    console.log('child name:', this.name);
+	}
+
+	// var parent = new Parent('father');
+	// parent.sayName();      // parent name: father
+	// console.log(parent);
+
+	var child = new Child('son', 'father');
+	child.sayName();       // child name: son
+	console.log(child);
+
+
+	//(五) ES 6 继承：
+	// class Parent {
+ //    constructor(name) {
+	// 	this.name = name;
+ //    }
+ //    doSomething() {
+	// 	console.log('parent do something!');
+ //    }
+ //    sayName() {
+	// 	console.log('parent name:', this.name);
+ //    }
+	// }
+
+	// class Child extends Parent {
+ //    constructor(name, parentName) {
+	// 	super(parentName);
+	// 	this.name = name;
+ //    }
+ //    sayName() {
+ // 		console.log('child name:', this.name);
+ //    }
+	// }
+	// const child = new Child('son', 'father');
+	// child.sayName();            // child name: son
+	// child.doSomething();        // parent do something!
+	// console.log(child);
+
+	// const parent = new Parent('father');
+	// parent.sayName();           // parent name: father
+</script>
+</html>

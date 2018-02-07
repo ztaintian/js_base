@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function memoizeFunction(func){
+        var cache = {};
+        return function()
+        {
+            var key = arguments[0];
+            console.log('arguments[0]', arguments[0]);
+            if (cache[key]){
+                return cache[key];
+            }else{
+                var val = func.apply(this, arguments);
+                cache[key] = val;
+                return val;
+            }
+        };
+    }
+    var fibonacci = memoizeFunction(function(n){
+        return (n === 0 || n === 1) ? n : fibonacci(n - 1) + fibonacci(n - 2);
+    });
+    fibonacci(3);
+</script>
+</html>
