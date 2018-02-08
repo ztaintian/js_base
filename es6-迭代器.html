@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+// ES5实现迭代器的代码如下：
+	// function createIterator(items) {
+	//   var i = 0;
+	//   return {
+	//     next() {
+	//       var done = (i >= items.length); // 判断i是否小于遍历的对象长度。
+	//       var value = !done ? items[i++] : undefined; //如果done为false，设置value为当前遍历的值。
+	//       return {
+	//         done,
+	//         value
+	//       }
+	//     }
+	//   }
+	// }
+	// var  a = createIterator([1,2,3]);
+	// console.log(a.next());
+
+	// ES6实现迭代器的代码如下：
+	function *createIterator() {
+		yield 1;
+		yield 2;
+		yield 3;
+	}
+	var a = createIterator();
+	console.log(a.next());
+</script>
+</html>
