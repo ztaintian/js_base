@@ -15,9 +15,10 @@
 	new Promise(function (resolve) {
 	  console.log(3)
 	  var i = 0
-	  while (i < 9999999) {
+	  while (i < 9) {
 	    i++
 	  }
+	  console.log(i);
 	  resolve()
 	  console.log(4)
 	}).then(function() {
