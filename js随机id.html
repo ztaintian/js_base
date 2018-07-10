@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>js深度克隆</title>
+</head>
+<script>
+function createRandomId() {
+  return (Math.random()*10000000).toString(16).substr(0,4)+'-'+(new Date()).getTime()+'-'+Math.random().toString().substr(2,5);
+}
+function GenNonDuplicateID(randomLength){
+ return Number(Math.random().toString().substr(3,randomLength) + Date.now()).toString(36)
+}
+console.log(GenNonDuplicateID(6));
+</script>
+<body>
+</body>
+</html>

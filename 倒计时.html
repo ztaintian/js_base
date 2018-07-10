@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>倒计时</title>
+</head>
+
+<body>
+  <div id="timeDown"></div>
+</body>
+<script>
+    function timeDown(time) {
+      const endTime = new Date(time)
+      const nowTime = new Date();
+      let leftTime = parseInt((endTime.getTime() - nowTime.getTime()) / 1000)
+      let d = parseInt(leftTime / (24 * 60 * 60))
+      let h = this.formate(parseInt(leftTime / (60 * 60) % 24))
+      let m = this.formate(parseInt(leftTime / 60 % 60))
+      let s = this.formate(parseInt(leftTime % 60))
+      // if (leftTime <= 0) {
+      //   this.flag = true
+      //   this.$emit('time-end')
+      // }
+      document.querySelector('#timeDown').innerHTML = `${d}天${h}小时${m}分${s}秒`
+    }
+    function formate(time) {
+      if (time >= 10) {
+        return time
+      } else {
+        return `0${time}`
+      }
+    }
+    setInterval(() => {
+      timeDown('2018-06-27 10:06:00')
+    },1000)
+  </script>
+  
+</html>
