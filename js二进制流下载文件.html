@@ -8,7 +8,12 @@
   <title>js二进制流下载文件</title>
 </head>
 <script>
+  // responseType: 'blob',
   // rsp = "二进制流"
+  axios.get(url, {
+    responseType: 'blob', //重要
+    params: params
+}).then((rsp) => {
   var blob = new Blob([rsp]);
   if (navigator.msSaveBlob) {// ie10 以上兼容 Internet Explorer 10 的 msSaveBlob 和 msSaveOrOpenBlob 方法允许用户在客户端上保存文件
     navigator.msSaveBlob(blob, "标准模板.xls");
@@ -25,6 +30,8 @@
       document.querySelector("a").remove();
     };
   }
+})
+
 
 </script>
 
