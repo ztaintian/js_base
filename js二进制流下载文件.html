@@ -13,24 +13,24 @@
   axios.get(url, {
     responseType: 'blob', //重要
     params: params
-}).then((rsp) => {
-  var blob = new Blob([rsp]);
-  if (navigator.msSaveBlob) {// ie10 以上兼容 Internet Explorer 10 的 msSaveBlob 和 msSaveOrOpenBlob 方法允许用户在客户端上保存文件
-    navigator.msSaveBlob(blob, "标准模板.xls");
-  } else { // 兼容google
-    var reader = new FileReader();
-    reader.readAsDataURL(blob); // 转换为base64，可以直接放入a表情href
-    reader.onload = function (e) {
-      // 转换完成，创建一个a标签用于下载
-      var a = document.createElement("a");
-      a.download = "标准模板.xls";
-      a.href = e.target.result;
-      document.querySelector("body").appendChild(a); // 修复firefox中无法触发click
-      a.click();
-      document.querySelector("a").remove();
-    };
-  }
-})
+  }).then((rsp) => {
+    var blob = new Blob([rsp]);
+    if (navigator.msSaveBlob) {// ie10 以上兼容 Internet Explorer 10 的 msSaveBlob 和 msSaveOrOpenBlob 方法允许用户在客户端上保存文件
+      navigator.msSaveBlob(blob, "标准模板.xls");
+    } else { // 兼容google
+      var reader = new FileReader();
+      reader.readAsDataURL(blob); // 转换为base64，可以直接放入a表情href
+      reader.onload = function (e) {
+        // 转换完成，创建一个a标签用于下载
+        var a = document.createElement("a");
+        a.download = "标准模板.xls";
+        a.href = e.target.result;
+        document.querySelector("body").appendChild(a); // 修复firefox中无法触发click
+        a.click();
+        document.querySelector("a").remove();
+      };
+    }
+  })
 
 
 </script>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>防抖与节流</title>
+</head>
+
+<body>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+  <p>ffffffff</p>
+</body>
+<script>
+  // 节流手写代码 每隔一秒触发
+  function throttle() {
+    let isHas = true;
+    var time = null;
+    window.addEventListener('scroll', function () {
+      if (!isHas) {
+        // clearTimeout(time);
+        return;
+      }
+      isHas = false;
+      time = setTimeout(function () {
+        console.log('节流');
+        isHas = true;
+      }, 1000)
+    })
+  }
+  throttle();
+ // 防抖手写代码 停止2秒后触发
+ function debounce() {
+  var time = null;
+  window.addEventListener('scroll', function () {
+    clearTimeout(time);
+    time = setTimeout(() => {
+      console.log('防抖');
+    }, 2000)
+  }) 
+ }
+ debounce();
+</script>
+
+</html>
