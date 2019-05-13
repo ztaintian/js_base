@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>手写触底懒加载</title>
+</head>
+<style>
+*{
+  margin: 0;
+}
+</style>
+<script>
+  window.onscroll = () => {
+    // var X = document.documentElement.scrollHeight;
+    //         var Y = document.documentElement.scrollTop + document.body.scrollTop;
+    //         var Z = document.documentElement.clientHeight
+    var clientHeight = document.documentElement.clientHeight;
+    var scrollTop = document.documentElement.scrollTop;;
+    var offsetHeight = document.documentElement.offsetHeight;
+    console.log('clientHeight'+clientHeight+'scrollHeight'+scrollTop+'offsetHeight'+offsetHeight);
+    // console.log(offsetHeight = scrollTop + clientHeight);
+    if (offsetHeight == scrollTop + clientHeight) {
+      console.log('加载数据');
+      var node=document.createElement("LI");
+      var textnode=document.createTextNode("Water");
+      node.appendChild(textnode);
+      document.querySelector("#ww").appendChild(node);
+    }
+
+  }
+</script>
+<body>
+  <p>1</p>
+  <p>2</p>
+  <p>3</p>
+  <p>4</p>
+  <p>5</p>
+  <p>6</p>
+  <p>7</p>
+  <p>8</p>
+  <p>9</p>
+  <p>10</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p>11</p>
+  <p id="ww">11</p>
+</body>
+</html>
