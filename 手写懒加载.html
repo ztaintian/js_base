@@ -13,19 +13,16 @@
 </style>
 <script>
   window.onscroll = () => {
-    // var X = document.documentElement.scrollHeight;
-    //         var Y = document.documentElement.scrollTop + document.body.scrollTop;
-    //         var Z = document.documentElement.clientHeight
     var clientHeight = document.documentElement.clientHeight;
     var scrollTop = document.documentElement.scrollTop;;
     var offsetHeight = document.documentElement.offsetHeight;
     console.log('clientHeight'+clientHeight+'scrollHeight'+scrollTop+'offsetHeight'+offsetHeight);
-    // console.log(offsetHeight = scrollTop + clientHeight);
     if (offsetHeight == scrollTop + clientHeight) {
       console.log('加载数据');
       var node=document.createElement("LI");
       var textnode=document.createTextNode("Water");
       node.appendChild(textnode);
+      document.querySelector("#ww").appendChild(node);
       document.querySelector("#ww").appendChild(node);
     }
 
