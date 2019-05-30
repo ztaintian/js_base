@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <span class="div">11111</span><br/>
+  <span class="div2">22222</span>
+</body>
+<script>
+  var dis = 0;
+  function animation () {
+    requestAnimationFrame(function () {
+      console.log(document.querySelector('.div'))
+      document.querySelector('.div').style.marginLeft = ++dis + 'px'
+      if (dis<50) {
+        animation()
+      }
+    })
+  }
+  animation()
+  var dis2 = 0;
+  function animation2 () {
+    setTimeout(function () {
+      document.querySelector('.div2').style.marginLeft = ++dis2 + 'px'
+      if (dis2<50) {
+        animation2()
+      }
+    }, 17.6)
+  }
+  animation2()
+</script>
+</html>
