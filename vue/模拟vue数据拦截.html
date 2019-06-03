@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+<script>
+  class Vue {
+    constructor({data}) {
+      this.data = data();
+      Object.keys(this.data).forEach(this.proxy.bind(this))
+    }
+    proxy(key) {
+      Object.defineProperty(this, key, {
+        get() {
+          return Reflect.get(this.data, key);
+        },
+        set(newVlaue) {
+          Reflect.set(this.data, key, newVlaue);
+        }
+      })
+    }
+  }
+  var vm = new Vue({
+    data: () => ({
+      aa: '44',
+      bb: 'bb'
+    })
+  })
+  console.log(vm.aa)
+  vm.aa = '66'
+  console.log(vm.aa)
+</script>
+</html>
