@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>简单reg</title>
+</head>
+<script>
+  export var password = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).[0-9a-zA-Z]{5,50}$/
+  export var emptyReg = /^\s*$/g
+  export var twoNumberReg = /^\d+\.?(\d{1,2})?$/
+  export var identityNo = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+  export var positiveNumberReg = /^[0-9]*[1-9][0-9]*$/
+  export var numLetterRegs = /^[a-zA-Z0-9_]{0,30}$/
+  export var phoneReg = /^1[3-9]\d{9}$/
+  export var bankReg = /^([1-9]{1})(\d{10,25})$/
+  export var nameReg = /^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/
+  export var sixNumReg = /^\d{6}$/
+  export var emailReg = /^\w+@[a-z0-9]+\.[a-z]+$/i
+</script>
+<body>
+  
+</body>
+</html>
