@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<script>
+  var arr1 = [12,14,1]
+  var arr2 = [78,1,5,90]
+  function test(arr1, arr2) {
+    var arr = [];
+    while (arr1.length > 0 && arr2.length > 0) {
+      if (arr1[0] >= arr2[0]) {
+        arr.push(arr1[0]);
+        arr1.pop(arr1[0]);
+      } else if (arr1[0] < arr2[0]) {
+        arr.push(arr2[0]);
+        arr2.pop(arr2[0]);
+      }
+    }
+    var temp;
+    if (arr1.length = 0) {
+      temp = arr.concat(arr2);
+    }
+    if (arr2.length = 0) {
+      temp = arr.concat(arr1);
+    }
+
+    return document.write(temp);
+  }
+</script>
+
+<body>
+  <p>今天面试，考官给了一道算法题，有数组1和数组2，这两个数组都是已经按照从大到小排好序的，然后求两个数组集合的中间数https://segmentfault.com/q/1010000011266595</p>
+</body>
+
+</html>

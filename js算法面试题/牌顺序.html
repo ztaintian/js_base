@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<script>
+  var arr = [1,2,3,4,5,6,7,8,9,10,11,12,13]
+  var paiSort = function (arr) {
+    var tempArr  = []
+    while (arr.length > 0) {
+      if (arr.length%2 == 1) {
+        tempArr.push(arr.shift())
+      } else {
+        tempArr.push(arr.pop())
+      }
+    }
+    return tempArr;
+  }
+  console.log(paiSort(arr))
+</script>
+
+<body>
+  <p>有一堆扑克牌，将牌堆第一张放到桌子上，再将接下来的牌堆的第一张放到牌底，如此往复;
+    最后桌子上的牌顺序为： (牌底) 1,2,3,4,5,6,7,8,9,10,11,12,13 (牌顶)；</p>
+</body>
+
+</html>
