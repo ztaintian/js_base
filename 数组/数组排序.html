@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>数组排序</title>
+</head>
+<script>
+  // 冒泡排序
+  var maoPaoSort = function (arr) {
+    for (var i=0;i<arr.length;i++) {
+      for (var k=i+1;k<arr.length;k++) {
+        if (arr[i] > arr[k]) {
+          [arr[i], arr[k]] = [arr[k], arr[i]]
+        }
+      }
+    }
+    return arr
+  }
+  var arr = [3,6,5645,5,3,7,8,1]
+  // 数组去重
+  var quchong = function (arr) {
+    var obj = {}
+    var tempArr = []
+    arr.forEach((item) => {
+      obj[item] = 1
+    })
+    for (item in obj) {
+      tempArr.push(item)
+    }
+    return tempArr
+  }
+  console.log(quchong(arr))
+</script>
+<body>
+  
+</body>
+</html>

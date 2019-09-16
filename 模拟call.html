@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>模拟call</title>
+</head>
+<script>
+  var a = 99;
+  var obj = {
+    a: 55,
+    _myName: function () {
+      console.log(this.aa)
+    }
+  }
+  function text() {
+    console.log(this.a)
+    return {
+      a: 44, 
+      b: 99
+    }
+  }
+  // text.call(null)
+  console.log(text.call(obj).b)
+  // Function.prototype.myCall = function (context) {
+  //   context = context || window
+  //   context.fn = this
+  //   var cc = [...arguments].slice(1)
+  //   console.log('context', context)
+  //   var result = context.fn(...cc)
+  //   console.log(context.fn(...cc))
+  //   delete context.fn
+  //   return result
+  // }
+  // function test(b, c) {
+  //   console.log(b, c)
+  //   return {
+  //     a: 22,
+  //     b: 99
+  //   }
+  // }
+  // test.myCall(obj, 22, 444).b;
+</script>
+
+<body>
+
+</body>
+
+</html>
