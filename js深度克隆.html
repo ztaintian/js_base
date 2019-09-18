@@ -20,9 +20,9 @@
     for (key in obj) {
       var copy = obj[key];
       if (isClass(copy) == "Object") {
-        result[key] = arguments.callee(copy);//递归调用
+        result[key] = deepClone(copy);//递归调用
       } else if (isClass(copy) == "Array") {
-        result[key] = arguments.callee(copy);
+        result[key] = deepClone(copy);
       } else {
         result[key] = obj[key];
       }
@@ -35,29 +35,37 @@
     if (o === undefined) return "Undefined";
     return Object.prototype.toString.call(o).slice(8, -1);
   }
-  var oPerson = {
-    oName: "rookiebob",
-    oAge: "18",
-    oAddress: {
-      province: "beijing"
-    },
-    ofavorite: [
-      "swimming",
-      { reading: "history book" }
-    ],
-    skill: function () {
-      console.log("bob is coding");
-    }
-  };
-  //深度克隆一个对象
-  var oNew = deepClone(oPerson);
-  oNew.ofavorite[1].reading = "picture";
-  console.log(oNew.ofavorite[1].reading);//picture
-  console.log(oPerson.ofavorite[1].reading);//history book
+  var obj = {
+    a: 1,
+    b: [1, 2, 3]
+  }
+  var aa = deepClone(obj)
+  aa.a = 3444
+  console.log('obj', obj, 'aa', aa)
 
-  oNew.oAddress.province = "shanghai";
-  console.log(oPerson.oAddress.province);//beijing
-  console.log(oNew.oAddress.province);//shanghai
+  // var oPerson = {
+  //   oName: "rookiebob",
+  //   oAge: "18",
+  //   oAddress: {
+  //     province: "beijing"
+  //   },
+  //   ofavorite: [
+  //     "swimming",
+  //     { reading: "history book" }
+  //   ],
+  //   skill: function () {
+  //     console.log("bob is coding");
+  //   }
+  // };
+  // //深度克隆一个对象
+  // var oNew = deepClone(oPerson);
+  // oNew.ofavorite[1].reading = "picture";
+  // console.log(oNew.ofavorite[1].reading);//picture
+  // console.log(oPerson.ofavorite[1].reading);//history book
+
+  // oNew.oAddress.province = "shanghai";
+  // console.log(oPerson.oAddress.province);//beijing
+  // console.log(oNew.oAddress.province);//shanghai
 </script>
 
 <body>

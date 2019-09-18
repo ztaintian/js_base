@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>手写深度克隆</title>
+</head>
+<script>
+  var isType = function (obj) {
+    return Object.prototype.toString.call(obj).slice(8, -1)
+  }
+  var cloneDeep = function (obj) {
+    var _obj
+    console.log('nnnnn', isType(obj))
+    if (isType(obj) === 'Object') {
+      _obj = {}
+    } else if (isType(obj) === 'Array') {
+      _obj = []
+    } else {
+      return obj
+    }
+    for (item in obj) {
+      if (isType(obj[item]) === 'Object' || isType(obj[item]) === 'Array') {
+        _obj[item] = cloneDeep(obj[item])
+      } else {
+        _obj[item] = obj[item]
+      }
+    }
+    return _obj
+  }
+  var obj = {
+    a: 1,
+    b: [1, 2, 3],
+    aa: () => {
+      return 44
+    }
+  }
+  var aa = cloneDeep(obj)
+  aa.a = 3444
+  aa.b[1] = 88888
+  aa.aa = 88888
+  console.log('obj', obj, 'aa', aa)
+</script>
+
+<body>
+
+</body>
+
+</html>
