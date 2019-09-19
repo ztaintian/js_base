@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>手写flat</title>
+</head>
+<script>
+  var arr = [1, 2, [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
+  function flatten(arr) {
+    let arrs = [];
+    arr.map(item => {
+      if (Array.isArray(item)) {
+        arrs.push(...flatten(item))
+        console.log(arrs)
+      } else {
+        arrs.push(item)
+      }
+    })
+    return arrs
+  }
+  // Array.prototype.myflat = function () {
+  //   return [].concat(...this.map(item => (Array.isArray(item) ? item.myflat() : [item])));
+  // }
+  // var myFlat = function (arr) {
+  //   return [].concat(...arr.map((item) => {
+  //     return Array.isArray(item) ? myFlat(item) : [item]
+  //   }))
+  // }
+  console.log(flatten(arr))
+</script>
+
+<body>
+
+</body>
+
+</html>
