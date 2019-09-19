@@ -9,11 +9,12 @@
 </head>
 <script>
   var arr = [1, 2, [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14]]]], 10];
-  function flatten(arr) {
+  // 方法1
+  Array.prototype.myFlat1 = function () {
     let arrs = [];
-    arr.map(item => {
+    this.map(item => {
       if (Array.isArray(item)) {
-        arrs.push(...flatten(item))
+        arrs.push(...item.myFlat1())
         console.log(arrs)
       } else {
         arrs.push(item)
@@ -21,15 +22,21 @@
     })
     return arrs
   }
-  // Array.prototype.myflat = function () {
-  //   return [].concat(...this.map(item => (Array.isArray(item) ? item.myflat() : [item])));
-  // }
-  // var myFlat = function (arr) {
-  //   return [].concat(...arr.map((item) => {
-  //     return Array.isArray(item) ? myFlat(item) : [item]
-  //   }))
-  // }
-  console.log(flatten(arr))
+
+  // 方法2
+  Array.prototype.myFlat2 = function () {
+    return [].concat(...this.map(item => Array.isArray(item) ? item.myFlat2() : [item]));
+  }
+
+  // 方法3
+  Array.prototype.myFlat3 = function () {
+    return this.reduce((temp, item) => {
+      return temp.concat(Array.isArray(item) ? item.myFlat3() : [item])
+    }, [])
+  }
+  console.log('方法1', arr.myFlat2())
+  console.log('方法2', arr.myFlat2())
+  console.log('方法3', arr.myFlat3())
 </script>
 
 <body>
