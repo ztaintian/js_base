@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,20 +12,40 @@
     context = context || window
     context.fn = this
     var args = [...arguments].slice(1)
-    console.log(args)
-    var result = context.fn(...args)
-    delete context.fn
-    return result
+    console.log('args', args, ...args[0])
+    console.log(arguments[1])
+    // var result
+    // if (arguments[1]) {
+    //   result = context.fn(...arguments[1])
+    // } else {
+    //   result = context.fn()
+    // }
+    // delete context.fn
+    // return result
   }
+  //   Function.prototype.myApply=function(obj){   //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
+  //   var obj=obj||window;                      //取到传入的对象(执行上下文)，如果不传参数默认指向window
+  //       obj.func=this;                        //给obj对象添加一个func方法，this也就是调用myCall的函数
+  //   if(arguments[1]){                         //判断是否传入数组参数,如果传入就要展开数组
+  //     var result=obj.func(...arguments[1])
+  //   } else{
+  //       var result=obj.func()
+  //   }         //执行函数
+  //   delete obj.func;                          //删除函数
+  //   return result;                           
+  // }
+
   var obj = {
     a: 99
   }
   function test(a) {
     console.log(a)
   }
-  test.myApply(obj, [1,2,3,4])
+  test.myApply(obj, ['fff', '23', 7])
 </script>
+
 <body>
-  
+  0000
 </body>
+
 </html>
