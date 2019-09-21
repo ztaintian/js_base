@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>js循环</title>
+  <meta charset="UTF-8">
+  <title>js循环</title>
 </head>
 <script>
-	var arr = [60,40,30,50];
-	arr.filter(function(e,i){
-		console.log(e,i)
-	})
-	arr.map(function(e,i){
-		console.log(e,i)
-	})
-	arr.forEach(function(e,i){
-		console.log(e,i)
-	})
-
-	var aa = arr.every(function(e,r){
-		return e>=47
-	});
-	console.log(aa)
+  var arr = [60, 1, 11, 40, 30, 50]
+  var filterArr = arr.filter(function (value) {
+    return value % 2 === 0
+  })
+  console.log('arr', arr, 'filterArr', filterArr)
+  var mapArr = arr.map(function (value) {
+    return value * 2
+  })
+  console.log('arr', arr, 'mapArr', mapArr)
+  var forEachArr = arr.forEach(function (value) {
+    return value * 2
+  })
+  console.log('arr', arr, 'forEachArr', forEachArr)
+  var everyArr = arr.every(function (value) {
+    return value >= 47
+  });
+  console.log('arr', arr, 'everyArr', everyArr)
 </script>
+
 <body>
-	
+
 </body>
+
 </html>
