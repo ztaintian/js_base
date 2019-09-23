@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>模拟new</title>
+</head>
+<script>
+  var myNew = function (obj, ...args) {
+    var _obj = {}
+    _obj._proto_ = obj.prototype
+    var result = obj.apply(_obj, args)
+    return typeof result === 'object' ? reslut : _obj
+  }
+  function Test (name, age) {
+    this.name = name
+    this.age = age
+  }
+  var myNewTest = myNew(Test, '小明', 19)
+  console.log(myNewTest.name)
+  console.log(myNewTest.age)
+  var newTest = new Test('小天', 28)
+  console.log(newTest.name)
+  console.log(newTest.age)
+</script>
+
+<body>
+
+</body>
+
+</html>

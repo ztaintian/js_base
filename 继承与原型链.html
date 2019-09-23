@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>继承与原型链</title>
+</head>
+<script>
+  // 原型链继承
+  // function Parent() {
+  //   console.log('bbbbb')
+  //   this.arr = [1,2,3]
+  //   this.property = true
+  // }
+  // Parent.prototype.getParentVlaue = function () {
+  //   return this.property;
+  // }
+  // function Child() {
+  //   this.sonProperty = false;
+  // }
+  // Child.prototype = new Parent()
+  // Child.prototype.getChildVlaue = function () {
+  //   return this.sonProperty;
+  // }
+  // var son = new Child()
+  // son.arr.push(77)
+  // var son2 = new Child()
+  // console.log('son', son, 'son2', son2)
+  // // 继承引用的属性 不能独立
+
+  // // 构造函数继承 引用属性可以独立
+  // function Parent(age) {
+  //   this.arr = [1,2,3,4]
+  // }
+  // function Child(name) {
+  //   Parent.call(this) // 可以传参
+  //   this.name = name
+  // }
+  // var son1 = new Child()
+  // var son2 = new Child()
+  // son1.arr.push(44)
+  // console.log('son', son1, 'son2', son2)
+  // 组合继承
+  function Parent() {
+  }
+  function Child() {
+    Parent.call(this)
+  }
+  Child.prototype = new Parent()
+</script>
+
+<body>
+
+</body>
+
+</html>

@@ -15,7 +15,6 @@
     this.map(item => {
       if (Array.isArray(item)) {
         arrs.push(...item.myFlat1())
-        console.log(arrs)
       } else {
         arrs.push(item)
       }
@@ -34,7 +33,7 @@
       return temp.concat(Array.isArray(item) ? item.myFlat3() : [item])
     }, [])
   }
-  console.log('方法1', arr.myFlat2())
+  console.log('方法1', arr.myFlat1())
   console.log('方法2', arr.myFlat2())
   console.log('方法3', arr.myFlat3())
 </script>
