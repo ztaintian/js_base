@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>箭头函数</title>
@@ -18,14 +19,16 @@
 	// console.log(ee())
 	//4、this指向
 	const person = {
-	    name: 'tom',
-	    getName: function() {
-	        return setTimeout(() => this.name, 1000);
-	    }
+		name: 'tom',
+		getName: function () {
+			return setTimeout(() => this.name, 1000);
+		}
 	}
 	console.log(person.getName())
 </script>
+
 <body>
-	
+
 </body>
+
 </html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>手写Reg</title>
+</head>
+<script>
+  // 校验手机号
+  let phoneReg = /^1(1|2|3)[234][1-9]{8}$/
+  let phone = '11523232323'
+  console.log('phone', phoneReg.test(phone))
+  // 校验邮箱
+  let emailReg = /^\w*@[a-z0-9]*\.[a-z]*$/i
+  let email = '121221@qq.com'
+  console.log('email', emailReg.test(email))
+</script>
+
+<body>
+
+</body>
+
+</html>

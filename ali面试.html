@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>ali</title>
 </head>
 <script>
-	// var greeting = 'My name is ${name}, age ${age}, I am a ${job.jobName}';
-	// var employee = {
-	//     name: 'XiaoMing',
-	//     age: 11,
-	//     job: {
-	//         jobName: 'designer',
-	//         jobLevel: 'senior'
-	//     } 
-	// };
- //    // 代码由掘金大神@一口怪兽一口烟提供
-	// String.prototype.render = function (obj) {
-	//     with(obj) {
-	//         return eval('`' + this + '`')
-	//     }
-	// }	
-	// var result = greeting.render(employee);
-	// console.log(result);
-	console.log(Number.MAX_SAFE_INTEGER +2 === Number.MAX_SAFE_INTEGER +3)
+	var greeting = 'My name is ${name}, age ${age}, I am a ${job.jobName}';
+	var employee = {
+		name: 'XiaoMing',
+		age: 11,
+		job: {
+			jobName: 'designer',
+			jobLevel: 'senior'
+		}
+	};
+	// 代码由掘金大神@一口怪兽一口烟提供
+	String.prototype.render = function (obj) {
+		with (obj) {
+			console.log(obj)
+			return eval('`' + this + '`')
+		}
+	}
+	var result = greeting.render(employee);
+	console.log(result);
+	// console.log(Number.MAX_SAFE_INTEGER +2 === Number.MAX_SAFE_INTEGER +3)
 
 </script>
+
 <body>
-	
+
 </body>
+
 </html>
