@@ -1,7 +1,2 @@
-var proxy = new Proxy({}, {
-  get: function(target, property) {
-    return 35;
-  }
-});
-
-console.log(proxy.time) // 35
+var arr = [2,3,4]
+console.log(arr.splice(0,1))

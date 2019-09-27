@@ -14,6 +14,8 @@
   		const client = new XMLHttpRequest();
   		client.open('GET', url);
   		client.onreadystatechange = function () {
+				console.log('this', this)
+				console.log('client', client)
   			if (this.readyState !== 4) {
   				return;
   			}
@@ -25,11 +27,11 @@
   		}
   		client.responseType = 'json';
   		client.setRequestHeader('Accept', 'application/json');
-  		client.send();
+  		client.send(null);
   	});
   	return promise;
   }
-  promiseAJAX('http://localhost:3000/posts').then((res) => {
+  promiseAJAX('http://localhost:3000/aa').then((res) => {
   	console.log(res);
   })
 </script>

@@ -9,6 +9,7 @@
 </head>
 <script>
   var myNew = function (obj, ...args) {
+    console.log(args)
     var _obj = {}
     _obj._proto_ = obj.prototype
     var result = obj.apply(_obj, args)

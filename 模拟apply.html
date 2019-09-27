@@ -23,17 +23,17 @@
     // delete context.fn
     // return result
   }
-  //   Function.prototype.myApply=function(obj){   //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
-  //   var obj=obj||window;                      //取到传入的对象(执行上下文)，如果不传参数默认指向window
-  //       obj.func=this;                        //给obj对象添加一个func方法，this也就是调用myCall的函数
-  //   if(arguments[1]){                         //判断是否传入数组参数,如果传入就要展开数组
-  //     var result=obj.func(...arguments[1])
-  //   } else{
-  //       var result=obj.func()
-  //   }         //执行函数
-  //   delete obj.func;                          //删除函数
-  //   return result;                           
-  // }
+  Function.prototype.myApply = function (obj) {   //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
+    var obj = obj || window;                      //取到传入的对象(执行上下文)，如果不传参数默认指向window
+    obj.func = this;                        //给obj对象添加一个func方法，this也就是调用myCall的函数
+    if (arguments[1]) {                         //判断是否传入数组参数,如果传入就要展开数组
+      var result = obj.func(...arguments[1])
+    } else {
+      var result = obj.func()
+    }         //执行函数
+    delete obj.func;                          //删除函数
+    return result;
+  }
 
   var obj = {
     a: 99

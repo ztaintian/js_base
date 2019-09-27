@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
 	<script>
 		//去重
-		Array.prototype.unique = function() {
+		Array.prototype.unique = function () {
 			var n = [];
 			var obj = {};
 
-			for(var i = 0; i<this.length; i++) {
+			for (var i = 0; i < this.length; i++) {
 				var item = this[i];
-				var key = typeof(item) + item;
-               if(!obj[key]){
-               	  n.push(this[i])
-                  obj[key] = true
-               }
+				var key = typeof (item) + item;
+				if (!obj[key]) {
+					n.push(this[i])
+					obj[key] = true
+				}
 			}
 			return n;
 		}
 		// 排序
-		Array.prototype.paixu = function (){
-			var company=function (a,b) {
-				return a-b;
+		Array.prototype.paixu = function () {
+			var company = function (a, b) {
+				return a - b;
 			}
 			return this.sort(company);
 		}
 
 		//伪数组转化为数组
 		var makeArray = function (arr) {
-			return Array.prototype.slice.call(arr,0)
+			return Array.prototype.slice.call(arr, 0)
 		}
 		// var a = Array.prototype.slice.call(arguments);
 		var obj = {
-			aa:1,
-			bb:2
+			aa: 1,
+			bb: 2
 		}
 		console.log(makeArray(obj).push(1))
 		// console.log(Array)
@@ -44,13 +45,15 @@
 		//冒泡排序
 		//arr移动后面m位的方法
 
-		var targetKeys = [1,2,3,4,5,6,7],
-    	tempArr = targetKeys.splice(2, 3);
-    	targetKeys.splice(3, 0, ...tempArr);
+		var targetKeys = [1, 2, 3, 4, 5, 6, 7];
+		tempArr = targetKeys.splice(2, 3);
+		targetKeys.splice(3, 0, ...tempArr);
 	</script>
 
 
 </head>
+
 <body>
 </body>
+
 </html>

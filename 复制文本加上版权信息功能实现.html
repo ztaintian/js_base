@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>复制文本加上版权信息功能实现</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>复制文本加上版权信息功能实现</title>
 </head>
+
 <body>
-    <div>复制文本加上版权信息功能实现</div>
-    <span>fjasjasfjaslfjasfjasf</span>
-    <script>
-        let oDiv = document.querySelector('div');
-        oDiv.oncopy = function(e) { // 复制事件
-            e.preventDefault();
-            let copyMsg = window .getSelection() + `商业转载请注明出处`; // window .getSelection() 表示选择的内容
-            e.clipboardData.setData("Text", copyMsg); // 将复制信息添加到剪切板
-        }
-    </script>
+  <div>复制文本加上版权信息功能实现</div>
+  <span>fjasjasfjaslfjasfjasf</span>
+  <script>
+    let oDiv = document.querySelector('div');
+    oDiv.oncopy = function (e) { // 复制事件
+      e.preventDefault();
+      let copyMsg = window.getSelection() + `商业转载请注明出处`; // window .getSelection() 表示选择的内容
+      e.clipboardData.setData("Text", copyMsg); // 将复制信息添加到剪切板
+    }
+  </script>
 </body>
+
 </html>

@@ -3,6 +3,6 @@
  let phone = '11523232323'
  console.log('phone', phoneReg.test(phone))
  // 校验邮箱
- let emailReg = /^\w*@[a-z0-9]*\.[a-z]*$/
- let email = '121221@qq.com'
+ let emailReg = /^\w+@[a-z0-9]\.[a-z]*$/
+ let email = '@qq.com'
  console.log('email', emailReg.test(email))
