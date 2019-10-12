@@ -15,10 +15,10 @@
     );
   }
   const createPromise = (time, id) =>
-    new Promise(solve =>
+    new Promise(resolve =>
       setTimeout(() => {
         console.log("promise", id);
-        solve();
+        resolve();
       }, time)
     );
 
