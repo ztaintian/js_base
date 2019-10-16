@@ -1,2 +1,9 @@
-var  arr = [1,2,3,4,5] 
-console.log(arr.slice(1))
+var a = 1
+function a1() {
+  function a2() {
+    console.log(a)
+  }
+  a2()
+  var a = 3;
+}
+a1()
