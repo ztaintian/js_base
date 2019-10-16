@@ -63,6 +63,23 @@
 		// var str = 'qwertyuiop'
 		// var reverseStr = str.split('').reverse().join('')
 		// console.log(reverseStr)
+
+		var a = 1
+    function fn1(){
+
+      function fn3(){
+        function fn2(){
+          console.log(a)
+        }
+				var a = 4
+        fn2()
+        
+      }
+      var a = 2
+      return fn3
+    }
+    var fn = fn1()
+    fn()
 	</script>
 
 
