@@ -12,7 +12,7 @@ var quickSort = function (arr) {
       tempRight.push(item)
     }
   })
-  return quickSort(tempLeft).concat([firstArr], quickSort(tempRight))
+  return [...quickSort(tempLeft), ...[firstArr], ...quickSort(tempRight)]
 }
 
 var arr = [44,5,6,32, 7,8,3,32,3444]

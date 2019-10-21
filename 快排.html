@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,12 @@
   <title>快排</title>
 </head>
 <script>
-  var arr = [333,4,2,353,6,78,9,4,545,22]
+  var arr = [333, 4, 2, 353, 6, 78, 9, 4, 545, 22]
   var quickSort = function (arr) {
     if (arr.length <= 1) {
       return arr
     }
-    var first = arr.splice(0,1)[0]
+    var first = arr.splice(0, 1)[0]
     var tempLeft = []
     var tempRight = []
     arr.map((val) => {
@@ -22,11 +23,14 @@
         tempLeft.push(val)
       }
     })
-    return quickSort(tempLeft).concat([first], quickSort(tempRight))
+    return [...quickSort(tempLeft), ...[first], ...quickSort(tempRight)]
+    // return quickSort(tempLeft).concat([first], quickSort(tempRight))
   }
   console.log(quickSort(arr))
 </script>
+
 <body>
-  
+
 </body>
+
 </html>
