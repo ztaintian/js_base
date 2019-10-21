@@ -25,6 +25,7 @@ var obj = {
     bb: 333
   }
 }
+
 var newObj = deepClone(obj)
 newObj.aa.bb = 99999
 console.log('newObj', newObj, 'obj', obj)

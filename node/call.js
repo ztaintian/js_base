@@ -1,15 +1,19 @@
 Function.prototype.myCall = function (context) {
-  context = context || window
-  context.fn = this
-  var cc = [...arguments].slice(1)
-  var result = context.fn(...cc)
+  context = context || window;
+  context.fn = this;
+  var result;
+  var args = [...arguments].slice(1)
+  result = context.fn(...args)
   delete context.fn
-  return result
+  return result;
 }
+
+var test = function (a,b,c) {
+  console.log(a,b,c)
+  console.log(this.a)
+}
+
 var obj = {
-  name: '44'
+  a: '4444'
 }
-var test = function () {
-  console.log(this.name)
-}
-test.myCall(obj, '44')
+test.myCall(obj)
