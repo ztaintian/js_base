@@ -1,7 +1,7 @@
 Function.prototype.myApply = function (context) {
   context = context || window
   context.fn = this
-  var result
+  var result;
   if (arguments[1]) {
     result = context.fn(...arguments[1])
   } else {
@@ -10,11 +10,12 @@ Function.prototype.myApply = function (context) {
   delete context.fn
   return result
 }
-var obj = {
-  name: 'gggg'
-}
+
 var test = function (a,b,c) {
-  console.log(this.name,a,b,c)
+  console.log(a,b,c)
+  console.log(this.a)
 }
-// test.apply(obj, [1,2,3,4])
-test.myApply(obj, [1,2,3,4])
+var obj = {
+  a: 666
+}
+test.myApply(obj)

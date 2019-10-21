@@ -1,9 +1,11 @@
-var a = 1
-function a1() {
-  function a2() {
-    console.log(a)
-  }
-  a2()
-  var a = 3;
-}
-a1()
+const [first, ...rest] = [1, 2, 3, 4, 5];
+console.log(first) // 1
+// rest  // [2, 3, 4, 5]
+
+// const [first, ...rest] = [];
+// first // undefined
+// rest  // []
+
+// const [first, ...rest] = ["foo"];
+// first  // "foo"
+// rest   // []
