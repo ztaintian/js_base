@@ -1,7 +1,3 @@
-function Test(a, b, c) {
-  console.log(a, b, c)
-}
-// var aa = new Test(1,2,3)
 var myNew = function (obj, ...args) {
   var _obj = {}
   _obj._proto_ = obj.prototype
@@ -9,4 +5,10 @@ var myNew = function (obj, ...args) {
   return typeof result === 'object' ? result : _obj
 }
 
-myNew(Test, 1,2,3)
+var test = function () {
+  this.a = '44444'
+}
+
+var newTest = myNew(test)
+
+console.log(newTest.a)
