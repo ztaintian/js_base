@@ -1,19 +1,49 @@
+// 原型链继承
+// function Parent(name) {
+//   this.name = name
+// }
+// function Child(age) {
+//   this.age = age
+// }
+// Child.prototype = new Parent()
+// var cc = new Child(18)
+// console.log(cc.age)
+// 
+// 借用结构函数继承
 
-// 父类构造函数
-function Person(name) {
+function Parent(name) {
   this.name = name
-  this.sum = function () {
-    consolr.log('this.name', this.name)
+  this.say = function () {
+    console.log(this.name)
   }
 }
-Person.prototype.age = 10
-// 1、原型链继承
-function Son() {
-  this.name = 'ffff'
+function Child(name, age) {
+  Parent.call(this, name)
+  this.age = age
 }
 
-Son.prototype = new Person()
-var son = new Son()
-var son1 = new Son()
-son1.age = 3
-console.log(son.age)
+var cc = new Child('father', 18)
+var bb = new Child('vvv', 88)
+cc.say()
+bb.say()
+console.log(cc.say === bb.say)
+
+// 组合继承
+
+// function Parent(name) {
+//   this.name = name
+// }
+// Parent.prototype.say = function () {
+//   console.log(this.name)
+// }
+// function Child(name,age) {
+//   Parent.call(this, name)
+//   this.age = age
+// }
+// Child.prototype = new Parent()
+
+// var cc = new Child('father', 18)
+// var bb = new Child('vvv', 88)
+// cc.say()
+// bb.say()
+// console.log(cc.say === bb.say)
