@@ -1,20 +1,18 @@
-var quickSort = function (arr) {
+const quickSort = function (arr) {
   if (arr.length <= 1) {
     return arr
   }
-  var firstArr = arr.splice(0,1)[0]
-  var tempLeft = []
-  var tempRight = []
+  var tempArr = arr.splice(0, 1)[0]
+  var leftArr = []
+  var rightArr = []
   arr.map((item) => {
-    if (item < firstArr) {
-      tempLeft.push(item)
+    if (item > tempArr) {
+      leftArr.push(item)
     } else {
-      tempRight.push(item)
+      rightArr.push(item)
     }
   })
-  return [...quickSort(tempLeft), ...[firstArr], ...quickSort(tempRight)]
+  return [...quickSort(leftArr),...[tempArr], ...quickSort(rightArr)]
 }
-
-var arr = [44,5,6,32, 7,8,3,32,3444]
-
+var arr = [333, 4, 2, 353, 6, 78, 9, 4, 545, 22]
 console.log(quickSort(arr))

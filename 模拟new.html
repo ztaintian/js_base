@@ -11,7 +11,7 @@
   var myNew = function (obj, ...args) {
     console.log(args)
     var _obj = {}
-    _obj._proto_ = obj.prototype
+    _obj.__proto__ = obj.prototype
     var result = obj.apply(_obj, args)
     return typeof result === 'object' ? reslut : _obj
   }
