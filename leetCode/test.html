@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<script>
+  var str = 'abcadcvb'
+
+  function getLongStr(str) {
+    if (!str) {
+      return '字符串为空';
+    }
+    if (str.length === 1) {
+      return 1;
+    }
+    var arr = str.split('');
+    var obj = {};
+    var strArr = [];
+    var nStr = ''
+    var j = 0;
+
+    // 取出来所有不含重复字符的字符串
+    for (var i = 0, len = arr.length; i < len; i++) {
+      var val = arr[i];
+      if (obj[val]) {
+        i = j;
+        j++;
+        obj = {};
+        strArr.push(nStr);
+        nStr = '';
+      } else {
+        obj[val] = true;
+        nStr += val;
+      }
+    }
+    console.log(strArr)
+    // 取出来最长的字符串
+    var longIndex = strArr[0].length;
+    for (var i = 1, len = strArr.length; i < len; i++) {
+      var nLen = strArr[i].length;
+      if (nLen > longIndex) {
+        longIndex = nLen;
+      }
+    }
+
+    return longIndex;
+  }
+
+  console.log(getLongStr(str))
+</script>
+
+<body>
+
+</body>
+
+</html>
