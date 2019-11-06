@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<script>
+var str = 'abcabcnmbb'
+
+var lengthOfLongestSubstring = function (s) {
+  var res = 0,
+    i = 0;
+  var temp = [];
+  while (i < s.length) {
+    if (temp.indexOf(s[i]) === -1) {
+      temp.push(s[i]);
+    } else {
+      console.log('temp', temp)
+      temp.shift();
+      console.log('tempafter', temp)
+      continue;
+    }
+    res = Math.max(res, temp.length);
+    i++;
+  }
+  return res;
+};
+
+console.log(lengthOfLongestSubstring(str))
+</script>
+<body>
+  
+</body>
+</html>
