@@ -4,7 +4,9 @@
 
 var longStr = function (str) {
   var temp = [];
+  var tempArr = []
   var i = 0;
+  var tempIndex = 0
   while (i < str.length) {
     if (temp.indexOf(str[i]) === -1) {
       temp.push(str[i])
@@ -12,10 +14,16 @@ var longStr = function (str) {
       temp.shift();
       continue;
     }
-    console.log('temp', temp)
+    tempArr.push(temp.toString())
     i++
   }
+  tempArr.map((item, index) => {
+    if (tempArr[tempIndex].length < item.length) {
+      tempIndex = index
+    }
+  })
+  return tempArr[tempIndex]
 }
 
 var str = 'abcabcnmbb'
-longStr(str)
+console.log(longStr(str), (longStr(str)).split(',').length)
