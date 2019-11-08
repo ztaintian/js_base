@@ -1,4 +1,4 @@
- // 校验手机号
+//  // 校验手机号
  let phoneReg = /^1(1|2|3)[234][1-9]{8}$/
  let phone = '11523232323'
  console.log('phone', phoneReg.test(phone))

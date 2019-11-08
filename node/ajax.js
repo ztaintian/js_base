@@ -17,3 +17,4 @@ var ajax = function (url) {
 ajax().then((response) => {
   console.log(response)
 })
+
