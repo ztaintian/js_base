@@ -1,18 +1,14 @@
-function Person(name) {
-  this.name = name; //1
-  this.className = "person"
-}
-Person.prototype.getName = function () {
-  console.log(this.name)
-}
-function Man(name) {
-  Person.apply(this, arguments)
-}
-//注意此处
-Man.prototype = Object.create(Person.prototype);
-Man.prototype.constructor = Man
-
-var man1 = new Man("Davin");
-
-console.log(Man.prototype.constructor)
-console.log(Person.prototype.constructor)
+var fruit = [
+  { name: "Apple",      count: 13, },
+  { name: "Pear",       count: 12, },
+  { name: "Banana",     count: 12, },
+  { name: "Strawberry", count: 11, },
+  { name: "Cherry",     count: 11, },
+  { name: "Blackberry", count: 10, },
+  { name: "Pineapple",  count: 10, }
+];
+// Create our own sort criteria function:
+let my_sort = (a, b) => a.count - b.count;
+// Perform stable ES10 sort:
+let sorted = fruit.sort(my_sort);
+console.log(sorted);
