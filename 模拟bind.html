@@ -28,6 +28,14 @@
   }
   var newShow1 = people.show.myBind(other, "geek", "male");
   // newShow1(); //20 'geek' 'male'
+  Function.prototype.myBind = function (context) {
+    var args = [...arguments].slice(1);
+    context.fn = this
+    return function () {
+      context.fn(...args)
+      delete context.fn
+    }
+  }
 </script>
 
 <body>

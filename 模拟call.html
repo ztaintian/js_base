@@ -42,6 +42,15 @@
   //   }
   // }
   // test.myCall(obj, 22, 444).b;
+  Function.prototype.myCall = function () {
+    context = context || window
+    context.fn = this
+    var cc = [...arguments].slice(1);
+    var result  = context.fn(...cc)
+    console.log(context.fn(...cc))
+    delete context.fn
+    return result
+  }
 </script>
 
 <body>

@@ -10,3 +10,4 @@
 let numberReg = /^[+]{0,1}(\d+)$/
 let number = 464534534543
 console.log('number', numberReg.test(number))
+

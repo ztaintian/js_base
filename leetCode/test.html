@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,30 +8,40 @@
   <title>Document</title>
 </head>
 <script>
-var str = 'abcabcnmbb'
 
-var lengthOfLongestSubstring = function (s) {
-  var res = 0,
-    i = 0;
-  var temp = [];
-  while (i < s.length) {
-    if (temp.indexOf(s[i]) === -1) {
-      temp.push(s[i]);
-    } else {
-      console.log('temp', temp)
-      temp.shift();
-      console.log('tempafter', temp)
-      continue;
+  // 1.验证一个数是否是素数
+
+  // 　　如果这个数是 2 或 3，一定是素数;
+
+  // 　　如果是偶数，一定不是素数;
+
+  // 　　如果这个数不能被3~它的平方根中的任一数整除，m必定是素数。而且除数可以每次递增2(排除偶数)
+
+  function isPrime(num) {
+
+    if (num === 2 || num === 3) {
+      return true;
+    };
+    if (num % 2 === 0) {
+      return false;
+    };
+
+    let divisor = 3, limit = Math.sqrt(num);
+    while (limit >= divisor) {
+      if (num % divisor === 0) {
+        return false;
+      }
+      else {
+        divisor += 2;
+      }
     }
-    res = Math.max(res, temp.length);
-    i++;
+    return true;
   }
-  return res;
-};
-
-console.log(lengthOfLongestSubstring(str))
+  console.log(isPrime(30)); // false
 </script>
+
 <body>
-  
+
 </body>
+
 </html>

@@ -1,38 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
 </head>
+
 <body>
-	
+
 </body>
 <script>
 	// https://github.com/typicode/json-server
-  let promiseAJAX = (url) => {
-  	const promise = new Promise((resolve, reject) => {
-  		const client = new XMLHttpRequest();
-  		client.open('GET', url);
-  		client.onreadystatechange = function () {
+	let promiseAJAX = (url) => {
+		const promise = new Promise((resolve, reject) => {
+			const client = new XMLHttpRequest();
+			client.open('GET', url);
+			client.onreadystatechange = function () {
 				console.log('this', this)
 				console.log('client', client)
-  			if (this.readyState !== 4) {
-  				return;
-  			}
-  			if (this.status === 200) {
-  				resolve(this.response);
-  			} else {
-  				reject(new Error(this.statusText))
-  			}
-  		}
-  		client.responseType = 'json';
-  		client.setRequestHeader('Accept', 'application/json');
-  		client.send(null);
-  	});
-  	return promise;
-  }
-  promiseAJAX('http://localhost:3000/aa').then((res) => {
-  	console.log(res);
-  })
+				if (this.readyState !== 4) {
+					return;
+				}
+				if (this.status === 200) {
+					resolve(this.response);
+				} else {
+					reject(new Error(this.statusText))
+				}
+			}
+			client.responseType = 'json';
+			client.setRequestHeader('Accept', 'application/json');
+			client.send(null);
+		});
+		return promise;
+	}
+	promiseAJAX('http://localhost:3000/aa').then((res) => {
+		console.log(res);
+	})
+
+	function Promise(fn) {
+		this.arr = [];
+		this.then = function (thParam) {
+			thParam(this.arr);
+			//return this;
+		};
+		var that = this;
+		function resolve(parm) {
+			that.arr.push(parm);
+			console.log(parm)
+		}
+		fn(resolve);
+	}
+
+	var p1 = new Promise(function (resolve) {
+		resolve("参数给then");
+	});
+	p1.then(function (response) {
+		console.log(response)
+	});
 </script>
+
 </html>
