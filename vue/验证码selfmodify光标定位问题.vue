@@ -2,7 +2,7 @@
   <div class="ys-verification">
     <div class="content">
       <input
-        type="text"
+        type="tel"
         @click="inputLast"
         id="textarea-1"
         maxlength="4"
