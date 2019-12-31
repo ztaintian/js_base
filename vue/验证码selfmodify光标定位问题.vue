@@ -38,6 +38,9 @@ export default {
     this.arrNumber = new Array(this.amount).fill("");
   },
   methods: {
+    validateNumber(val) {
+      return val.replace(/\D/g, "");
+    },
     inputLast() {
       this.setCss();
     },
@@ -62,13 +65,14 @@ export default {
     numberChange() {
       this.arrNumber = new Array(this.amount).fill("");
       this.inputValue = this.inputValue.slice(0, 4);
-      this.temp = this.inputValue;
+      this.inputValue = this.validateNumber(this.inputValue);
       this.inputValue.split("").map((item, index) => {
         this.arrNumber[index] = item;
       });
       this.$emit("onCompleted", this.arrNumber.join(""));
     },
     validateNumber(val) {
+      // 替换非数字的值为空
       return val.replace(/\D/g, "");
     }
   },
