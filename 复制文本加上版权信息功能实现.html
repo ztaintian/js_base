@@ -12,6 +12,14 @@
   <div>复制文本加上版权信息功能实现</div>
   <span>fjasjasfjaslfjasfjasf</span>
   <script>
+    window.addEventListener("paste", function (e) {
+      alert(1)
+      var clipdata = e.clipboardData || window.clipboardData;
+      var arr = clipdata.getData('text/plain').split('')
+      that.code = arr;
+      that.$emit("onCompleted", that.code.join(""));
+    })
+
     let oDiv = document.querySelector('body');
     oDiv.oncopy = function (e) { // 复制事件
       e.preventDefault();
@@ -25,4 +33,5 @@
     }
   </script>
 </body>
+
 </html>
