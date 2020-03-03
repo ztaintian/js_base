@@ -23,34 +23,8 @@
 import $ from "jquery";
 export default {
   watch: {
-    // filterText(val) {
-    //   this.$refs.tree.filter(val);
-    // },
     filterText(val) {
-      console.log("el-tree", val);
-      var vm = this;
-      if (val) {
-        // var arr = $(
-        //   ".el-tree-node .is-focusable .el-tree-node__content span:nth-child(2)"
-        // );
-        // for (var i = 0; i < arr.length; i++) {
-        //   console.log("element-ui中el-tree组件的节点过滤中的关键字高亮实现");
-        //   var values = $(arr[i]).html();
-        //   $(arr[i]).html(
-        //     values
-        //       .split('<span style="color: red;">')
-        //       .join("")
-        //       .split("</span>")
-        //       .join("")
-        //   );
-        //   $(arr[i]).html(values);
-        // }
-      } else {
-        vm.treeFlag = false;
-        setTimeout(() => {
-          vm.treeFlag = true;
-        }, 300);
-      }
+      // 从新渲染tree
       this.$refs.menuTree.filter(val);
     }
   },
@@ -58,8 +32,8 @@ export default {
     this.GetCounterTree();
   },
   methods: {
-    // hr/FmcgCounterCommon/GetCounterTree
     GetCounterTree() {
+      // 获取数据
       this.Ajax.post("/hr/FmcgCounterCommon/GetCounterTree", {
         OrganizationCode: ""
       }).then(response => {
@@ -67,39 +41,35 @@ export default {
       });
     },
     highLightText() {
+      // 高亮文字
       var vm = this;
       setTimeout(function() {
         var val = vm.filterText;
-        if (val !== null && val !== "") {
-          var arr = $(
-            ".el-tree-node .is-focusable .el-tree-node__content span:nth-child(2)"
+        var arr = $(
+          ".el-tree-node .is-focusable .el-tree-node__content span:nth-child(2)"
+        );
+        for (var i = 0; i < arr.length; i++) {
+          var values = $(arr[i]).html();
+          $(arr[i]).html(
+            values
+              .split('<span style="color: red;">')
+              .join("")
+              .split("</span>")
+              .join("")
           );
-          for (var i = 0; i < arr.length; i++) {
-            var values = $(arr[i]).html();
-            $(arr[i]).html(
-              values
-                .split('<span style="color: red;">')
-                .join("")
-                .split("</span>")
-                .join("")
-            );
-          }
+        }
 
-          for (var i = 0; i < arr.length; i++) {
-            var values = $(arr[i]).html();
-            console.log("values", values);
-            var reg = new RegExp(val, "g"); //创建正则RegExp对象
-            $(arr[i]).html(
-              values.replace(
-                reg,
-                '<span style="color: red;">' + val + "</span>"
-              )
-            );
-          }
+        for (var i = 0; i < arr.length; i++) {
+          var values = $(arr[i]).html();
+          var reg = new RegExp(val, "g"); //创建正则RegExp对象
+          $(arr[i]).html(
+            values.replace(reg, '<span style="color: red;">' + val + "</span>")
+          );
         }
       }, 300);
     },
     filterNode(value, data) {
+      // 过滤文字
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
     }
