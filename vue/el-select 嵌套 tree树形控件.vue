@@ -18,6 +18,7 @@
   </div>
 </template>
 <script>
+// 片段代码
 export default {
   data() {
     return {

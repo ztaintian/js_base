@@ -1,41 +1,20 @@
-// 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+function objectFactory() {
+  var obj = {};
+  //取得该方法的第一个参数(并删除第一个参数)，该参数是构造函数
+  var Constructor = [].shift.apply(arguments);
+  console.log('Constructor', Constructor)
+  //将新对象的内部属性__proto__指向构造函数的原型，这样新对象就可以访问原型中的属性和方法
+  obj.__proto__ = Constructor.prototype;
+  //取得构造函数的返回值
+  var ret = Constructor.apply(obj, arguments);
+  //如果返回值是一个对象就返回该对象，否则返回构造函数的一个实例对象
+  return typeof ret === "object" ? ret : obj;
+}
+function Test() {
 
-// 你可以假设数组中无重复元素。
-
-// 示例 1:
-
-// 输入: [1,3,5,6], 5
-// 输出: 2
-
-// 来源：力扣（LeetCode）
-// 链接：https://leetcode-cn.com/problems/search-insert-position
-// 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-
-var searchInsert = function (nums, target) {
-  var indexResult;
-  var result = nums.some((item, index) => {
-    if (item === target) {
-      indexResult = index;
-      return true;
-    } else {
-      return false;
-    }
-  })
-  if (!result) {
-    var result2 = nums.some((item, index) => {
-      if (item >= target) {
-        indexResult = index;
-        return true;
-      } else {
-        return false;
-      }
-    })
-    if (!result2) {
-      indexResult = nums.length;
-    }
-  } 
-  return  indexResult
-};
-var nums = [1,3,5,6];
-var target = 9
-console.log(searchInsert(nums, target))
+}
+Test.prototype.cc = function () {
+  console.log(00000)
+}
+console.log(Test)
+var test = objectFactory(Test)

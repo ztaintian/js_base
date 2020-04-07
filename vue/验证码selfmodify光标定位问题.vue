@@ -21,6 +21,7 @@
 </template>
 
 <script>
+// 完整组件 直接用
 import { XInput } from "vux";
 export default {
   components: {
