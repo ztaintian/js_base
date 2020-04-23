@@ -1,4 +1,5 @@
 <template>
+<!-- https://www.cnblogs.com/blackbentel/p/11065611.html -->
   <div ref="container" style="height:100%;overflow: auto;  -webkit-overflow-scrolling: touch;">
     <!--xxxxxxxx top 广告bg+搜索 xxxxxxxx -->
     <!-- ref="homeTop" -->
