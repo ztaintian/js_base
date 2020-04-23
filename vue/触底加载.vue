@@ -1,8 +1,6 @@
 <template>
-<!-- https://www.cnblogs.com/blackbentel/p/11065611.html -->
   <div ref="container" style="height:100%;overflow: auto;  -webkit-overflow-scrolling: touch;">
     <!--xxxxxxxx top 广告bg+搜索 xxxxxxxx -->
-    <!-- ref="homeTop" -->
     <div ref="inner">
       <div class="home-top">
         <p
@@ -30,36 +28,23 @@
         <h2>
           <i class="iconfont">&#xe665;</i>推荐职位
         </h2>
-      </div>
-
-      <div style="padding:0 16px">
-        <!-- <scroller
-          lock-x
-          :height="scrollHeight"
-          style="padding:0 0 10px 0"
-          @on-scroll-bottom="onScrollBottom"
-          :scroll-bottom-offst="0"
-        >-->
-        <div class="box2">
-          <div class="textbox" v-for="(item,id) in itemList" :key="id">
-            <div @click="Todetail(item,$event)">
-              <h3>
-                {{WorkName(item.name)}}
-                <span>{{item.pubTime}}</span>
-              </h3>
-              <p>{{CompanyName(item.nikeName==''?item.companyName:item.nikeName)}}</p>
-              <div style="margin-top:14px">
-                <i class="iconfont">&#xe681;</i>
-                <span class="text-city">{{ShowAddress(item.city)}}</span>
-                <i class="iconfont">&#xe604;</i>
-                <span class="text-salary">{{item.salaryRange}}</span>
-              </div>
-              <button class="button-sq">查看</button>
+        <div class="textbox" v-for="(item,id) in itemList" :key="id">
+          <div @click="Todetail(item,$event)">
+            <h3>
+              {{WorkName(item.name)}}
+              <span>{{item.pubTime}}</span>
+            </h3>
+            <p>{{CompanyName(item.nikeName==''?item.companyName:item.nikeName)}}</p>
+            <div style="margin-top:14px">
+              <i class="iconfont">&#xe681;</i>
+              <span class="text-city">{{ShowAddress(item.city)}}</span>
+              <i class="iconfont">&#xe604;</i>
+              <span class="text-salary">{{item.salaryRange}}</span>
             </div>
+            <button class="button-sq">查看</button>
           </div>
         </div>
-        <load-more tip="loading"></load-more>
-        <!-- </scroller> -->
+        <load-more :show-loading="busy" :tip="loadingTip"></load-more>
       </div>
     </div>
   </div>
@@ -74,8 +59,7 @@ import {
   XImg,
   Actionsheet,
   Search,
-  LoadMore,
-  Scroller
+  LoadMore
 } from "vux";
 export default {
   mounted() {
@@ -84,13 +68,14 @@ export default {
     this.GetAddressList();
     this.GetAddressNow();
     this.$nextTick(() => {
-      this.containerHeight = this.$refs.container.clientHeight;
+      this.containerHeight = this.$refs.container.offsetHeight;
       this.innerHeight = this.$refs.inner.offsetHeight;
       this.$refs.container.addEventListener("scroll", this.initScroll);
     });
   },
   data() {
     return {
+      loadingTip: "上拉加载",
       busy: false,
       containerHeight: 0,
       innerHeight: 0,
@@ -103,8 +88,7 @@ export default {
       ShowLoginOrCancellation: "",
       addressID: "",
       onFetching: true,
-      loading: false,
-      nomore: false
+      noMore: false
     };
   },
   watch: {
@@ -116,13 +100,13 @@ export default {
   },
   methods: {
     initScroll(e) {
-      if (this.loading || this.nomore) return;
+      if (this.noMore || this.busy) return;
       this.innerHeight = this.$refs.inner.offsetHeight;
       let scrollTop = e.target.scrollTop;
-      console.log(scrollTop);
       if (scrollTop + this.containerHeight >= this.innerHeight) {
         if (!this.busy) {
           this.busy = true;
+          this.loadingTip = "加载中";
           setTimeout(() => {
             this.busy = false;
             console.log(Array.isArray(this.itemList));
@@ -177,19 +161,12 @@ export default {
                 dueTime: null,
                 professionTypeName: null,
                 dueDate: null
-              },
+              }
             ];
             this.itemList.push(...arr);
+            this.loadingTip = "上拉加载";
           }, 2000);
         }
-      }
-    },
-    onScrollBottom() {
-      if (this.onFetching) {
-        this.onFetching = false;
-        setTimeout(() => {
-          this.onFetching = true;
-        }, 2000);
       }
     },
     GetAddressNow() {
@@ -401,8 +378,7 @@ export default {
     XImg,
     Actionsheet,
     Search,
-    LoadMore,
-    Scroller
+    LoadMore
   }
 };
 </script>
@@ -447,7 +423,7 @@ export default {
 // 最新职位 后更名为推荐职位
 .content {
   width: 100%;
-  padding: 12px 16px;
+  padding: 12px 16px 10px;
 
   h2 {
     font-size: 14px;
