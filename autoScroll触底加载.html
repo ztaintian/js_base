@@ -6,6 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>autoScroll</title>
   <style>
+    body,html,ul,li {
+      margin: 0;
+      padding:0;
+    }
     body,
     html {
       height: 100%;
@@ -47,8 +51,8 @@
     var child1 = document.getElementById('child1');
     parent.addEventListener('scroll', () => {
       console.log(parent.scrollTop,parent.offsetHeight)
-      if (parent.scrollTop + parent.offsetHeight > child1.offsetHeight) {
-        console.log('------触底了-----')
+      if (parent.scrollTop + parent.offsetHeight >= child1.offsetHeight) {
+        console.log('------触底了-----', child1.offsetHeight)
         
       }
     })
