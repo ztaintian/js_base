@@ -3,15 +3,17 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>autoScroll</title>
   <style>
-    body,html{
+    body,
+    html {
       height: 100%;
     }
+
     .parent {
       height: 100%;
       margin: 0 auto;
-      background: #242424;
       overflow-y: scroll;
     }
 
@@ -22,9 +24,7 @@
 
     .child li {
       height: 200px;
-      margin: 2px 0;
       width: 100%;
-      background: #009678;
     }
   </style>
 </head>
@@ -38,26 +38,32 @@
       <li>4</li>
       <li>5</li>
     </ul>
-    <div id="child2" class="child"></div>
   </div>
 </body>
 <script type="text/javascript">
   function roll() {
+    var scrollTop = document.body.scrollTop || document.documentElement.scrollTop; // 兼容写法
     var parent = document.getElementById('parent');
     var child1 = document.getElementById('child1');
-    var child2 = document.getElementById('child2');
     parent.addEventListener('scroll', () => {
-      console.log(parent.scrollTop)
+      console.log(parent.scrollTop,parent.offsetHeight)
+      if (parent.scrollTop + parent.offsetHeight > child1.offsetHeight) {
+        console.log('------触底了-----')
+        
+      }
     })
-    child2.innerHTML = child1.innerHTML;
-    // setInterval(function () {
-    //  		if(parent.scrollTop >= child1.scrollHeight) {
-    //      		parent.scrollTop = 0;
-    //  		} else {
-    //      		parent.scrollTop++;
-    //       }
-    // }, 20);
+    // 动画效果
+    // function render() {
+    //   if (parent.scrollTop >= child1.scrollHeight) {
+    //     parent.scrollTop = 0;
+    //   } else {
+    //     parent.scrollTop++;
+    //     window.requestAnimationFrame(render);
+    //   }
+    // }
+    // render()
   }
+
   roll()
 </script>
 
