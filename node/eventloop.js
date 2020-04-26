@@ -15,3 +15,10 @@ new Promise(function (resolve) {
   console.log(5)
 })
 console.log(6)
+// 1
+// 3
+// 9
+// 4
+// 6
+// 5
+// 2

@@ -1,4 +1,4 @@
-// foreach 无return value ‘引用类型值改变，基础类型值不改变’
+// foreach 不支持 return 和 break，一定会把所有数据遍历完毕; value ‘引用类型值改变，基础类型值不改变’  
 var array = [1, 2, 3, 4, 5]
 var objArray = [{ a: 1 }, { a: 2 }]
 // array.forEach(element => {
@@ -42,7 +42,7 @@ var objArray = [{ a: 1 }, { a: 2 }]
 // })
 // console.log(flag, flagObj) // true true
 
-// every return 布尔值 数组中每个值都要满足条件
+// every return 布尔值 数组中每个值都要满足条件  如果有一个元素不满足，则表达式返回 false，剩余的元素不会再进行检测。
 // var flag = array.every(element => {
 //   return element > 2
 // })  
@@ -61,3 +61,12 @@ var objArray = [{ a: 1 }, { a: 2 }]
 //   return element > 2
 // })
 // console.log(array, returnArray)
+
+// includes 类似于some 没有回调函数 只能检测值
+
+var flag = array.includes(1)
+console.log(flag)
+var objFlag = objArray.includes((elememt) => {
+  return elememt.a === 2
+})
+console.log(objFlag) // false
