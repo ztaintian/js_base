@@ -54,3 +54,10 @@ var objArray = [{ a: 1 }, { a: 2 }]
 //   return firstValue + secodedVlaue;
 // }, firstValue)
 // console.log(addValue)
+
+// find 类似some 区别数组返回值不是布尔值
+
+// var returnArray = array.find(element => {
+//   return element > 2
+// })
+// console.log(array, returnArray)
