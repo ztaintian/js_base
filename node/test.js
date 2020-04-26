@@ -1,9 +1,6 @@
-// "use strict";
-var aa = (function f(num) {
-  if (num === 1) {
-    return num
-  } else {
-    return num * arguments.callee(num-1)
-  }
-})
-console.log(aa(5))
+const v1 = 'abc';
+const v2 = 'nm';
+const v3 = 10;
+
+const obj = Object.assign({}, v1, v2, v3);
+console.log(obj); 
