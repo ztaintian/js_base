@@ -1,3 +1,4 @@
+// 全面的身份证校验
 const idCheck = function (val, sex) {
   sex = sex || '';
   console.log(sex);
