@@ -7,22 +7,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<!-- <script
+  src="https://apis.map.qq.com/ws/location/v1/ip?ip=61.135.17.68&key=SSGBZ-YXYWO-FQJW7-SXTBH-GMKAH-2MBTN&output=jsonp&callback=function1"></script> -->
 <script>
   // 腾讯地图jsonp 获取地址ip
-  let url =
-    "https://apis.map.qq.com/ws/location/v1/ip?ip=61.135.17.68&key=SSGBZ-YXYWO-FQJW7-SXTBH-GMKAH-2MBTN&output=jsonp";
-  this.$jsonp(url, {})
-    .then(json => {
-      console.log(json); //附近街道地址信息
-    })
-    .catch(err => {
-      console.log(err);
-    });
+  // let url =
+  //   "https://apis.map.qq.com/ws/location/v1/ip?ip=61.135.17.68&key=SSGBZ-YXYWO-FQJW7-SXTBH-GMKAH-2MBTN&output=jsonp";
+  // this.$jsonp(url, {})
+  //   .then(json => {
+  //     console.log(json); //附近街道地址信息
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   });
+  window.onload = function () {
+    var script = document.createElement("script");
+    script.src = "https://apis.map.qq.com/ws/location/v1/ip?ip=61.135.17.68&key=SSGBZ-YXYWO-FQJW7-SXTBH-GMKAH-2MBTN&output=jsonp&callback=function1";
+    document.body.appendChild(script);
+    window.function1 = function (data) {
+      console.log(data)
+    }
+  }
 </script>
-
 <body>
   <p>百度地图获取城市</p>
   <a href="https://www.cnblogs.com/mickybg/p/9234683.html">https://www.cnblogs.com/mickybg/p/9234683.html</p>
 </body>
+
 
 </html>
