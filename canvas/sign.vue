@@ -1,4 +1,5 @@
 <template>
+<!-- https://github.com/Louiszhai/canvas-draw -->
   <div id="canvasBox" :style="getHorizontalStyle">
     <div class="greet">
       <span>{{msg}}</span>
