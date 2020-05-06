@@ -1,5 +1,4 @@
 <template>
-<!-- https://github.com/Louiszhai/canvas-draw -->
   <div id="canvasBox" :style="getHorizontalStyle">
     <div class="greet">
       <span>{{msg}}</span>
@@ -18,7 +17,6 @@
 import Draw from './draw';
 
 export default {
-  name: 'canvas',
   data() {
     return {
       msg: 'Just use canvas to draw',
