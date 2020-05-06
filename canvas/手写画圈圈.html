@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <canvas id="myCanvas" width="300" height="150" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.
+  </canvas>
+
+  <script>
+    var step = 0;
+    function init(step) {
+      var c = document.getElementById("myCanvas");
+      var ctx = c.getContext("2d");
+      ctx.beginPath();
+      // ctx.lineWidth = 5;
+      ctx.arc(100, 75, 50, - 0.5 * Math.PI, step * Math.PI - 0.5 * Math.PI);
+      ctx.stroke();
+    }
+    var timeSet = setInterval(() => {
+      if (step > 60) {
+        clearInterval(timeSet)
+      } else {
+        init(step / 30)
+        step++
+        console.log(step)
+      }
+    }, 100)
+  </script>
+
+</body>
+
+</html>
