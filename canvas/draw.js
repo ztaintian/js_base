@@ -53,6 +53,7 @@ function Draw(canvas, degree, config = {}) {
       case 1:
         context.beginPath();
         context.moveTo(point.x, point.y);
+        break;
       case 2:
         context.lineTo(point.x, point.y);
         context.stroke();
@@ -181,8 +182,13 @@ Draw.prototype = {
     return canvas.toDataURL('image/jpeg', 0.5);
   },
   downloadPNGImage(image) {
-    const url = image.replace('image/png', 'image/octet-stream;Content-Disposition:attachment;filename=test.png');
-    window.location.href = url;
+    console.log(image)
+    let a = document.createElement("a");
+    a.href = image;
+    a.setAttribute("download", "chart-download");
+    a.click();
+    // const url = image.replace('image/png', 'image/octet-stream;Content-Disposition:attachment;filename=test.png');
+    // window.location.href = url;
   },
   dataURLtoBlob(dataURL) {
     const arr = dataURL.split(',');
@@ -200,6 +206,8 @@ Draw.prototype = {
     let height;
     switch (this.degree) {
       case -90:
+        console.log(222)
+        break;
       case 90:
         width = this.height;
         height = this.width;
@@ -207,6 +215,7 @@ Draw.prototype = {
       default:
         width = this.width;
         height = this.height;
+        break;
     }
     this.context.clearRect(0, 0, width, height);
   },
