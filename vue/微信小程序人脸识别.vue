@@ -1,6 +1,7 @@
 <template>
+<!-- 组件可以直接引用使用 -->
   <div class="takephoto">
-    <p class="tip">人脸识别中...</p>
+    <p class="tip">拿起手机，面向手机</p>
     <div class="camera-top">
       <canvas class="progress_bg" canvas-id="canvasProgressbg"></canvas>
       <canvas class="progress_canvas" canvas-id="canvasProgress"></canvas>
@@ -18,6 +19,7 @@
         </camera>
       </div>
     </div>
+    <p class="tip2">正在采集脸部信息</p>
   </div>
 </template>
 <script>
@@ -99,33 +101,44 @@ export default {
         }
       });
     },
+    getRpx() {
+      let rpx = 1;
+      wx.getSystemInfo({
+        success(res) {
+          rpx = res.windowWidth / 375;
+        }
+      });
+      return rpx;
+    },
     drawProgressbg() {
       // 使用 wx.createContext 获取绘图上下文 context
-      var $width = 120;
+      var $width = 120 * this.getRpx();
+      var $roundWidth = 5 * this.getRpx();
       var ctx = wx.createCanvasContext("canvasProgressbg");
-      ctx.setLineWidth(5); // 设置圆环的宽度
+      ctx.setLineWidth($roundWidth); // 设置圆环的宽度
       ctx.setStrokeStyle("#a9a9a9"); // 设置圆环的颜色
       ctx.setLineCap("round"); // 设置圆环端点的形状
       ctx.beginPath(); //开始一个新的路径
-      ctx.arc($width, $width, $width - 10, 0, 2 * Math.PI, false);
+      ctx.arc($width, $width, $width - $roundWidth * 2, 0, 2 * Math.PI, false);
       //设置一个原点(100,100)，半径为90的圆的路径到当前路径
       ctx.stroke(); //对当前路径进行描边
       ctx.draw();
     },
     drawCircle(step) {
-      var $width = 120;
+      var $width = 120 * this.getRpx();
+      var $roundWidth = 5 * this.getRpx();
       var context = wx.createCanvasContext("canvasProgress");
       // 设置渐变
       var gradient = context.createLinearGradient(
-        $width * 2 - 20,
+        $width * 2 - $roundWidth * 4,
         $width,
         $width,
-        $width * 2 - 20
+        $width * 2 - $roundWidth * 4
       );
       gradient.addColorStop("0", "#2661DD");
       gradient.addColorStop("0.5", "#2661DD");
       gradient.addColorStop("1.0", "#2661DD");
-      context.setLineWidth(5);
+      context.setLineWidth($roundWidth);
       context.setStrokeStyle(gradient);
       context.setLineCap("round");
       context.beginPath();
@@ -133,7 +146,7 @@ export default {
       context.arc(
         $width,
         $width,
-        $width - 10,
+        $width - $roundWidth * 2,
         -Math.PI / 2,
         step * Math.PI - Math.PI / 2,
         false
@@ -156,7 +169,7 @@ export default {
           clearInterval(this.countTimer);
           this.takePhoto();
         }
-      }, 200);
+      }, 100);
     },
     takePhoto() {
       const ctx = wx.createCameraContext();
@@ -178,7 +191,7 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-$width = 240px;
+$width = 480rpx;
 
 .progress_bg {
   position: absolute;
@@ -200,8 +213,15 @@ $width = 240px;
     color: #2661DD;
   }
 
+  .tip2 {
+    text-align: center;
+    color: #F1934D;
+    font-size: 36rpx;
+    margin-top: 100rpx;
+  }
+
   .camera-top {
-    position: relative;
+    // position: relative;
     margin: 0 auto;
     width: $width;
   }
@@ -217,12 +237,12 @@ $width = 240px;
 }
 
 .takephoto .camera {
-  position: relative;
+  // position: relative;
   width: 100%;
   display: flex;
   width: $width;
   height: $width;
-  position: absolute;
+  // position: absolute;
   align-items: center;
   justify-content: center;
 }
@@ -230,7 +250,7 @@ $width = 240px;
 .takephoto camera {
   width: $width;
   height: $width;
-  position: absolute;
+  // position: absolute;
   display: flex;
   align-items: center;
   justify-content: center;
