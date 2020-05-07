@@ -1,5 +1,4 @@
 <template>
-<!-- 组件可以直接引用使用 -->
   <div class="takephoto">
     <p class="tip">拿起手机，面向手机</p>
     <div class="camera-top">
@@ -217,7 +216,9 @@ $width = 480rpx;
     text-align: center;
     color: #F1934D;
     font-size: 36rpx;
-    margin-top: 100rpx;
+    width: 100%;
+    position: absolute;
+    bottom: 80rpx;
   }
 
   .camera-top {
