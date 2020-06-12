@@ -1,7 +1,7 @@
 class EventEmeitter {
   constructor() {
     this._events = this._events || new Map()
-    this._maxEvents = this._maxEvents || 10
+    this._maxEvents = this._maxEvents || 2
   }
 }
 
