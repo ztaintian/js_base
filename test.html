@@ -1,28 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
 <style>
-.flex-css {
-  display: flex;
-  /* height:100px; */
-  /* justify-content: center; */
-  align-items: center;
-}
-.img {
-  /* height:100%;
-  width: 40px; */
-  height: 40px;
-  flex-shrink:0;
-}
+  .triangle {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 25px 40px 25px;
+    border-color: transparent transparent rgb(245, 129, 127) transparent;
+  }
 </style>
+
 <body>
   <div class="flex-css">
-    <p>oodosa</p>
-    <img src="./001.png" class="img" alt="">
+    <p class="triangle">oodosa</p>
   </div>
 </body>
+
 </html>
