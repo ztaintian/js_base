@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    #myCanvas {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="myCanvas" width="1100" height="800"></canvas>
+  <div style="position: fixed;bottom:20px;left: 50%;">
+    <input type="text" id="input" name="">
+    <button type="button">发送</button>
+    <button type="button">关闭</button>
+  </div>
+  <script>
+    var myCanvas = document.getElementById('myCanvas');
+    var ctx = myCanvas.getContext("2d");
+    var starlist = [];
+    let input = document.getElementById('input')
+    let btn = document.getElementsByTagName('button')[0];
+    let opn = document.getElementsByTagName('button')[1];
+    let num = 1;
+    let id;
+
+    btn.onclick = send;
+    opn.onclick = function () {
+      // 关闭弹幕
+      ctx.clearRect(0, 0, myCanvas.width, myCanvas.height)
+      cancelAnimationFrame(id)
+    }
+    // 发送弹幕
+    function send() {
+      let val = input.value;
+      starlist.push(new Star(val, myCanvas.width, 15));
+      input.value = '';
+    }
+
+    // 通过构造函数增加一些测试弹幕
+    for (let i = 1; i < 5; i++) {
+      starlist.push(new Star("测试" + i, 200 * i, 40 * i));
+    }
+
+    // 构造函数
+    function Star(text, x, y) {
+      // 将坐标存在每一个点的对象中
+      this.text = text;
+      this.x = x;
+      this.y = y;
+      this.color = "#000";
+      this.font = "20px";
+      // 开始画
+      this.draw = function () {
+        ctx.beginPath();
+        ctx.fillStyle = this.color;
+        ctx.font = this.font;
+        ctx.fillText(this.text, --this.x, this.y)
+      };
+    }
+    // 渲染
+    function render() {
+      // 把原来的内容区域清除掉
+      ctx.clearRect(0, 0, myCanvas.width, myCanvas.height)
+      // 根据存在数组中的每一位对象中的信息绘制弹幕
+      starlist.forEach(function (ele, i) {
+        ele.draw();
+        // 如果数组中的弹幕已经播放完，把它删掉
+        if (ele.x < (-ctx.measureText(ele.text).width)) {
+          return false;
+        }
+      });
+      id = requestAnimationFrame(render);
+    }
+    render()
+  </script>
+</body>
+
+</html>
