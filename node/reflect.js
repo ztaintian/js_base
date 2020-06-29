@@ -6,6 +6,6 @@ var myObject = {
   },
 }
 
-console.log(Reflect.get(myObject)) // 1
+console.log(Reflect.get(myObject, 'foo')) // 1
 console.log(Reflect.get(myObject, 'bar')) // 2
 console.log(Reflect.get(myObject, 'baz')) // 3

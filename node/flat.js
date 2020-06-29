@@ -25,6 +25,7 @@ console.log(flat(arr))
 
 var arr = [1, 2, 3, 4, 4, [5, 6, [9, 75], 60], 6, 7]
 var dotFlat = function (arr) {
+  console.log(arr)
   var arr = [].concat(...arr);
   return arr.some(Array.isArray) ? dotFlat(arr) : arr
 }
