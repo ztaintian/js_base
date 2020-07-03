@@ -1,12 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
 </head>
+<script>
+
+  let str = '红蓝蓝黄红黄蓝红红黄红';
+  let arr = str.split('');
+  let obj = { '黄': 0, '红': 1, '蓝': 2 };
+  arr.sort((prev, next) => obj[prev] - obj[next])
+
+  console.log(arr); // 黄黄黄红红红红红蓝蓝蓝
+</script>
+
 <body>
   <p>在一个字符串数组中有红、黄、蓝三种颜色的球，且个数不相等、顺序不一致，请为该数组排序。使得排序后数组中球的顺序为:黄、红、蓝。</p>
 </body>
+
 </html>
