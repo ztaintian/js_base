@@ -7,6 +7,7 @@ let eventEmitter = {
     // 如果对象中没有对应的 event 值，也就是说明没有订阅过，就给 event 创建个缓存列表
     // 如有对象中有相应的 event 值，把 fn 添加到对应 event 的缓存列表里
     (_this.list[event] || (_this.list[event] = [])).push(fn);
+    console.log(_this.list)
     return _this;
   },
   // 监听一次
