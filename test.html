@@ -7,14 +7,9 @@
   <title>Document</title>
 </head>
 <style>
-  .triangle {
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 0 25px 40px 25px;
-    border-color: transparent transparent rgb(245, 129, 127) transparent;
-  }
-</style>
+  .circle{width:100px;height:100px;border:1px solid #ff0000;border-radius: 50%;position:relative}
+  .circle:after{content:"";width:40px;height:40px;position:absolute;right:0px;top:0px;background:#fff}
+  </style>
 <script>
   class Name {
     constructor(name) {
@@ -24,9 +19,7 @@
   var aa = new Name('xioaming')
 </script>
 <body>
-  <div class="flex-css">
-    <p class="triangle">oodosa</p>
-  </div>
+  <div class="circle"></div>
 </body>
 
 </html>

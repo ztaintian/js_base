@@ -21,18 +21,17 @@
 .top-title {
     display:flex;
     background: #fff;
-}
-.p2 {
-    width: 4rem;
-    justify-content: flex-end;
     align-items: center;
-    display: flex;
 }
-.p2 span {
+  .p2 {
+    width: 2.56rem;
+    height:1.28rem;
+    line-height:1.28rem;
+    text-align:center;
     border: 1px solid #eee;
-    padding: 0.2rem 0.5rem;
-    border-radius: 0.5rem;
-}
+    border-radius: 0.64rem;
+    margin-left:0.5rem;
+  }
 .top-title .p1 {
     color:#000;
     font-weight:bold;
@@ -49,18 +48,22 @@
     justify-content: space-between;
 }
 .start-time {
-    padding: 0.2rem 0.4rem;
+    height:1.1rem;
+    line-height:1.1rem;
+    width:7.26rem;
+    font-size:0.4rem;
     border: 1px solid #3E7AE9;
     color: #3E7AE9;
-    border-radius: 2rem;
+    text-align: center;
+    border-radius: 0.5rem;
 }
 .room {
     padding: 0.2rem 0;   
 }
 .middle {
-    margin: 0.5rem 0;
+    margin: 0.34rem 0 0.47rem;
     background:#fff;
-    padding: 0 0.5rem;
+    height: 2.05rem;
     overflow: hidden;
 }
 .hot-img {
@@ -68,6 +71,9 @@
     flex-direction: column;
     align-items: center;
     font-size: 0.4rem;
+}
+.hot-img span {
+    color: #6EABF9;
 }
 .img-css {
     height:1rem;
@@ -79,15 +85,16 @@
     margin-top: 0.2rem;
 }
 .brief-introduction {
+    float:left;
+    line-height: 1.9rem;
     display:inline-block;
     font-size: 0.6rem;
-    height:1.5rem;
-    width: 3rem;
+    width: 3.2rem;
     color: #3E7AE9;
     text-align: center;
 }
 .active-border {
-    border-bottom: 2px solid #3E7AE9;
+    border-bottom: 0.09rem solid #3E7AE9;
 }
 .mtR1 {
     margin-right:1rem;
@@ -185,19 +192,98 @@
     line-height:1.45rem; 
     padding: 0 0.42rem 0 1rem;
   }
-  .video-js .vjs-big-play-button{ display: none; }
   .display-none {
       display: none;
   }
+    .img-icon1 {
+      width:0.6rem;
+      height:0.6rem;
+      align-self: flex-start;
+      margin-top: 0.2rem;
+    }
+    .video-js .vjs-big-play-button{ /* 中间大的播放按钮 */
+        height: 2em;
+        width: 2em;
+        border:none;
+        margin-left: -1em;
+        border-radius:50%;
+        border: 0.15rem solid #fff;
+        background-color: transparent;
+    }
+     .video-js .vjs-big-play-button:after{
+         content:"";
+         width:0.5rem;
+         height:0.5rem;
+         position:absolute;
+         right:0rem;
+         bottom:0px;
+         background:#000;
+         transform:rotate(30deg);
+         background-color: transparent;
+    }
+    .video-js .vjs-big-play-button .vjs-icon-placeholder:before, .video-js .vjs-play-control .vjs-icon-placeholder:before, .vjs-icon-play:before {
+        /* content: ''; */
+        color:#4DE9C9;
+        margin-top: 0.15rem;
+    }
+    .video-js.vjs-paused .vjs-big-play-button{ /* 视频暂停时显示播放按钮 */
+        display: block;
+    }
+    .video-js.vjs-error .vjs-big-play-button{ /* 视频加载出错时隐藏播放按钮 */
+        display: none;
+    }
+    .vjs-loading-spinner { /* 加载圆圈 */
+        font-size: 2.5em;
+        width: 2em;
+        height: 2em;
+        border-radius: 1em;
+        margin-top: -1em;
+        margin-left: -1.5em;
+    }
+    .notice{
+        background:#fff;
+        display:flex;
+        font-size: 0.6rem;
+        width:14rem;
+        margin:0 auto;
+        border-radius:0.4rem;
+        padding: 0.36rem;
+    }
+    .notice .img-notice {
+        width:0.77rem;
+        height:0.77rem;
+        margin-right: 0.2rem;
+    }
+    .notice .img-close {
+        width:0.4rem;
+        height:0.4rem;
+        margin-left: 0.5rem;
+    }
+    .notice .content {
+        color:#9B9B9B;
+    }
+    .notice .text {
+        color: #428FEA;
+    }
+    .video-js.vjs-playing .vjs-tech {
+        pointer-events: auto;
+    }
 </style>
 <div id="getHeight">
-<video id="liveplayer" class="video-js vjs-big-play-centered vjs-default-skin" controls>
-    <source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+<video id="liveplayer"  webkit-playsinline="true" playsinline="true" class="video-js vjs-big-play-centered vjs-default-skin">
+  <p class="vjs-no-js">
+    To view this video please enable JavaScript, and consider upgrading to a
+    web browser that
+    <a href="https://videojs.com/html5-video-support/" target="_blank">
+      supports HTML5 video
+    </a>
+  </p>
 </video>
 <div class="top">
     <div class="top-title">
+        <img class="img-icon1" src="~/Content/images/resume/noli.png"  />
         <p class="p1">aaaa只会因京东卡是--都看见爱上贷款卡SD卡大家阿萨德卡手机打开sdasd dsa sasdasdasdasd<p>
-        <p class="p2"><span>未开始</span></p>
+        <p class="p2">未开始</p>
     </div>
     <div class="top-time">
         <p class="start-time">开播时间：6月6日21：00</p>
@@ -210,15 +296,15 @@
     <div class="right">
         <span class="hot-img">
             <img class="img-css" src="~/Content/images/resume/noli.png"  />
-            33333
+            <span>33333</span>
         </span>
         <span class="hot-img">
             <img class="img-css" src="~/Content/images/resume/noli.png"  />
-            33
+            <span>33</span>
         </span>
         <span class="hot-img">
             <img class="img-css" src="~/Content/images/resume/noli.png"  />
-            333
+            <span>333</span>
         </span>
     </div>
 </div>
@@ -231,6 +317,11 @@
 </div>
 <div class="talk_con display-none">
     <div class="talk_show" id="words">
+        <p class="notice">
+            <img class="img-notice" src="~/Content/images/resume/noli.png"/>
+            <span class="content">公告：<span class="text">曾任职为民进党靠的就是大手大脚按时短视的骄傲圣诞节大数据大数据的就大家多久啊。</span></span>
+            <img class="img-close" src="~/Content/images/student/close.png"/>
+        </p>
         <div class="atalk"><span class="talk-name">other</span><span class="content">你还好吗？</span></div>
         <div class="btalk"><span class="talk-name">me</span><span class="content">嗯，你呢？</span></div>
     </div>
@@ -248,6 +339,12 @@
     var live1urlObj = {};
 
     $(function () {
+        // 关闭通知
+        $(".img-close").on("click",function(){
+            $('.notice').css({
+                display: 'none'
+            })        
+        });
         // 简介与互动动态显示
         $("#brief").on("click",function(){
             $("#brief").addClass('active-border');         
@@ -291,12 +388,40 @@
         }
             insetHtml(1,'me', vals)
         })
-        live1Player = videojs('liveplayer', { errorDisplay: false, controls: true,src:"" }, function () {
+        //  children: ["playToggle", "volumePanel", "currentTimeDisplay", "timeDivider", "durationDisplay", "progressControl", "liveDisplay", "seekToLive", "remainingTimeDisplay", "customControlSpacer", "playbackRateMenuButton", "chaptersButton", "descriptionsButton", "subsCapsButton", "audioTrackButton", "fullscreenToggle"]
+        live1Player = videojs('liveplayer', {  
+            poster: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg',
+            controls: true,
+            preload: auto,
+            controlBar:{
+                remainingTimeDisplay: false,
+                progressControl: false,
+                pictureInPictureToggle: false,
+            },
+            sources: [
+                {
+                    src:'https://boot-video.xuexi.cn/video/1005/p/55e3fe73b4bbabe6cecfd220356bc999-83c01296cd154862b037fd01de4c602c-2.mp4?_t=1595209000259',
+                    type:'video/mp4'
+                }
+            ]
+        }, function () {
             var that = this
+            videojs.log('Your player is ready!');
+            this.on('play', function () {
+                videojs.log('play');
+            })
+            this.on('pause', function () {
+                videojs.log('pause');
+            })
+            this.on('play', function () {
+                videojs.log('play');
+            })
             $("#play").on("click",function(){
                 that.play();          
             });
-
+            this.on('error', function (e) {
+                videojs.log('error', e);
+            })
             // this.on('loadedmetadata', function () {
             //     //加载到元数据后开始播放视频
             //     $("#myError").hide();
