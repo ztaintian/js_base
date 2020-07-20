@@ -9,6 +9,9 @@
     margin:0;
     padding:0;
 }
+html,body {
+    height:100%;
+}
 #liveplayer {
     width:100%;
     height:9rem;
@@ -32,6 +35,10 @@
     border-radius: 0.64rem;
     margin-left:0.5rem;
   }
+  .p2-active{
+      background:#3A78E9;
+      color:#fff;
+  }
 .top-title .p1 {
     color:#000;
     font-weight:bold;
@@ -51,7 +58,7 @@
     height:1.1rem;
     line-height:1.1rem;
     width:7.26rem;
-    font-size:0.4rem;
+    font-size: 0.5rem;
     border: 1px solid #3E7AE9;
     color: #3E7AE9;
     text-align: center;
@@ -59,6 +66,7 @@
 }
 .room {
     padding: 0.2rem 0;   
+    color:#969696;
 }
 .middle {
     margin: 0.34rem 0 0.47rem;
@@ -70,7 +78,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 0.4rem;
+    font-size: 0.5rem;
 }
 .hot-img span {
     color: #6EABF9;
@@ -102,6 +110,7 @@
 .article-padding {
     width:15.19rem;
     margin:0 auto;
+    overflow:auto;
 }
 .article {
     font-size: 0.5rem;
@@ -116,6 +125,7 @@
 }
 .article-text {
     padding: 0.5rem;
+    line-height:1rem;
 }
   .talk_input {
     display: flex;
@@ -283,7 +293,7 @@
     <div class="top-title">
         <img class="img-icon1" src="~/Content/images/resume/noli.png"  />
         <p class="p1">aaaa只会因京东卡是--都看见爱上贷款卡SD卡大家阿萨德卡手机打开sdasd dsa sasdasdasdasd<p>
-        <p class="p2">未开始</p>
+        <p class="p2 p2-active">未开始</p>
     </div>
     <div class="top-time">
         <p class="start-time">开播时间：6月6日21：00</p>
@@ -312,7 +322,7 @@
 <div class="article-padding">
     <div class="article">
         <div class="article-title">titletelteltletlelteltletlelte</div>
-        <p class="article-text">证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实大师大大阿大声道阿达阿达阿达阿达阿达大大大啊大大啊大大阿达大大大大大哒哒哒哒哒哒多多多多多多多多多多多多多多达到</p>
+        <p class="article-text">证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实大师大大阿大声道阿达阿达阿达阿达阿达大大大啊大大啊大大阿达大大大大大哒哒哒哒哒哒多多多多多多多多多多多多多多达到证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实大师大大阿大声道阿达阿达阿达阿达阿达大大大啊大大啊大大阿达大大大大大哒哒哒哒哒哒多多多多多多多多多多多多多多达到证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实大师大大阿大声道阿达阿达阿达阿达阿达大大大啊大大啊大大阿达大大大大大哒哒哒哒哒哒多多多多多多多多多多多多多多达到证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实大师大大阿大声道阿达阿达阿达阿达阿达大大大啊大大啊大大阿达大大大大大哒哒哒哒哒哒多多多多多多多多多多多多多多达到证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实大师大大阿大声道阿达阿达阿达阿达阿达大大大啊大大啊大大阿达大大大大大哒哒哒哒哒哒多多多多多多多多多多多多多多达到</p>
     </div>
 </div>
 <div class="talk_con display-none">
@@ -356,43 +366,42 @@
             $("#interaction").addClass('active-border');         
             $("#brief").removeClass('active-border'); 
             $('.talk_con').removeClass('display-none');         
-            $('.article-padding').addClass('display-none');         
-        
+            $('.article-padding').addClass('display-none');
         });
 
         // 聊天框
-        var height = $(document).height() - $('#getHeight').height()-10;
+        var height = $('body').height() - $('#getHeight').height()-20;
         $('#words').css({'height':height});
+        $('.article-padding').css({'height':height});
         function insetHtml(from, name, vals) {
-        var str = ""
-        //选择A发送还是B发送
-        if (from == 0) {
-            str = '<div class="atalk"><span class="talk-name">'+name+'</span><span class="content">' + vals + '</span></div>'
-        } else {
-            str = '<div class="btalk"><span class="talk-name">'+name+'</span><span class="content">' + vals + '</span></div>'
-        }
-        //原有的内容+str,否则会覆盖掉原有内容
-        $('#words').html($('#words').html() + str)
-        //发送完数据后清空输入框
-        $('#talkwords').val('')
-        console.log($("#words")[0].scrollHeight)
-        $("#words").scrollTop($("#words")[0].scrollHeight);
+            var str = ""
+            //选择A发送还是B发送
+            if (from == 0) {
+                str = '<div class="atalk"><span class="talk-name">'+name+'</span><span class="content">' + vals + '</span></div>'
+            } else {
+                str = '<div class="btalk"><span class="talk-name">'+name+'</span><span class="content">' + vals + '</span></div>'
+            }
+            //原有的内容+str,否则会覆盖掉原有内容
+            $('#words').html($('#words').html() + str)
+            //发送完数据后清空输入框
+            $('#talkwords').val('')
+            $("#words").scrollTop($("#words")[0].scrollHeight);
         }
         $('#talksub').click(function () {
-        //发送单击，获取用户输入的数据value属性值
-        var vals = $('#talkwords').val()
-        //如果输入的数据为空，则弹窗提示
-        if (vals == '') {
-            alert('请输入数据！')
-            return
-        }
+            //发送单击，获取用户输入的数据value属性值
+            var vals = $('#talkwords').val()
+            //如果输入的数据为空，则弹窗提示
+            if (vals == '') {
+                alert('请输入数据！')
+                return
+            }
             insetHtml(1,'me', vals)
         })
-        //  children: ["playToggle", "volumePanel", "currentTimeDisplay", "timeDivider", "durationDisplay", "progressControl", "liveDisplay", "seekToLive", "remainingTimeDisplay", "customControlSpacer", "playbackRateMenuButton", "chaptersButton", "descriptionsButton", "subsCapsButton", "audioTrackButton", "fullscreenToggle"]
+        // videojs
         live1Player = videojs('liveplayer', {  
             poster: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg',
             controls: true,
-            preload: auto,
+            preload: 'auto',
             controlBar:{
                 remainingTimeDisplay: false,
                 progressControl: false,
@@ -408,18 +417,18 @@
             var that = this
             videojs.log('Your player is ready!');
             this.on('play', function () {
+                // 播放
                 videojs.log('play');
             })
             this.on('pause', function () {
+                // 暂停
                 videojs.log('pause');
-            })
-            this.on('play', function () {
-                videojs.log('play');
             })
             $("#play").on("click",function(){
                 that.play();          
             });
             this.on('error', function (e) {
+                // 报错
                 videojs.log('error', e);
             })
             // this.on('loadedmetadata', function () {
