@@ -7,17 +7,39 @@
   <title>Document</title>
 </head>
 <style>
-  .circle{width:100px;height:100px;border:1px solid #ff0000;border-radius: 50%;position:relative}
-  .circle:after{content:"";width:40px;height:40px;position:absolute;right:0px;top:0px;background:#fff}
-  </style>
-<script>
-  class Name {
-    constructor(name) {
-      this.name = name
-    }
+  .circle {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ff0000;
+    border-radius: 50%;
+    position: relative
   }
-  var aa = new Name('xioaming')
+
+  .circle:after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background: #fff
+  }
+</style>
+<script>
+  var a = "coffe";
+  var b = { a: "1891" };
+  (function () {
+    let arr = [0, 1, 2];
+    arr.forEach(function (item) {
+      console.log(this.a);//这里是访问的b.a
+    }, b);//这里把b作为thisArg参数传入之后，this就指向了b
+  })();
+
+//>> 1891
+//>> 1891
+//>> 1891
 </script>
+
 <body>
   <div class="circle"></div>
 </body>

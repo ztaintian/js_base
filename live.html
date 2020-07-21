@@ -1,541 +1,585 @@
 @{
-
+  var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<string>("HTApiUrl");
 }
 
 <link rel="stylesheet" type="text/css" href="~/Content/OCTTemplet/mob/Style/Live/Live1.css?v=3" />
 <link href="~/Scripts/videojs7/video-js.min.css" rel="stylesheet" />
+<link href="~/Content/CZ/CSS/CZ.css" rel="stylesheet" type="text/css">
 <style>
 * {
-    margin:0;
-    padding:0;
+  margin:0;
+  padding:0;
 }
 html,body {
-    height:100%;
+  height:100%;
 }
 #liveplayer {
-    width:100%;
-    height:9rem;
+  width:100%;
+  height:9rem;
 }
 .top {
-    background: #fff;
-    padding: 0.5rem 0.6rem;
-    font-size: 0.6rem;
+  background: #fff;
+  padding: 0.5rem 0.6rem;
+  font-size: 0.6rem;
+  border-bottom: 1px solid #eee;
 }
 .top-title {
-    display:flex;
-    background: #fff;
-    align-items: center;
+  display:flex;
+  background: #fff;
+  align-items: center;
 }
-  .p2 {
-    width: 2.56rem;
-    height:1.28rem;
-    line-height:1.28rem;
-    text-align:center;
-    border: 1px solid #eee;
-    border-radius: 0.64rem;
-    margin-left:0.5rem;
-  }
-  .p2-active{
-      background:#3A78E9;
-      color:#fff;
-  }
+.p2 {
+  width: 2.56rem;
+  height:1.28rem;
+  line-height:1.28rem;
+  text-align:center;
+  border: 1px solid #eee;
+  border-radius: 0.64rem;
+  margin-left:0.5rem;
+}
+.p2-active{
+    background:#3A78E9;
+    color:#fff;
+}
 .top-title .p1 {
-    color:#000;
-    font-weight:bold;
-    overflow: hidden;    
-    display: -webkit-box;               
-    text-overflow: ellipsis;           
-    -webkit-box-orient: vertical;      
-    -webkit-line-clamp: 2;  
-    flex: 1;
+  color:#000;
+  font-weight:bold;
+  overflow: hidden;    
+  display: -webkit-box;               
+  text-overflow: ellipsis;           
+  -webkit-box-orient: vertical;      
+  -webkit-line-clamp: 2;  
+  flex: 1;
 }
 .top-time {
-    margin-top: 0.5rem;
-    display: flex;
-    justify-content: space-between;
+  margin-top: 0.5rem;
+  display: flex;
+  justify-content: space-between;
 }
 .start-time {
-    height:1.1rem;
-    line-height:1.1rem;
-    width:7.26rem;
-    font-size: 0.5rem;
-    border: 1px solid #3E7AE9;
-    color: #3E7AE9;
-    text-align: center;
-    border-radius: 0.5rem;
+  height:1.1rem;
+  line-height:1.1rem;
+  width:7.26rem;
+  font-size: 0.5rem;
+  border: 1px solid #3E7AE9;
+  color: #3E7AE9;
+  text-align: center;
+  border-radius: 0.5rem;
+  margin-left: 0.5rem;
 }
 .room {
-    padding: 0.2rem 0;   
-    color:#969696;
+  padding: 0.2rem 0;   
+  color:#969696;
 }
 .middle {
-    margin: 0.34rem 0 0.47rem;
-    background:#fff;
-    height: 2.05rem;
-    overflow: hidden;
+  margin: 0.34rem 0 0.47rem;
+  background:#fff;
+  height: 2.05rem;
+  overflow: hidden;
 }
 .hot-img {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.5rem;
 }
 .hot-img span {
-    color: #6EABF9;
+  color: #6EABF9;
 }
 .img-css {
-    height:1rem;
-    weight:1rem;
+  height:1rem;
+  weight:1rem;
 }
 .right {
-    display: flex;
-    float: right;
-    margin-top: 0.2rem;
+  display: flex;
+  float: right;
+  margin-top: 0.2rem;
+}
+#brief {
+  margin-left:0.8rem;
 }
 .brief-introduction {
-    float:left;
-    line-height: 1.9rem;
-    display:inline-block;
-    font-size: 0.6rem;
-    width: 3.2rem;
-    color: #3E7AE9;
-    text-align: center;
+  float:left;
+  line-height: 1.9rem;
+  display:inline-block;
+  font-size: 0.6rem;
+  width: 3.2rem;
+  color: #3E7AE9;
+  text-align: center;
 }
 .active-border {
-    border-bottom: 0.09rem solid #3E7AE9;
+  border-bottom: 0.09rem solid #3E7AE9;
 }
 .mtR1 {
-    margin-right:1rem;
+  margin-right:1rem;
 }
 .article-padding {
-    width:15.19rem;
-    margin:0 auto;
-    overflow:auto;
+  width:15.19rem;
+  margin:0 auto;
+  overflow:auto;
+  background:#fff;
+
 }
 .article {
-    font-size: 0.5rem;
-    background:#fff;
+  font-size: 0.5rem;
+  padding: 0 0.2rem;
 }
 .article-title {
-    font-size: 0.8rem;
-    padding: 0 0.5rem;
-    line-height:2rem;
-    font-weight: bold;
-    border-bottom:1px solid #eee;
+  font-size: 0.8rem;
+  padding: 0 0.5rem;
+  line-height:2rem;
+  font-weight: bold;
+  border-bottom:1px solid #eee;
 }
 .article-text {
-    padding: 0.5rem;
-    line-height:1rem;
+  padding: 0.5rem;
+  line-height:1rem;
 }
-  .talk_input {
-    display: flex;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    justify-content: center;
-    align-items: center;
-    height: 2.34rem;
-    background:#E5E5E5;
-  }   
-  .talk_word {
-    height: 1.5rem;
-    width:11.33rem;
-    padding: 0px;
-    outline: none;
-    border:none;
-    font-size:0.6rem;
-    border-radius:0.75rem;
-    text-align: center;
-  }
+.talk_input {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  height: 2.34rem;
+  background:#E5E5E5;
+}   
+.talk_word {
+  height: 1.5rem;
+  width:11.33rem;
+  padding: 0px;
+  outline: none;
+  border:none;
+  font-size:0.6rem;
+  border-radius:0.75rem;
+  text-align: center;
+}
 
 
 
-  .talk_show {
-    width: 100%;
-    overflow: auto;
-    box-sizing: border-box;
-    font-size: 0.6rem;
-    padding: 0 0 3rem 0;
-  }
+.talk_show {
+  width: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+  font-size: 0.6rem;
+  padding: 0 0 3rem 0;
+}
 
-  .talk_sub {
-    height: 1.5rem;
-    width: 2.84rem;
-    float: left;
-    outline: none;
-    border:none;
-    background:#4DE9C9;
-    color:#fff;
-    border-radius:0.75rem;
-    font-size: 0.6rem;
-    margin-left: 0.4rem;
-  }
-  .talk_con {
-    width: 100%;
-  }
-  .atalk {
-    margin: 0.2rem;
-  }
-  .talk-name {
-    display: block;
-    margin: 0.4rem 0 0.2rem;
-    color:#3D8CE9;
-  }
-  .atalk .content {
-    display: inline-block;
-    background: #fff;
-    border-radius: 0 0.64rem 0.64rem 0.85rem;
-    color: #000;
-    line-height:1.45rem; 
-    padding: 0 1rem 0 0.42rem;
-  }
+.talk_sub {
+  height: 1.5rem;
+  width: 2.84rem;
+  float: left;
+  outline: none;
+  border:none;
+  background:#4DE9C9;
+  color:#fff;
+  border-radius:0.75rem;
+  font-size: 0.6rem;
+  margin-left: 0.4rem;
+}
+.talk_con {
+  width: 100%;
+}
+.atalk {
+  margin: 0.2rem;
+  padding-left: 0.8rem;
+}
+.talk-name {
+  display: block;
+  margin: 0.4rem 0 0.2rem;
+  color:#3D8CE9;
+}
+.atalk .content {
+  display: inline-block;
+  background: #fff;
+  border-radius: 0 0.64rem 0.64rem 0.85rem;
+  color: #000;
+  line-height:1.45rem; 
+  padding: 0 1rem 0 0.42rem;
+}
 
-  .btalk {
-    margin: 0.2rem;
-    text-align: right;
+.btalk {
+  margin: 0.2rem;
+  padding-right: 0.8rem;
+  text-align: right;
+}
+.btalk .content {
+  display: inline-block;
+  background: #fff;
+  border-radius: 0.64rem 0 0.85rem 0.64rem;
+  color: #000;
+  line-height:1.45rem; 
+  padding: 0 0.42rem 0 1rem;
+}
+.display-none {
+    display: none;
+}
+  .img-icon1 {
+    width:0.6rem;
+    height:0.6rem;
+    align-self: flex-start;
+    margin-top: 0.2rem;
   }
-  .btalk .content {
-    display: inline-block;
-    background: #fff;
-    border-radius: 0.64rem 0 0.85rem 0.64rem;
-    color: #000;
-    line-height:1.45rem; 
-    padding: 0 0.42rem 0 1rem;
+  .video-js .vjs-big-play-button{ /* 中间大的播放按钮 */
+      height: 2em;
+      width: 2em;
+      border:none;
+      margin-left: -1em;
+      border-radius:50%;
+      border: 0.15rem solid #fff;
+      background-color: transparent;
   }
-  .display-none {
+   .video-js .vjs-big-play-button:after{
+       content:"";
+       width:0.5rem;
+       height:0.5rem;
+       position:absolute;
+       right:0rem;
+       bottom:0px;
+       background:#000;
+       transform:rotate(30deg);
+       background-color: transparent;
+  }
+  .video-js .vjs-big-play-button .vjs-icon-placeholder:before, .video-js .vjs-play-control .vjs-icon-placeholder:before, .vjs-icon-play:before {
+      /* content: ''; */
+      color:#4DE9C9;
+      margin-top: 0.15rem;
+  }
+  .video-js.vjs-paused .vjs-big-play-button{ /* 视频暂停时显示播放按钮 */
+      display: block;
+  }
+  .video-js.vjs-error .vjs-big-play-button{ /* 视频加载出错时隐藏播放按钮 */
       display: none;
   }
-    .img-icon1 {
-      width:0.6rem;
-      height:0.6rem;
-      align-self: flex-start;
-      margin-top: 0.2rem;
-    }
-    .video-js .vjs-big-play-button{ /* 中间大的播放按钮 */
-        height: 2em;
-        width: 2em;
-        border:none;
-        margin-left: -1em;
-        border-radius:50%;
-        border: 0.15rem solid #fff;
-        background-color: transparent;
-    }
-     .video-js .vjs-big-play-button:after{
-         content:"";
-         width:0.5rem;
-         height:0.5rem;
-         position:absolute;
-         right:0rem;
-         bottom:0px;
-         background:#000;
-         transform:rotate(30deg);
-         background-color: transparent;
-    }
-    .video-js .vjs-big-play-button .vjs-icon-placeholder:before, .video-js .vjs-play-control .vjs-icon-placeholder:before, .vjs-icon-play:before {
-        /* content: ''; */
-        color:#4DE9C9;
-        margin-top: 0.15rem;
-    }
-    .video-js.vjs-paused .vjs-big-play-button{ /* 视频暂停时显示播放按钮 */
-        display: block;
-    }
-    .video-js.vjs-error .vjs-big-play-button{ /* 视频加载出错时隐藏播放按钮 */
-        display: none;
-    }
-    .vjs-loading-spinner { /* 加载圆圈 */
-        font-size: 2.5em;
-        width: 2em;
-        height: 2em;
-        border-radius: 1em;
-        margin-top: -1em;
-        margin-left: -1.5em;
-    }
-    .notice{
-        background:#fff;
-        display:flex;
-        font-size: 0.6rem;
-        width:14rem;
-        margin:0 auto;
-        border-radius:0.4rem;
-        padding: 0.36rem;
-    }
-    .notice .img-notice {
-        width:0.77rem;
-        height:0.77rem;
-        margin-right: 0.2rem;
-    }
-    .notice .img-close {
-        width:0.4rem;
-        height:0.4rem;
-        margin-left: 0.5rem;
-    }
-    .notice .content {
-        color:#9B9B9B;
-    }
-    .notice .text {
-        color: #428FEA;
-    }
-    .video-js.vjs-playing .vjs-tech {
-        pointer-events: auto;
-    }
+  .vjs-loading-spinner { /* 加载圆圈 */
+      font-size: 2.5em;
+      width: 2em;
+      height: 2em;
+      border-radius: 1em;
+      margin-top: -1em;
+      margin-left: -1.5em;
+  }
+  .notice{
+      background:#fff;
+      display:flex;
+      font-size: 0.6rem;
+      width:14rem;
+      margin:0 auto;
+      border-radius:0.4rem;
+      padding: 0.36rem;
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%,0);
+  }
+  .notice .img-notice {
+      width:0.77rem;
+      height:0.77rem;
+      margin-right: 0.2rem;
+  }
+  .notice .content {
+      color:#9B9B9B;
+  }
+  .notice .text {
+      color: #428FEA;
+  }
+  .video-js.vjs-playing .vjs-tech {
+      pointer-events: auto;
+  }
+  .notice .close {
+      color:#63D497;
+      font-size:0.6rem;
+  }
 </style>
 <div id="getHeight">
 <video id="liveplayer"  webkit-playsinline="true" playsinline="true" class="video-js vjs-big-play-centered vjs-default-skin">
-  <p class="vjs-no-js">
-    To view this video please enable JavaScript, and consider upgrading to a
-    web browser that
-    <a href="https://videojs.com/html5-video-support/" target="_blank">
-      supports HTML5 video
-    </a>
-  </p>
+<p class="vjs-no-js">
+  To view this video please enable JavaScript, and consider upgrading to a
+  web browser that
+  <a href="https://videojs.com/html5-video-support/" target="_blank">
+    supports HTML5 video
+  </a>
+</p>
 </video>
-<div class="top">
-    <div class="top-title">
-        <img class="img-icon1" src="~/Content/images/resume/noli.png"  />
-        <p class="p1">aaaa只会因京东卡是--都看见爱上贷款卡SD卡大家阿萨德卡手机打开sdasd dsa sasdasdasdasd<p>
-        <p class="p2 p2-active">未开始</p>
-    </div>
-    <div class="top-time">
-        <p class="start-time">开播时间：6月6日21：00</p>
-        <p class="room">房间号：1001010</p>
-    </div>
-</div>
 <div class="middle">
-    <span class="brief-introduction active-border" id="brief">简介</span>
-    <span class="brief-introduction" id="interaction">互动</span>
-    <div class="right">
-        <span class="hot-img">
-            <img class="img-css" src="~/Content/images/resume/noli.png"  />
-            <span>33333</span>
-        </span>
-        <span class="hot-img">
-            <img class="img-css" src="~/Content/images/resume/noli.png"  />
-            <span>33</span>
-        </span>
-        <span class="hot-img">
-            <img class="img-css" src="~/Content/images/resume/noli.png"  />
-            <span>333</span>
-        </span>
-    </div>
+  <span class="brief-introduction active-border" id="brief">简介</span>
+  <span class="brief-introduction" id="interaction">互动</span>
+  <div class="right">
+      <span class="hot-img">
+          <img class="img-css" src="~/Content/images/resume/noli.png"  />
+          <span>33333</span>
+      </span>
+      <span class="hot-img">
+          <img class="img-css" src="~/Content/images/resume/noli.png"  />
+          <span>33</span>
+      </span>
+      <span class="hot-img" id="share">
+          <img class="img-css" src="~/Content/images/resume/noli.png"  />
+          <span>333</span>
+      </span>
+  </div>
 </div>
 </div>
 <div class="article-padding">
-    <div class="article">
-        <div class="article-title">titletelteltletlelteltletlelte</div>
-        <p class="article-text">证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实大师大大阿大声道阿达阿达阿达阿达阿达大大大啊大大啊大大阿达大大大大大哒哒哒哒哒哒多多多多多多多多多多多多多多达到证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实大师大大阿大声道阿达阿达阿达阿达阿达大大大啊大大啊大大阿达大大大大大哒哒哒哒哒哒多多多多多多多多多多多多多多达到证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实大师大大阿大声道阿达阿达阿达阿达阿达大大大啊大大啊大大阿达大大大大大哒哒哒哒哒哒多多多多多多多多多多多多多多达到证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实大师大大阿大声道阿达阿达阿达阿达阿达大大大啊大大啊大大阿达大大大大大哒哒哒哒哒哒多多多多多多多多多多多多多多达到证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实大师大大阿大声道阿达阿达阿达阿达阿达大大大啊大大啊大大阿达大大大大大哒哒哒哒哒哒多多多多多多多多多多多多多多达到</p>
-    </div>
+  <div class="top">
+      <div class="top-title">
+          <img class="img-icon1" src="~/Content/images/resume/noli.png"  />
+          <p class="p1">aaaa只会因京东卡是--都看见爱上贷款卡SD卡大家阿萨德卡手机打开sdasd dsa sasdasdasdasd<p>
+          <p class="p2 p2-active">未开始</p>
+      </div>
+      <div class="top-time">
+          <p class="start-time">开播时间：6月6日21：00</p>
+          <p class="room">房间号：1001010</p>
+      </div>
+  </div>
+
+  <div class="article">
+      <div class="article-title">证明文发发发撒大大是的大飒飒大</div>
+      <p class="article-text">证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实大师大大阿大声道阿达阿达阿达阿达阿达大大大啊大大啊大大阿达大大大大大哒哒哒哒哒哒多多多多多多多多多多多多多多达到证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实</p>
+  </div>
 </div>
 <div class="talk_con display-none">
-    <div class="talk_show" id="words">
-        <p class="notice">
-            <img class="img-notice" src="~/Content/images/resume/noli.png"/>
-            <span class="content">公告：<span class="text">曾任职为民进党靠的就是大手大脚按时短视的骄傲圣诞节大数据大数据的就大家多久啊。</span></span>
-            <img class="img-close" src="~/Content/images/student/close.png"/>
-        </p>
-        <div class="atalk"><span class="talk-name">other</span><span class="content">你还好吗？</span></div>
-        <div class="btalk"><span class="talk-name">me</span><span class="content">嗯，你呢？</span></div>
-    </div>
-    <div class="talk_input">
-        <input type="text" placeholder="请登录后发表评论" class="talk_word" id="talkwords">
-        <input type="button" value="发送" class="talk_sub" id="talksub">
-    </div>
+  <div class="talk_show" id="words">
+      <p class="notice">
+          <img class="img-notice" src="~/Content/images/resume/noli.png"/>
+          <span class="content">公告：<span class="text">曾任职为民进党靠的就是大手大脚按时短视的骄傲圣诞节大数据大数据的就大家多久啊。</span></span>
+          <i id="close-iconfont" class="iconfont close">&#xe63f;</i>
+      </p>
+  </div>
+  <div class="talk_input">
+      <input type="text" placeholder="请登录后发表评论" class="talk_word" id="talkwords">
+      <input type="button" value="发送" class="talk_sub" id="talksub">
+  </div>
 </div>
+<!--分享遮罩层开始-->
+<div id="mask2" class="" onclick="hideShareDialog()">
+  <span class="opacity"></span>
+  <span class="cont"><img src="~/Content/LazyMainLine/img/share_tips.png" /></span>
+</div>
+
 <script src="~/Scripts/videojs7/video.min.js"></script>
+<script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+<script src='@(apiHost + "/signalr/hubs")'></script>
 
 <script>
-    var live1Player;
-    var live1Callback;
-    var isPause = true;
-    var live1urlObj = {};
+  var live1Player;
+  var live1Callback;
+  var isPause = true;
+  var live1urlObj = {};
 
-    $(function () {
-        // 关闭通知
-        $(".img-close").on("click",function(){
-            $('.notice').css({
-                display: 'none'
-            })        
-        });
-        // 简介与互动动态显示
-        $("#brief").on("click",function(){
-            $("#brief").addClass('active-border');         
-            $("#interaction").removeClass('active-border'); 
-            $('.article-padding').removeClass('display-none');         
-            $('.talk_con').addClass('display-none');         
-        });
-        $("#interaction").on("click",function(){
-            $("#interaction").addClass('active-border');         
-            $("#brief").removeClass('active-border'); 
-            $('.talk_con').removeClass('display-none');         
-            $('.article-padding').addClass('display-none');
-        });
+  $(function () {
+      // 关闭通知
+      $("body").delegate('#close-iconfont',"click",function(){
+          $(this).parent('.notice').css({
+              display: 'none'
+          })        
+      });
+      // 分享
+      $('#share').on('click',function () {
+          $("#mask2").show();
+      })
+      $("#mask2").click(function () {
+          $("#mask2").hide();
+      })
+      var loginwxurl = '@(Html.Raw(ViewBag.LoginUrlOrigin))' + '&topBackUrl=' + location.href;
+      //聊天接收历史消息
+      function historyComments() {
+          //开启接收广播信息
+          $.connection.hub.url = '@apiHost'  + '/signalr'
+          var allHub = $.connection.allHub
+          allHub.client.notice = function (res) {
+              //接收到信息的处理
+              console.log('resres', res);
+              insetHtml(item.CommentUserType, item.CommentUserName, item.Comment)
+          }
+          $.connection.hub.start();
 
-        // 聊天框
-        var height = $('body').height() - $('#getHeight').height()-20;
-        $('#words').css({'height':height});
-        $('.article-padding').css({'height':height});
-        function insetHtml(from, name, vals) {
-            var str = ""
-            //选择A发送还是B发送
-            if (from == 0) {
-                str = '<div class="atalk"><span class="talk-name">'+name+'</span><span class="content">' + vals + '</span></div>'
-            } else {
-                str = '<div class="btalk"><span class="talk-name">'+name+'</span><span class="content">' + vals + '</span></div>'
-            }
-            //原有的内容+str,否则会覆盖掉原有内容
-            $('#words').html($('#words').html() + str)
-            //发送完数据后清空输入框
-            $('#talkwords').val('')
-            $("#words").scrollTop($("#words")[0].scrollHeight);
-        }
-        $('#talksub').click(function () {
-            //发送单击，获取用户输入的数据value属性值
-            var vals = $('#talkwords').val()
-            //如果输入的数据为空，则弹窗提示
-            if (vals == '') {
-                alert('请输入数据！')
-                return
-            }
-            insetHtml(1,'me', vals)
-        })
-        // videojs
-        live1Player = videojs('liveplayer', {  
-            poster: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg',
-            controls: true,
-            preload: 'auto',
-            controlBar:{
-                remainingTimeDisplay: false,
-                progressControl: false,
-                pictureInPictureToggle: false,
-            },
-            sources: [
-                {
-                    src:'https://boot-video.xuexi.cn/video/1005/p/55e3fe73b4bbabe6cecfd220356bc999-83c01296cd154862b037fd01de4c602c-2.mp4?_t=1595209000259',
-                    type:'video/mp4'
-                }
-            ]
-        }, function () {
-            var that = this
-            videojs.log('Your player is ready!');
-            this.on('play', function () {
-                // 播放
-                videojs.log('play');
-            })
-            this.on('pause', function () {
-                // 暂停
-                videojs.log('pause');
-            })
-            $("#play").on("click",function(){
-                that.play();          
-            });
-            this.on('error', function (e) {
-                // 报错
-                videojs.log('error', e);
-            })
-            // this.on('loadedmetadata', function () {
-            //     //加载到元数据后开始播放视频
-            //     $("#myError").hide();
-            //     startVideo();
-            // })
-            // this.on('pause', function () {
-            //     isPause = true;
-            // })
-            // this.on('play', function () {
-            //     isPause = false;
-            // })
-            // this.on('error', function (e) {
-            //     if (live1Callback != null)
-            //         live1Callback('error');
-            // })
-        });
-    });
+          $.ajax({
+              url: "@apiHost/Students/LiveWs/Comments",
+              data: {},
+              type: "post",
+              xhrFields: {
+                  withCredentials: true
+              },
+              success: function (result) {
+                  if (result.IsSuccess) {
+                      $.map(result.Data,function(item){
+                          insetHtml(item.CommentUserType, item.CommentUserName, item.Comment)
+                      })
+                  }
+              }
+          })
+      }
+      $('#talksub').click(function () {
+          //发送单击，获取用户输入的数据value属性值
+          var vals = $('#talkwords').val()
+          if (vals == '') {
+              alert('请输入数据！')
+              return
+          }
+          //如果输入的数据为空，则弹窗提示
+          $.ajax({
+              url: "@apiHost/Students/LiveWs/SendMsg",
+              data: {
+                  msg: vals
+              },
+              type: "post",
+              xhrFields: {
+                  withCredentials: true
+              },
+              success: function (result) {
+                  if (result.IsSuccess) {
+                      insetHtml(1,'me', vals)
+                  }
+                  else {
+                      if (result.ErrorCode == -1) {
+                          location.href = loginwxurl;
+                      } else {
+                          alert(result.Msg)
+                      }
+                  }
+              }
+          })
 
-    function updateLiveVideo(url, callback) {
-        live1Callback = callback;
 
-        if (url != null && url != '') {
-            if (url.indexOf('rtmp') >= 0) {
-                live1urlObj = { type: "rtmp/flv", src: url };
-            }
-            if (url.indexOf('m3u8') >= 0) {
-                live1urlObj = { type: "application/x-mpegURL", src: url };
-            }
-            if (url.indexOf('flv') >= 0) {
-                live1urlObj = { type: "video/x-flv", src: url };
-            }
-            if (url.indexOf('mp4') >= 0) {
-                live1urlObj = { type: "video/mp4", src: url };
-            }
+      })
 
-            live1Player.src(live1urlObj);
-        }
-    };
 
-    function playLive() {
-        if (live1Player != null) {
-            live1Player.src(live1urlObj);
-            live1Player.play();
-        }
-    };
+      // 简介与互动动态显示
+      $("#brief").on("click",function(){
+          $("#brief").addClass('active-border');         
+          $("#interaction").removeClass('active-border'); 
+          $('.article-padding').removeClass('display-none');         
+          $('.talk_con').addClass('display-none');         
+      });
+      $("#interaction").on("click",function(){
+          $("#interaction").addClass('active-border');         
+          $("#brief").removeClass('active-border'); 
+          $('.talk_con').removeClass('display-none');         
+          $('.article-padding').addClass('display-none');
+          historyComments()
+      });
 
-    var isVideoBreak;
-    function startVideo() {
-        //判断视频是否卡住，卡主3s重新load视频
-        var lastTime = -1,
-            tryTimes = 0;
+      // 聊天框
+      var height = $('body').height() - $('#getHeight').height()-20;
+      $('#words').css({'height':height});
+      $('.article-padding').css({'height':height});
+      function insetHtml(from, name, vals) {
+          var str = ""
+          //选择A发送还是B发送
+          if (from == 0) {
+              str = '<div class="atalk"><span class="talk-name">'+name+'</span><span class="content">' + vals + '</span></div>'
+          } else {
+              str = '<div class="btalk"><span class="talk-name">'+name+'</span><span class="content">' + vals + '</span></div>'
+          }
+          //原有的内容+str,否则会覆盖掉原有内容
+          $('#words').html($('#words').html() + str)
+          //发送完数据后清空输入框
+          $('#talkwords').val('')
+          $("#words").scrollTop($("#words")[0].scrollHeight);
+      }
+  
+      // videojs
+      live1Player = videojs('liveplayer', {  
+          poster: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg',
+          controls: true,
+          preload: 'auto',
+          controlBar:{
+              remainingTimeDisplay: false,
+              // progressControl: false,
+              pictureInPictureToggle: false,
+          },
+          sources: [
+              {
+                  src:'https://boot-video.xuexi.cn/video/1005/p/55e3fe73b4bbabe6cecfd220356bc999-83c01296cd154862b037fd01de4c602c-2.mp4?_t=1595209000259',
+                  type:'video/mp4'
+              }
+          ]
+      }, function () {
+          var that = this
+          videojs.log('Your player is ready!');
+          this.on('play', function () {
+              // 播放
+              videojs.log('play');
+          })
+          this.on('pause', function () {
+              // 暂停
+              videojs.log('pause');
+          })
+          $("#play").on("click",function(){
+              that.play();          
+          });
+          this.on('error', function (e) {
+              // 报错
+              videojs.log('error', e);
+          })
+          // this.on('loadedmetadata', function () {
+          //     //加载到元数据后开始播放视频
+          //     $("#myError").hide();
+          //     startVideo();
+          // })
+      });
+  });
 
-        clearInterval(isVideoBreak);
-        isVideoBreak = setInterval(function () {
-            var currentTime = live1Player.currentTime();
+  function updateLiveVideo(url, callback) {
+      live1Callback = callback;
 
-            if (currentTime == lastTime) {
-                //此时视频已卡主3s
-                //设置当前播放时间为超时时间，此时videojs会在play()后把currentTime设置为0
-                tryTimes++;
+      if (url != null && url != '') {
+          if (url.indexOf('rtmp') >= 0) {
+              live1urlObj = { type: "rtmp/flv", src: url };
+          }
+          if (url.indexOf('m3u8') >= 0) {
+              live1urlObj = { type: "application/x-mpegURL", src: url };
+          }
+          if (url.indexOf('flv') >= 0) {
+              live1urlObj = { type: "video/x-flv", src: url };
+          }
+          if (url.indexOf('mp4') >= 0) {
+              live1urlObj = { type: "video/mp4", src: url };
+          }
 
-                //尝试5次播放后，如仍未播放成功提示刷新
-                if (++tryTimes > 3) {
-                    //alert('您的网速有点慢，刷新下试试');
-                    if (live1Callback != null)
-                        live1Callback();
-                    tryTimes = 0;
-                    live1Player.pause();
-                } else {
-                    live1Player.play();
-                }
-            } else {
-                lastTime = currentTime;
-                tryTimes = 0;
-            }
-        }, 3000)
+          live1Player.src(live1urlObj);
+      }
+  };
 
-    }
+  function playLive() {
+      if (live1Player != null) {
+          live1Player.src(live1urlObj);
+          live1Player.play();
+      }
+  };
 
-    function showWarning(txt) {
-        if (txt == '' || txt == null)
-            txt = '当前无直播';
-        $("#myError p").html(txt);
-        $("#myError").show();
-    };
+  var isVideoBreak;
+  function startVideo() {
+      //判断视频是否卡住，卡主3s重新load视频
+      var lastTime = -1,
+          tryTimes = 0;
 
-    function hideWarning() {
-        $("#myError").hide();
-    };
+      clearInterval(isVideoBreak);
+      isVideoBreak = setInterval(function () {
+          var currentTime = live1Player.currentTime();
 
-    //function updateVWatchedNumber(num) {
-    //    $('#videoWatched').text(num);
-    //};
+          if (currentTime == lastTime) {
+              //此时视频已卡主3s
+              //设置当前播放时间为超时时间，此时videojs会在play()后把currentTime设置为0
+              tryTimes++;
 
-    function hideLiveVideo() {
-        if (isVideoBreak) {
-            clearInterval(isVideoBreak);
-        }
-        if (live1Player != null)
-            live1Player.pause();
-        $('.live1-main').hide();
-    };
+              //尝试5次播放后，如仍未播放成功提示刷新
+              if (++tryTimes > 3) {
+                  //alert('您的网速有点慢，刷新下试试');
+                  if (live1Callback != null)
+                      live1Callback();
+                  tryTimes = 0;
+                  live1Player.pause();
+              } else {
+                  live1Player.play();
+              }
+          } else {
+              lastTime = currentTime;
+              tryTimes = 0;
+          }
+      }, 3000)
 
-    function showLiveVideo() {
-        $('.live1-main').show();
-    };
+  }
 
 </script>
