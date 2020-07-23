@@ -1,17 +1,19 @@
-var result = [];
 
-var treeSort = function (node) {
-  if (node) {
-    if (node.left) {
-      treeSort(node.left);
+function treeSort(node) {
+  var result = [];
+  return (function (node) {
+    if (node) {
+      if (node.left) {
+        arguments.callee(node.left);
+      }
+      result.push(node.val);
+      if (node.right) {
+        arguments.callee(node.right)
+      }
     }
-    result.push(node.val);
-    if (node.right) {
-      treeSort(node.right)
-    }
-  }
-  return result;
-}
+    return result;
+  })(node)
+};
 var node = {
   val: 2,
   left: {
@@ -20,5 +22,5 @@ var node = {
   right: {
     val: 66
   }
-}
-console.log(treeSort(node))
+};
+console.log(treeSort(node));
