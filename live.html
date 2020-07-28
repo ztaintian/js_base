@@ -321,6 +321,7 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
     .notice .content {
       color: #9B9B9B;
       flex: 1;
+      vertical-align: middle;
     }
 
     .notice .text {
@@ -334,12 +335,13 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
     .notice .close {
       color: #63D497;
       font-size: 0.5rem;
+      float: right;
     }
 
     .notice .speaker {
       color: #63D497;
       font-size: 0.8rem;
-      margin-right: 0.2rem;
+      vertical-align: middle;
     }
 
     #chat-box {
@@ -350,8 +352,14 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
       right: 0;
       position: absolute;
     }
+
+    .play {
+      color: #63D497;
+      font-size: 0.8rem;
+    }
   </style>
   <div id="getHeight">
+    <!-- <div style="height:2rem;"></div> -->
     <video id="liveplayer" webkit-playsinline="true" playsinline="true"
       class="video-js vjs-big-play-centered vjs-default-skin">
       <p class="vjs-no-js">
@@ -366,7 +374,7 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
       <span class="brief-introduction active-border" id="brief">简介</span>
       <span class="brief-introduction" id="interaction">互动</span>
       <div class="right">
-        <span class="hot-img">
+        <span class="hot-img" id="hotBox">
           <img class="img-css" src="~/Content/images/resume/icon1.png" />
           <span id="hot"></span>
         </span>
@@ -384,10 +392,11 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
   <div class="article-padding">
     <div class="top">
       <div class="top-title">
-        <img class="img-icon1" src="~/Content/images/resume/play.png" />
+        <!-- <img class="img-icon1" src="~/Content/images/resume/play.png"  /> -->
+        <i class="iconfont play">&#xe6ef;</i>
         <p class="p1" id="title">
         <p>
-        <p class="p2 p2-active">未开始</p>
+        <p id="LiveStatus" class="p2 p2-active"></p>
       </div>
       <div class="top-time">
         <p class="start-time">开播时间：<span id="time"></span></p>
@@ -396,10 +405,11 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
     </div>
 
     <div class="article">
-      <div class="article-title">证明文发发发撒大大是的大飒飒大</div>
-      <p class="article-text">
-        证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实大师大大阿大声道阿达阿达阿达阿达阿达大大大啊大大啊大大阿达大大大大大哒哒哒哒哒哒多多多多多多多多多多多多多多达到证明文发发发撒大大是的大飒飒大师实打实大师大所大所多实打实
-      </p>
+      <p class="article-text"></p>
+      <a id="aHref">
+        <img id="imgId" style="width:90%;margin-left:5%;" src="" />
+      </a>
+      <p id="footId" style="padding: 0.5rem;line-height:1rem;">fafafafaf</p>
     </div>
   </div>
   <div class="talk_con display-none">
@@ -429,9 +439,9 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
 
   <script>
     var live1Player;
-    var live1Callback;
     var isPause = true;
     var live1urlObj = {};
+    var poster;
     $(function () {
       //ajax提交
       asyncPost = function (url, data, callback) {
@@ -469,7 +479,19 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
         }
         asyncPost(url, data, function (res) {
           if (res.IsSuccess) {
-            // 房间号
+            if (res.Data.LiveStatus.Key == 1) {
+              $('#LiveStatus').css({
+                background: '#3A78E9',
+                color: '#fff'
+              })
+            } else {
+              $('#LiveStatus').css({
+                background: '#fff',
+                color: '#C2C2C2'
+              })
+            }
+            $('#LiveStatus').html(res.Data.LiveStatus.Value);
+            liveplayerStart(res.Data.Channel.HlsPullUrl, res.Data.LogoImage);
             $('#room-num').html(res.Data.LiveRoomCode);
             curLiveCommentId = res.Data.Comment.LiveCommentId;
             liveId = res.Data.LiveId;
@@ -478,6 +500,25 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
             $('#forword').html(res.Data.OpData.ForwordCount);
             $('#title').html(res.Data.LiveName);
             $('#time').html(timeFormat(res.Data.LiveStartTime))
+            $('.article-text').html(res.Data.Desc.Desc);
+            $('#aHref').attr('href', res.Data.Desc.DescImageLink);
+            $('#imgId').attr('src', res.Data.Desc.DescImage);
+            $('#footId').html(res.Data.Desc.DescHintWord);
+            if (res.Data.OpData.ShowHot) {
+              $('#hotBox').show();
+            } else {
+              $('#hotBox').hide();
+            };
+            if (res.Data.OpData.ShowLike) {
+              $('#addlike').show();
+            } else {
+              $('#addlike').hide();
+            };
+            if (res.Data.OpData.ShowForword) {
+              $('#share').show();
+            } else {
+              $('#share').hide();
+            };
           } else {
             dialogue.dlAlert(res.Msg);
           }
@@ -516,7 +557,7 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
         $("#mask2").hide();
       })
       function addforword() {
-        if (getCookie("forworded")) {
+        if (getCookie("forworded" + $('#room-num').html())) {
           return
         }
         var url = apiHost + '/Students/LiveWs/Forword'
@@ -526,7 +567,7 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
         asyncPost(url, data, function (res) {
           if (res.IsSuccess) {
             $('#forword').html(parseInt($('#forword').html(), 10) + 1)
-            addCookie("forworded", true, Infinity)
+            addCookie("forworded" + $('#room-num').html(), true, Infinity)
           }
         })
       };
@@ -536,7 +577,7 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
         addlike();
       });
       function addlike() {
-        if (getCookie("liked")) {
+        if (getCookie("liked" + $('#room-num').html())) {
           return
         }
         var url = apiHost + '/Students/LiveWs/Like'
@@ -546,7 +587,7 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
         asyncPost(url, data, function (res) {
           if (res.IsSuccess) {
             $('#like').html(parseInt($('#like').html(), 10) + 1)
-            addCookie("liked", true, Infinity)
+            addCookie("liked" + $('#room-num').html(), true, Infinity)
           }
         })
       };
@@ -556,6 +597,12 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
       } else {
         $('#talkwords').attr('placeholder', '请登录后发表评论');
       }
+      $('.notice').css({
+        display: 'none'
+      });
+      $('#chat-box').css({
+        marginTop: '0'
+      })
       // 关闭通知
       $("body").delegate('#close-iconfont', "click", function () {
         $('.notice').css({
@@ -581,7 +628,24 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
           },
           success: function (result) {
             if (result.IsSuccess) {
-              $.map(result.Data, function (item) {
+              if (result.Data && result.Data.Notice && result.Data.Notice.Comment) {
+                $('#notice-text').html(result.Data.Notice.Comment);
+                $('.notice').css({
+                  display: 'block'
+                })
+                $('#chat-box').css({
+                  marginTop: '3.2rem'
+                })
+              } else {
+                $('.notice').css({
+                  display: 'none'
+                })
+                $('#chat-box').css({
+                  marginTop: '0'
+                })
+              }
+
+              $.map(result.Data.Comments, function (item) {
                 insetHtml(item.CommentUserType, item.CommentUserName, item.Comment)
               })
             }
@@ -594,14 +658,17 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
           //接收到信息的处理 CommentUserType  管理端的还没做，1是学生 2是管理员 然后CommentType是区分评论和公告 1是评论 2是公告
           console.log('resres', res)
           if (res.IsSuccess) {
-            if (res.Data.CommentType == 1) {
+            if (res.SiteType == 1) {
               // 评论
               insetHtml(res.Data.CommentUserType, res.Data.CommentUserName, res.Data.Comment)
-            } else if (res.Data.CommentType == 2) {
+            } else if (res.SiteType == 2) {
               // 公告
               $('#notice-text').html(res.Data.Comment);
               $('.notice').css({
                 display: 'block'
+              })
+              $('#chat-box').css({
+                marginTop: '3.2rem'
               })
             }
           }
@@ -680,73 +747,69 @@ var apiHost = CIIC.Common.Configuration.ConfigurationHelper.GetConfigValue<strin
       }
 
       // videojs
-      live1Player = videojs('liveplayer', {
-        poster: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2534506313,1688529724&fm=26&gp=0.jpg',
-        controls: true,
-        preload: 'auto',
-        controlBar: {
-          remainingTimeDisplay: false,
-          progressControl: false,
-          pictureInPictureToggle: false,
-        },
-        sources: [
-          {
-            src: 'https://boot-video.xuexi.cn/video/1006/p/71168b3cf691e5288fb7e695dacd1dfe-718bc7411f8f4b24aa28d3ad190f6d6a-2.mp4',
-            type: 'video/mp4'
+      function liveplayerStart(url, LogoImage) {
+        live1Player = videojs('liveplayer', {
+          poster: '',
+          controls: true,
+          preload: 'auto',
+          liveui: true,
+          notSupportedMessage: '此视频暂时无法播放',
+          controlBar: {
+            remainingTimeDisplay: false,
+            progressControl: false,
+            pictureInPictureToggle: false,
           }
-        ]
-      }, function () {
-        var that = this
-        videojs.log('Your player is ready!');
-        this.on('play', function () {
-          // 播放
-          videojs.log('play');
-        })
-        this.on('pause', function () {
-          // 暂停
-          videojs.log('pause');
-        })
-        $("#play").on("click", function () {
-          that.play();
+        }, function () {
+          var that = this
+          updateLiveVideo(url);
+          this.poster(LogoImage); // 封面图片
+          this.on('play', function () {
+            // 播放
+            videojs.log('play');
+          })
+          this.on('pause', function () {
+            // 暂停
+            videojs.log('pause');
+          })
+          $("#play").on("click", function () {
+            that.play();
+          });
+          this.on('error', function (e) {
+            // 报错
+            videojs.log('error', e);
+          })
+          // this.on('loadedmetadata', function () {
+          //     //加载到元数据后开始播放视频
+          //     $("#myError").hide();
+          //     startVideo();
+          // })
         });
-        this.on('error', function (e) {
-          // 报错
-          videojs.log('error', e);
-        })
-        // this.on('loadedmetadata', function () {
-        //     //加载到元数据后开始播放视频
-        //     $("#myError").hide();
-        //     startVideo();
-        // })
-      });
+      }
+      function updateLiveVideo(url) {
+        if (url != null && url != '') {
+          if (url.indexOf('rtmp') >= 0) {
+            live1urlObj = { type: "rtmp/flv", src: url };
+          }
+          if (url.indexOf('m3u8') >= 0) {
+            live1urlObj = { type: "application/x-mpegURL", src: url };
+          }
+          if (url.indexOf('flv') >= 0) {
+            live1urlObj = { type: "video/x-flv", src: url };
+          }
+          if (url.indexOf('mp4') >= 0) {
+            live1urlObj = { type: "video/mp4", src: url };
+          }
+          live1Player.src(live1urlObj);
+        }
+      };
+      function playLive() {
+        if (live1Player != null) {
+          live1Player.src(live1urlObj);
+          live1Player.play();
+        }
+      };
+
     });
 
-    function updateLiveVideo(url, callback) {
-      live1Callback = callback;
-
-      if (url != null && url != '') {
-        if (url.indexOf('rtmp') >= 0) {
-          live1urlObj = { type: "rtmp/flv", src: url };
-        }
-        if (url.indexOf('m3u8') >= 0) {
-          live1urlObj = { type: "application/x-mpegURL", src: url };
-        }
-        if (url.indexOf('flv') >= 0) {
-          live1urlObj = { type: "video/x-flv", src: url };
-        }
-        if (url.indexOf('mp4') >= 0) {
-          live1urlObj = { type: "video/mp4", src: url };
-        }
-
-        live1Player.src(live1urlObj);
-      }
-    };
-
-    function playLive() {
-      if (live1Player != null) {
-        live1Player.src(live1urlObj);
-        live1Player.play();
-      }
-    };
 
   </script>
