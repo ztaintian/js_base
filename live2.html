@@ -2,18 +2,20 @@
 @using CIIC.Common.Attr
 @model CIIC.Hentai.Services.Dto.ViewModel.QuestionnaireViewModel
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @section PageSpecificStyleSheetIncludes{
-    <link rel="stylesheet" href="~/Content/IconFont/iconfont.css" />
-    <link href="~/Content/Style/EditQueSubject.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/Content/IconFont/iconfont.css" />
+<link href="~/Content/Style/EditQueSubject.css" rel="stylesheet" />
+
 }
 
 <style>
-[v-cloak] {
+  [v-cloak] {
     display: none;
-}
-.questionItem span.q-checkbox {
+  }
+
+  .questionItem span.q-checkbox {
     display: inline-block;
     width: 15px;
     height: 15px;
@@ -21,352 +23,580 @@
     position: relative;
     top: 5px;
     margin-right: 10px;
-}
-.questionItem .questionHead .is-required {
+  }
+
+  .questionItem .questionHead .is-required {
     float: right;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+  }
 
-.questionItem .save-panel {
-    display:block;
-}
-.btn-save {
-    width:80px;
-    border-radius:10px;
-    line-height:28px;
-    background:#169BD5;
-    color:#fff;
-    border:none;
-}
-.btn-cancel {
-    margin-left:20px;
-    width:80px;
-    border-radius:10px;
-    line-height:28px;
-    background:#999999;
-    color:#fff;
-    border:none;
-}
-input[type="checkbox"] {
-    margin:0;
-}
-.is-required input {
-    margin-right:5px;
-}
+  .questionItem .save-panel {
+    display: block;
+  }
+
+  .btn-save {
+    width: 80px;
+    border-radius: 10px;
+    line-height: 28px;
+    background: #169BD5;
+    color: #fff;
+    border: none;
+  }
+
+  .btn-cancel {
+    margin-left: 20px;
+    width: 80px;
+    border-radius: 10px;
+    line-height: 28px;
+    background: #999999;
+    color: #fff;
+    border: none;
+  }
+
+  input[type="checkbox"] {
+    margin: 0;
+  }
+
+  .is-required input {
+    margin-right: 5px;
+  }
+
+  .add-batch {
+    margin: 10px 0 0 154px;
+    color: #169BD5;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: underline;
+  }
+
+  .opt-inset-after {
+    color: #169BD5;
+  }
+
+  .triangleDiv {
+    border-color: #000 #EEEEEE #EEEEEE #EEEEEE;
+    border-style: solid;
+    border-width: 18px 10px 0 10px;
+    height: 0;
+    width: 0;
+    display: inline-block;
+  }
 </style>
 <div id="vueApp" v-cloak>
-    <div class="editor-question-ctnr">
-        <div class="editor-left span3">
-            <ul class="">
-                <li>
-                <!-- 0:填空;1:单项选;2:多项选;3:下拉;4:多行文本; -->
-                    <div class="item-title">填空</div>
-                    <ul>
-                        <li v-on:click="addSignblanks(0)">
-                            <div class="subItem"  SubjectType="0">单项填空</div>
-                        </li>
-                        <li v-on:click="addSignblanks(4)">
-                            <div class="subItem" SubjectType="4">多行文本</div>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <div class="item-title">选择</div>
-                    <ul>
-                        <li v-on:click="addSignblanks(1)">
-                            <div class="subItem" SubjectType="1">单项选择</div>
-                        </li>
-                        <li v-on:click="addSignblanks(2)">
-                            <div class="subItem" SubjectType="2">多项选择</div>
-                        </li>
-                        <li v-on:click="addSignblanks(3)">
-                            <div class="subItem" SubjectType="3">下拉选择</div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        <div class="editor-right span9">
-            <div class="empty" v-if="questionData.length<1">+ 点击左侧题型</div>
-            <div class="questionList">
-                <div v-for="(item,index) in questionData" :key="index">
-                    <!-- 单项填空 -->
-                    <div :class="['questionItem', item.editFlag?'status-edit':'']" qtype="0" v-if="item.SubjectType==0||item.SubjectType==4">
-                        <div class="questionHead">
-                            <span class="request" v-if="item.IsRequired">*</span>
-                            <span class="questionNum">{{item.SubNo=index+1}}</span>
-                            <span>&nbsp;.&nbsp;</span>
-                            <input class="questionTitle editable" v-model="item.Subject" :readonly="!item.editFlag"/>
-                            <span class="is-required">
-                                <input v-model="item.IsRequired" :disabled="!item.editFlag" type="checkbox">此项必填?
-                            </span>
-                        </div>
-                        <div class="questionBody">
-                            <input v-if="item.SubjectType==0" type="text" readonly />
-                            <textarea v-if="item.SubjectType==4" readonly></textarea>
-                        </div>
-                        <div class="save-panel" v-if="item.editFlag">
-                            <button class="btn-save" v-on:click="save(item)">保存</button>
-                            <button class="btn-cancel">取消</button>
-                        </div>
-                        <div class="operateBar" v-if="!item.editFlag">
-                            <span class="text opt-inset-after">在此题后插入新题</span>
-                            <span class="btn opt-bottom">最后</span>
-                            <span class="btn opt-top">最前</span>
-                            <span class="btn opt-next" v-on:click="moveDown(index)">下移</span>
-                            <span class="btn opt-prev" v-on:click="moveUp(index)">上移</span>
-                            <span class="btn opt-del">删除</span>
-                            <span class="btn opt-copy">复制</span>
-                            <span class="btn opt-edit" v-on:click="item.editFlag=true">编辑</span>
-                        </div>
-                    </div>
-                    <!-- 单项选择/多项选择-->
-                    <div :class="['questionItem', item.editFlag?'status-edit':'']" v-if="item.SubjectType==1||item.SubjectType==2">
-                        <div class="questionHead">
-                            <span class="request" v-if="item.IsRequired">*</span>
-                            <span class="questionNum">{{item.SubNo=index+1}}</span>
-                            <span>&nbsp;.&nbsp;</span>
-                            <input class="questionTitle editable" v-model="item.Subject" :readonly="!item.editFlag" />
-                            <span class="is-required">
-                                <input v-model="item.IsRequired" :disabled="!item.editFlag" type="checkbox">此项必填?
-                            </span>
-                        </div>
-                        <div class="questionBody">
-                            <ul>
-                                <li v-for="(itemChild,indexChild) in item.OptValue">
-                                    <span :class="item.SubjectType==1?'q-radio':'q-checkbox'"></span>
-                                    <input class="option editable" v-model="itemChild.Text" :readonly="!item.editFlag" />
-                                    <template v-if="item.editFlag">
-                                        <span class="option-add" v-on:click="optionAdd(item.OptValue)" title="添加">+</span>
-                                        <span class="option-del" v-if="item.OptValue.length>2" v-on:click="optionDel(item.OptValue,indexChild)" title="删除">-</span>
-                                        <span class="txt-isText ml30">是否可填</span>
-                                        <input type="checkbox" v-model="itemChild.IsRequired" class="option-isText" title="是否可填" />
-                                        <span class="option-up" title="上移" v-on:click="optionUp(item.OptValue,indexChild)">↑</span>
-                                        <span class="option-down" title="下移" v-on:click="optionDown(item.OptValue,indexChild)">↓</span>
-                                    </template>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="save-panel" v-if="item.editFlag">
-                            <button class="btn-save" v-on:click="save(item)">保存</button>
-                            <button class="btn-cancel">取消</button>
-                        </div>
-                        <div class="operateBar" v-if="!item.editFlag">
-                            <span class="text opt-inset-after">在此题后插入新题</span>
-                            <span class="btn opt-bottom">最后</span>
-                            <span class="btn opt-top">最前</span>
-                            <span class="btn opt-next" v-on:click="moveDown(index)">下移</span>
-                            <span class="btn opt-prev" v-on:click="moveUp(index)">上移</span>
-                            <span class="btn opt-del">删除</span>
-                            <span class="btn opt-copy">复制</span>
-                            <span class="btn opt-edit" v-on:click="item.editFlag=true">编辑</span>
-                        </div>
-                    </div>
-                    <!-- 多项选择 -->
-                    <div :class="['questionItem', item.editFlag?'status-edit':'']" v-if="item.SubjectType==3">
-                        <div class="questionHead">
-                            <span class="request" v-if="item.IsRequired">*</span>
-                            <span class="questionNum">{{item.SubNo=index+1}}</span>
-                            <span>&nbsp;.&nbsp;</span>
-                            <input class="questionTitle editable" v-model="item.Subject" :readonly="!item.editFlag" />
-                            <span class="is-required">
-                                <input v-model="item.IsRequired" :disabled="!item.editFlag" type="checkbox">此项必填?
-                            </span>
-                        </div>
-                        <div class="questionBody">
-                            <ul>
-                                <li v-for="(itemChild,indexChild) in item.OptValue">
-                                    <i class="iconfont">&#xe7f0;</i>
-                                    <input class="option editable" v-model="itemChild.Text" :readonly="!item.editFlag" />
-                                    <template v-if="item.editFlag">
-                                        <span class="option-add" title="添加" v-on:click="optionAdd(item.OptValue)">+</span>
-                                        <span v-if="item.OptValue.length>2" class="option-del" title="删除">-</span>
-                                        <span class="txt-isText ml30">是否可填</span>
-                                        <input type="checkbox" v-model="itemChild.IsRequired"  class="option-isText" title="是否可填" />
-                                        <span class="option-up" title="上移" v-on:click="optionUp(item.OptValue,indexChild)">↑</span>
-                                        <span class="option-down" title="下移" v-on:click="optionDown(item.OptValue,indexChild)">↓</span>
-                                    </template>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="save-panel" v-if="item.editFlag">
-                            <button class="btn-save" v-on:click="save(item)">保存</button>
-                            <button class="btn-cancel">取消</button>
-                        </div>
-                        <div class="operateBar" v-if="!item.editFlag">
-                            <span class="text opt-inset-after">在此题后插入新题</span>
-                            <span class="btn opt-bottom">最后</span>
-                            <span class="btn opt-top">最前</span>
-                            <span class="btn opt-next" v-on:click="moveDown(index)">下移</span>
-                            <span class="btn opt-prev" v-on:click="moveUp(index)">上移</span>
-                            <span class="btn opt-del">删除</span>
-                            <span class="btn opt-copy">复制</span>
-                            <span class="btn opt-edit" v-on:click="item.editFlag=true">编辑</span>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+  <div class="editor-question-ctnr">
+    <div class="editor-left span3">
+      <ul class="">
+        <li>
+          <!-- 0:填空;1:单项选;2:多项选;3:下拉;4:多行文本; -->
+          <div class="item-title">填空</div>
+          <ul>
+            <li v-on:click="addSignblanks(0)">
+              <div class="subItem" SubjectType="0">单项填空</div>
+            </li>
+            <li v-on:click="addSignblanks(4)">
+              <div class="subItem" SubjectType="4">多行文本</div>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <div class="item-title">选择</div>
+          <ul>
+            <li v-on:click="addSignblanks(1)">
+              <div class="subItem" SubjectType="1">单项选择</div>
+            </li>
+            <li v-on:click="addSignblanks(2)">
+              <div class="subItem" SubjectType="2">多项选择</div>
+            </li>
+            <li v-on:click="addSignblanks(3)">
+              <div class="subItem" SubjectType="3">下拉选择</div>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
+    <div class="editor-right span9">
+      <div class="empty" v-if="questionData.length<1">+ 点击左侧题型</div>
+      <div class="questionList">
+        <div v-for="(item,index) in questionData" :key="index">
+          <!-- 单项填空 -->
+          <div :class="['questionItem', item.editFlag?'status-edit':'']" qtype="0"
+            v-if="item.SubjectType==0||item.SubjectType==4">
+            <div class="questionHead">
+              <span class="request" v-if="item.IsRequired">*</span>
+              <span class="questionNum">{{item.SubNo=index+1}}</span>
+              <span>&nbsp;.&nbsp;</span>
+              <input class="questionTitle editable" v-model="item.Subject" :readonly="!item.editFlag" />
+              <span class="is-required">
+                <input v-model="item.IsRequired" :disabled="!item.editFlag" type="checkbox">此项必填?
+              </span>
+            </div>
+            <div class="questionBody">
+              <input v-if="item.SubjectType==0" type="text" readonly />
+              <textarea v-if="item.SubjectType==4" readonly></textarea>
+            </div>
+            <div class="save-panel" v-if="item.editFlag">
+              <button class="btn-save" v-on:click="save(item)">保存</button>
+              <button class="btn-cancel" v-on:click="cancel(item, index)">取消</button>
+            </div>
+            <div class="operateBar" v-if="!item.editFlag">
+              <span class="text opt-inset-after" v-on:click="insertAfter(index)">在此题后插入新题</span>
+              <span class="btn opt-bottom" v-on:click="Last(item,index)">最后</span>
+              <span class="btn opt-top" v-on:click="First(item,index)">最前</span>
+              <span class="btn opt-next" v-on:click="moveDown(index)">下移</span>
+              <span class="btn opt-prev" v-on:click="moveUp(index)">上移</span>
+              <span class="btn opt-del" v-on:click="delList(index)">删除</span>
+              <span class="btn opt-copy" v-on:click="copy(item,index)">复制</span>
+              <span class="btn opt-edit" v-on:click="editList(item)">编辑</span>
+            </div>
+          </div>
+          <!-- 单项选择/多项选择-->
+          <div :class="['questionItem', item.editFlag?'status-edit':'']"
+            v-if="item.SubjectType==1||item.SubjectType==2">
+            <div class="questionHead">
+              <span class="request" v-if="item.IsRequired">*</span>
+              <span class="questionNum">{{item.SubNo=index+1}}</span>
+              <span>&nbsp;.&nbsp;</span>
+              <input class="questionTitle editable" v-model="item.Subject" :readonly="!item.editFlag" />
+              <span class="is-required">
+                <input v-model="item.IsRequired" :disabled="!item.editFlag" type="checkbox">此项必填?
+              </span>
+            </div>
+            <div class="questionBody">
+              <ul>
+                <li v-for="(itemChild,indexChild) in item.OptValue">
+                  <span :class="item.SubjectType==1?'q-radio':'q-checkbox'"></span>
+                  <input class="option editable" v-model="itemChild.Text" :readonly="!item.editFlag" />
+                  <template v-if="item.editFlag">
+                    <span class="option-add" v-if="item.OptValue.length-1 == indexChild"
+                      v-on:click="optionAdd(item.OptValue)" title="添加">+</span>
+                    <span class="option-del" v-if="item.OptValue.length>2"
+                      v-on:click="optionDel(item.OptValue,indexChild)" title="删除">-</span>
+                    <span class="txt-isText ml30">是否可填</span>
+                    <input type="checkbox" v-model="itemChild.IsRequired" class="option-isText" title="是否可填" />
+                    <span class="option-up" title="上移" v-on:click="optionUp(item.OptValue,indexChild)">↑</span>
+                    <span class="option-down" title="下移" v-on:click="optionDown(item.OptValue,indexChild)">↓</span>
+                  </template>
+                </li>
+              </ul>
+            </div>
+            <div class="add-batch" v-on:click="addBatch(item)" v-if="item.editFlag">
+              批量添加选项
+            </div>
+            <div class="save-panel" v-if="item.editFlag">
+              <button class="btn-save" v-on:click="save(item)">保存</button>
+              <button class="btn-cancel" v-on:click="cancel(item, index)">取消</button>
+            </div>
+            <div class="operateBar" v-if="!item.editFlag">
+              <span class="text opt-inset-after" v-on:click="insertAfter(index)">在此题后插入新题</span>
+              <span class="btn opt-bottom" v-on:click="Last(item,index)">最后</span>
+              <span class="btn opt-top" v-on:click="First(item,index)">最前</span>
+              <span class="btn opt-next" v-on:click="moveDown(index)">下移</span>
+              <span class="btn opt-prev" v-on:click="moveUp(index)">上移</span>
+              <span class="btn opt-del" v-on:click="delList(index)">删除</span>
+              <span class="btn opt-copy" v-on:click="copy(item,index)">复制</span>
+              <span class="btn opt-edit" v-on:click="editList(item)">编辑</span>
+            </div>
+          </div>
+          <!-- 多项选择 -->
+          <div :class="['questionItem', item.editFlag?'status-edit':'']" v-if="item.SubjectType==3">
+            <div class="questionHead">
+              <span class="request" v-if="item.IsRequired">*</span>
+              <span class="questionNum">{{item.SubNo=index+1}}</span>
+              <span>&nbsp;.&nbsp;</span>
+              <input class="questionTitle editable" v-model="item.Subject" :readonly="!item.editFlag" />
+              <span class="is-required">
+                <input v-model="item.IsRequired" :disabled="!item.editFlag" type="checkbox">此项必填?
+              </span>
+            </div>
+            <div class="questionBody">
+              <ul>
+                <li v-for="(itemChild,indexChild) in item.OptValue">
+                  <i class="iconfont" style="color: #000;font-size: 14px;">&#xe66c;</i>
+                  <input class="option editable" v-model="itemChild.Text" :readonly="!item.editFlag" />
+                  <template v-if="item.editFlag">
+                    <span class="option-add" title="添加" v-if="item.OptValue.length-1 == indexChild"
+                      v-on:click="optionAdd(item.OptValue)">+</span>
+                    <span v-if="item.OptValue.length>2" v-on:click="optionDel(item.OptValue,indexChild)"
+                      class="option-del" title="删除">-</span>
+                    <span class="txt-isText ml30">是否可填</span>
+                    <input type="checkbox" v-model="itemChild.IsRequired" class="option-isText" title="是否可填" />
+                    <span class="option-up" title="上移" v-on:click="optionUp(item.OptValue,indexChild)">↑</span>
+                    <span class="option-down" title="下移" v-on:click="optionDown(item.OptValue,indexChild)">↓</span>
+                  </template>
+                </li>
+              </ul>
+            </div>
+            <div class="add-batch" v-on:click="addBatch(item)" v-if="item.editFlag">
+              批量添加选项
+            </div>
+            <div class="save-panel" v-if="item.editFlag">
+              <button class="btn-save" v-on:click="save(item)">保存</button>
+              <button class="btn-cancel" v-on:click="cancel(item,index)">取消</button>
+            </div>
+            <div class="operateBar" v-if="!item.editFlag">
+              <span class="text opt-inset-after" v-on:click="insertAfter(index)">在此题后插入新题</span>
+              <span class="btn opt-bottom" v-on:click="Last(item,index)">最后</span>
+              <span class="btn opt-top" v-on:click="First(item,index)">最前</span>
+              <span class="btn opt-next" v-on:click="moveDown(index)">下移</span>
+              <span class="btn opt-prev" v-on:click="moveUp(index)">上移</span>
+              <span class="btn opt-del" v-on:click="delList(index)">删除</span>
+              <span class="btn opt-copy" v-on:click="copy(item,index)">复制</span>
+              <span class="btn opt-edit" v-on:click="editList(item)">编辑</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;" v-if="questionData.length>0">
+      <button style="margin:20px auto;" class="btn-save" v-on:click="nextStep">下一步</button>
+    </div>
+  </div>
+  <div id="dialog-confirm" style="display:none;" title="提示">
+    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px 20px 0;"></span>将被删除，并且无法恢复。您确定吗？</p>
+  </div>
+  <div id="dialog-confirm2" style="display:none;" title="批量添加选项">
+    <p>每行代表一个选项，可以添加多个选项</p>
+    <textarea v-model="ttaValue" style="height:100px;width:100%;"></textarea>
+  </div>
+  <div id="dialog-confirm3" style="display:none;" title="题型">
+    <button v-on:click="selectButton(item)"
+      :style="item.flag?'background:#169BD5;color:#fff;padding:5px 10px;margin:5px 5px 0 0;':'padding:5px 10px;margin:5px 5px 0 0;'"
+      v-for="(item,index) in QuestionType">{{item.text}}</button>
+  </div>
+
 </div>
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+
+<script src="~/Scripts/vue.min.js"></script>
 @section PageSpecificJavascriptIncludes{
-    <script>
-        var question = eval(@Html.Raw(CIIC.Common.SerializeHelper.JsonSerialize(Model)));
-        var app = new Vue({
-            el: '#vueApp',
-            data: {
-                questionData: [],
-                SubjectType0: {
-                    Subject:"题目",
-                    editFlag: false,
-                    SubNo:"",
-                    SubjectType:0,
-                    IsRequired:false,
-                    OptValue:null
-                },
-                SubjectType4: {
-                    Subject:"题目",
-                    editFlag: false,
-                    SubNo:"",
-                    SubjectType:4,
-                    IsRequired:false,
-                    OptValue:null
-                },
-                SubjectType1: {
-                    Subject:"题目",
-                    editFlag: false,
-                    SubjectType:1,
-                    SubNo:"",
-                    IsRequired:true,
-                    OptValue:[
-                        {
-                            "Text":"中央企业",
-                            "IsText":false,
-                            "IsRequired":false,
-                            "SkipNo":""
-                        },
-                        {
-                            "Text":"其他",
-                            "IsText":true,
-                            "IsRequired":false,
-                            "SkipNo":""
-                        }
-                    ]
-                },
-                SubjectType2: {
-                    SubNo:"",
-                    Subject:"题目",
-                    SubjectType:2,
-                    editFlag: false,
-                    IsRequired:false,
-                    OptValue:[
-                        {
-                            "Text":"全职",
-                            "IsText":false,
-                            "IsRequired":false,
-                            "SkipNo":""
-                        },
-                        {
-                            "Text":"小时工",
-                            "IsText":false,
-                            "IsRequired":false,
-                            "SkipNo":""
-                        }
-                    ]
-                },
-                SubjectType3: {
-                    SubNo:"",
-                    Subject:"题目",
-                    SubjectType:3,
-                    editFlag: false,
-                    IsRequired:false,
-                    OptValue:[
-                        {
-                            "Text":"全职",
-                            "IsText":false,
-                            "IsRequired":false,
-                            "SkipNo":""
-                        },
-                        {
-                            "Text":"小时工",
-                            "IsText":false,
-                            "IsRequired":false,
-                            "SkipNo":""
-                        }
-                    ]
+<script>
+  var question = eval(@Html.Raw(CIIC.Common.SerializeHelper.JsonSerialize(Model)));
+  console.log('question', question)
+  var app = new Vue({
+    el: '#vueApp',
+    data: {
+      SubjectType: 0,
+      QuestionType: [
+        {
+          text: '单项填空',
+          SubjectType: 0,
+          flag: true
+        },
+        {
+          text: '多行文本',
+          SubjectType: 4,
+          flag: false
+        },
+        {
+          text: '单项选择',
+          SubjectType: 1,
+          flag: false
+        },
+        {
+          text: '多项选择',
+          SubjectType: 2,
+          flag: false
+        },
+        {
+          text: '下拉选择',
+          SubjectType: 3,
+          flag: false
+        },
 
-                }
-            },
-            mounted() {
-                // 0:填空;1:单项选;2:多项选;3:下拉;4:多行文本;
-                console.log(this.questionData)
-            },
-            methods: {
-                optionUp(item,index) {
-                    // 子项上移
-                    if (index == 0) {
-                        return 
-                    }
-                    [item[index], item[index-1]] = [item[index-1],item[index]];
-                    this.questionData = Object.assign([],this.questionData);
-
-                },
-                optionDown(item,index) {
-                    // 子项下移
-                    if (index == item.length - 1) {
-                        return 
-                    }
-                    [item[index], item[index+1]] = [item[index+1],item[index]];
-                    this.questionData = Object.assign([],this.questionData);
-                },
-                moveDown(index) {
-                    // 下移
-                    if (index == this.questionData.length - 1) {
-                        return 
-                    }
-                    [this.questionData[index], this.questionData[index+1]] = [this.questionData[index+1],this.questionData[index]]
-                    this.questionData = Object.assign([],this.questionData);
-                },
-                moveUp(index) {
-                    // 上移
-                    if (index == 0) {
-                        return 
-                    }
-                    [this.questionData[index], this.questionData[index-1]] = [this.questionData[index-1],this.questionData[index]];
-                    this.questionData = Object.assign([],this.questionData);
-                },
-                optionDel(item,index) {
-                    // 子项删除
-                    item.splice(index,1);
-                },
-                optionAdd(item) {
-                    // 子项添加
-                    item.push(                 
-                        {
-                            "Text":"1111",
-                            "IsText":false,
-                            "IsRequired":false,
-                            "SkipNo":""
-                        })
-                    console.log(this.questionData)
-                },
-                save(item) {
-                    // 保存
-                    item.editFlag = !item.editFlag;
-                },
-                addSignblanks(value) {
-                    // 添加题目
-                    var tempObj = JSON.parse(JSON.stringify(this['SubjectType'+value]));
-                    this.questionData.push(tempObj);
-                }
-            }
+      ],
+      tipValue: '',
+      ttaValue: '',
+      questionData: [],
+      SubjectType0: {
+        Subject: "题目",
+        editFlag: false,
+        SubNo: "",
+        SubjectType: 0,
+        IsRequired: false,
+        OptValue: null
+      },
+      SubjectType4: {
+        Subject: "题目",
+        editFlag: false,
+        SubNo: "",
+        SubjectType: 4,
+        IsRequired: false,
+        OptValue: null
+      },
+      SubjectType1: {
+        Subject: "题目",
+        editFlag: false,
+        SubjectType: 1,
+        SubNo: "",
+        IsRequired: false,
+        OptValue: [
+          {
+            "Text": "选项",
+            "IsText": false,
+            "IsRequired": false,
+            "SkipNo": ""
+          },
+          {
+            "Text": "选项",
+            "IsText": true,
+            "IsRequired": false,
+            "SkipNo": ""
+          }
+        ]
+      },
+      SubjectType2: {
+        SubNo: "",
+        Subject: "题目",
+        SubjectType: 2,
+        editFlag: false,
+        IsRequired: false,
+        OptValue: [
+          {
+            "Text": "选项",
+            "IsText": false,
+            "IsRequired": false,
+            "SkipNo": ""
+          },
+          {
+            "Text": "选项",
+            "IsText": false,
+            "IsRequired": false,
+            "SkipNo": ""
+          }
+        ]
+      },
+      tempList: {},
+      SubjectType3: {
+        SubNo: "",
+        Subject: "题目",
+        SubjectType: 3,
+        editFlag: false,
+        IsRequired: false,
+        OptValue: [
+          {
+            "Text": "选项",
+            "IsText": false,
+            "IsRequired": false,
+            "SkipNo": ""
+          },
+          {
+            "Text": "选项",
+            "IsText": false,
+            "IsRequired": false,
+            "SkipNo": ""
+          }
+        ]
+      }
+    },
+    mounted() {
+      // 0:填空;1:单项选;2:多项选;3:下拉;4:多行文本;
+      console.log(this.questionData)
+    },
+    methods: {
+      nextStep() {
+        // 下一步
+        var flag = this.questionData.some((item) => {
+          return item.editFlag === true
         })
-    </script>
+        if (flag) {
+          alert('有题目正在编辑，请先保存');
+          return;
+        }
+        console.log('下一步', this.questionData);
+      },
+      selectButton(item) {
+        // 选题型
+        this.QuestionType.map((item) => {
+          item.flag = false;
+        })
+        item.flag = true;
+        this.SubjectType = item.SubjectType;
+      },
+      insertAfter(index) {
+        // 在此题后插入新题
+        var that = this
+        this.QuestionType.map((item) => {
+          item.flag = false;
+        })
+        this.QuestionType[0].flag = true;
+        this.SubjectType = 0;
+        $("#dialog-confirm3").dialog({
+          resizable: false,
+          modal: true,
+          draggable: false,
+          buttons: {
+            "确认": function () {
+              that.questionData.splice(index + 1, 0, that['SubjectType' + that.SubjectType]);
+              $(this).dialog("close");
+            },
+            '取消': function () {
+              $(this).dialog("close");
+            }
+          }
+        });
+      },
+      copy(item, index) {
+        // 复制
+        var obj = JSON.parse(JSON.stringify(item));
+        this.questionData.splice(index, 0, obj);
+      },
+      addBatch(item) {
+        // 批量添加
+        var that = this
+        that.ttaValue = '';
+        $("#dialog-confirm2").dialog({
+          resizable: false,
+          // height:200,
+          modal: true,
+          draggable: false,
+          buttons: {
+            "确认": function () {
+              var emptyReg = /^\s*$/g;
+              if (emptyReg.test(that.ttaValue)) {
+                return;
+              }
+              that.ttaValue.split('\n').map(function (Text) {
+                item.OptValue.push({
+                  "Text": Text,
+                  "IsText": false,
+                  "IsRequired": false,
+                  "SkipNo": ""
+                })
+              })
+              $(this).dialog("close");
+            },
+            '取消': function () {
+              $(this).dialog("close");
+            }
+          }
+        });
+
+      },
+      Last(item, index) {
+        // 最后
+        if (index == this.questionData.length - 1) {
+          return;
+        };
+        this.questionData.splice(index, 1);
+        this.questionData.push(item);
+      },
+      First(item, index) {
+        // 最前
+        if (index == 0) {
+          return;
+        };
+        this.questionData.splice(index, 1);
+        this.questionData.unshift(item);
+      },
+      delList(index) {
+        // 删除
+        var that = this
+        $("#dialog-confirm").dialog({
+          resizable: false,
+          height: 200,
+          modal: true,
+          buttons: {
+            "确认": function () {
+              that.questionData.splice(index, 1);
+              $(this).dialog("close");
+            },
+            '取消': function () {
+              $(this).dialog("close");
+            }
+          }
+        });
+      },
+      optionUp(item, index) {
+        // 子项上移
+        if (index == 0) {
+          return;
+        }
+        [item[index], item[index - 1]] = [item[index - 1], item[index]];
+        this.questionData = Object.assign([], this.questionData);
+
+      },
+      optionDown(item, index) {
+        // 子项下移
+        if (index == item.length - 1) {
+          return;
+        }
+        [item[index], item[index + 1]] = [item[index + 1], item[index]];
+        this.questionData = Object.assign([], this.questionData);
+      },
+      moveDown(index) {
+        // 下移
+        if (index == this.questionData.length - 1) {
+          return;
+        }
+        [this.questionData[index], this.questionData[index + 1]] = [this.questionData[index + 1], this.questionData[index]]
+        this.questionData = Object.assign([], this.questionData);
+      },
+      moveUp(index) {
+        // 上移
+        if (index == 0) {
+          return;
+        }
+        [this.questionData[index], this.questionData[index - 1]] = [this.questionData[index - 1], this.questionData[index]];
+        this.questionData = Object.assign([], this.questionData);
+      },
+      optionDel(item, index) {
+        // 子项删除
+        item.splice(index, 1);
+      },
+      optionAdd(item) {
+        // 子项添加
+        item.push({
+          "Text": "选项",
+          "IsText": false,
+          "IsRequired": false,
+          "SkipNo": ""
+        })
+      },
+      save(item) {
+        // 保存
+        if (!item.Subject) {
+          alert('输入框不能为空');
+          return;
+        } else {
+          var emptyReg = /^\s*$/g;
+          if (item.OptValue && item.OptValue.length > 0) {
+            var flag = item.OptValue.some((value) => {
+              return emptyReg.test(value.Text);
+            })
+            if (flag) {
+              alert('输入框不能为空');
+              return;
+            }
+          }
+        }
+        item.editFlag = !item.editFlag;
+      },
+      cancel(item, index) {
+        // 取消
+        item.editFlag = false;
+        this.questionData[index] = Object.assign({}, this.tempList);
+        this.questionData = Object.assign([], this.questionData);
+      },
+      editList(item) {
+        // 编辑
+        var flag = this.questionData.some((item) => {
+          return item.editFlag === true
+        })
+        if (flag) {
+          alert('有题目正在编辑，请先保存');
+          return;
+        }
+        item.editFlag = true;
+        this.tempList = JSON.parse(JSON.stringify(item));
+        this.tempList.editFlag = false;
+      },
+      addSignblanks(value) {
+        // 添加题目
+        var tempObj = JSON.parse(JSON.stringify(this['SubjectType' + value]));
+        this.questionData.push(tempObj);
+      }
+    }
+  })
+</script>
 }
-
-
-
