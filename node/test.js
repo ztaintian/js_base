@@ -1,15 +1,9 @@
-function effect(fn) {
-  // 定义一个内部 _effect 
-  const _effect = function(...args) {
-    // 在执行是将自身赋值给 activeEffect
-    activeEffect = _effect;
-    // 执行回调
-    return fn(...args);
-  };
-  // _effect();
-  // 返回闭包
-  return _effect;
+function testable(target) {
+  target.prototype.isTestable = true;
 }
-console.log(effect(function() {
-  console.log(1111)
-}))
+
+@testable
+class MyTestableClass {}
+
+let obj = new MyTestableClass();
+obj.isTestable // true

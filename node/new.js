@@ -15,3 +15,10 @@ console.log(myNewTest.age)
 var newTest = new Test('小天', 28)
 console.log(newTest.name)
 console.log(newTest.age)
+
+myNew = function () {
+  var _obj = {}
+  _obj.__proto__ = context.prototype
+  var result = context.apply(_obj,args)
+  return typeof result === 'Object'?result:_obj  
+}
