@@ -1,107 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
 <style>
-  .circle {
-    width: 100px;
-    height: 100px;
-    border: 1px solid #ff0000;
-    border-radius: 50%;
-    position: relative
-  }
-
-  .circle:after {
-    content: "";
-    width: 40px;
-    height: 40px;
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    background: #fff
-  }
+.element {
+  height:20px;
+  background:#000;
+  width: max(50%, 500px);
+}
 </style>
-
-
 <body>
-  <!-- <a href="#add">跳转到add</a> -->
-  <a>
-    <p id="aaaaa">fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <a  id="add">跳转到add</a>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-    <p>fsfaa</p>
-
-  </a>
+  <p class="element"></p>
 </body>
-
 </html>
-<script>
- setTimeout(() => {
-  document.getElementById('add').scrollIntoView(true)
- },2000)
-  
-</script>
