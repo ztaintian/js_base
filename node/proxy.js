@@ -1,24 +1,28 @@
-// var arr = [1, 2, 3, 4]
-// var p = new Proxy(data, {
-//   get(target, key, receive) {
-//     return target[key]
-//   },
-//   set(target, key, value, receive) {
-//     target[key] = value
-//   }
-// })
+function observe(obj, callback) {
+  return new Proxy(obj, {
+    get(target, key) {
+      return target[key]
+    },
+    set(target, key, value) {
+      target[key] = value
+      callback(key, value)
+    }
+  })
+}
 
-let data = [1,2,3]
-let p = new Proxy(data, {
-  get(target, key, receiver) {
-    return target[key]
+const obj = observe(
+  {
+    name: '子君',
+    sex: '男'
   },
-  set(target, key, value, receiver) {
-    console.log('set value')
-    target[key] = value
-    return true
+  (key, value) => {
+    console.log(`属性[${key}]的值被修改为[${value}]`)
   }
-})
+)
 
-p.push(4)
-console.log(p)
+// 这段代码执行后，输出 属性[name]的值被修改为[妹纸]
+obj.name = '妹纸'
+
+// 这段代码执行后，输出 属性[sex]的值被修改为[女]
+obj.name = '女'
+

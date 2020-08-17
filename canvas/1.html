@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <canvas  id="canvas"></canvas>
+  <a href="https://www.baidu.com/" accesskey="h">HTML 教程</a><br>
+</body>
+<script>
+  let aa = document.querySelector('#canvas');
+  let ctx = aa.getContext('2d');
+  // ctx.fillStyle="red";
+  // var gradient=ctx.createLinearGradient(0,0,aa.width,0);
+  ctx.font = "20px Verdana";
+  ctx.strokeText("fafaf",10,50)
+  ctx.strokeStyle="#FF0000";
+  // ctx.fillRect(0,0,100,100);
+  ctx.strokeRect(0,0,100,100);
+</script>
+</html>
