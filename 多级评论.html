@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    .comment-box {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="item">
+
+  </div>
+
+
+
+
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    var arr = [
+      {
+        content: 'woshiyiji',
+        children: [
+          {
+            content: 'ddajda',
+            children: [
+              {
+                content: '哈哈啊'
+              }
+            ]
+          },
+          {
+            content: '10110'
+          }
+        ]
+      },
+      {
+        content: 'dadafaf'
+      }
+    ]
+    $(function () {
+      console.log(diGui(arr))
+      $('.item').append(diGui(arr))
+    });
+    function diGui(arr) {
+      if (!arr) {
+        return;
+      }
+      var html = "";
+      console.log('aaaaaaaa', arr)
+      $.each(arr, function (ck, cv) {
+        console.log('adada', ck,cv)
+        var b = '<div class="comment-box"><span>';
+        b += cv.content + "</span><span class='reply'>回复</span>";
+        cv.children?b += diGui(cv.children):'';
+        b += "</div>";
+        html += b;
+      });
+      return html;
+    }
+
+    $('.item').on('click','.reply',function(event) {
+      event.stopPropagation();  
+      console.log(this)
+      $(this).append('<div class="comment-box"><span>dadada</span><span class="reply">回复</span></div>')
+    })
+    function create_tree(data, $this) {
+      var html = '<div class="comment-list">';
+      $.each(data, function (k, v) {
+        var a = '<div class="comment-box"><span>';
+        a += v.content + "</span>";
+        // 创建自评论
+        a += diGui(v.children);
+        a += "</div>";
+        html += a;
+      });
+
+      html += "</div>";
+      $this.after(html);
+    }
+
+
+  </script>
+
+</body>
+
+</html>
