@@ -43,7 +43,6 @@
       }
     ]
     $(function () {
-      console.log(diGui(arr))
       $('.item').append(diGui(arr))
     });
     function diGui(arr) {
@@ -51,11 +50,9 @@
         return;
       }
       var html = "";
-      console.log('aaaaaaaa', arr)
       $.each(arr, function (ck, cv) {
-        console.log('adada', ck,cv)
         var b = '<div class="comment-box"><span>';
-        b += cv.content + "</span><span class='reply'>回复</span>";
+        b += cv.content + "</span><span name='dad' class='reply'>回复</span>";
         cv.children?b += diGui(cv.children):'';
         b += "</div>";
         html += b;
@@ -63,10 +60,15 @@
       return html;
     }
 
-    $('.item').on('click','.reply',function(event) {
+    $(document).on('click','.reply',function(event) {
       event.stopPropagation();  
-      console.log(this)
-      $(this).append('<div class="comment-box"><span>dadada</span><span class="reply">回复</span></div>')
+      event.preventDefault();
+      console.log($(this).siblings('.comment-box')[$(this).siblings('.comment-box').length-1])
+      if ($(this).siblings('.comment-box').length>0) {
+        $($(this).siblings('.comment-box')[$(this).siblings('.comment-box').length-1]).after('<div class="comment-box"><span>dadada</span><span class="reply">回复1</span></div>')
+      } else {
+        $(this).after('<div class="comment-box"><span>dadada</span><span class="reply">回复1</span></div>')
+      }
     })
     function create_tree(data, $this) {
       var html = '<div class="comment-list">';
