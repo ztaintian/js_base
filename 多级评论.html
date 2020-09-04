@@ -65,9 +65,9 @@
       event.preventDefault();
       console.log($(this).siblings('.comment-box')[$(this).siblings('.comment-box').length-1])
       if ($(this).siblings('.comment-box').length>0) {
-        $($(this).siblings('.comment-box')[$(this).siblings('.comment-box').length-1]).after('<div class="comment-box"><span>dadada</span><span class="reply">回复1</span></div>')
+        $($(this).siblings('.comment-box')[$(this).siblings('.comment-box').length-1]).after('<div class="comment-box"><span>dadada</span></div>')
       } else {
-        $(this).after('<div class="comment-box"><span>dadada</span><span class="reply">回复1</span></div>')
+        $(this).after('<div class="comment-box"><span>dadada</span></div>')
       }
     })
     function create_tree(data, $this) {
