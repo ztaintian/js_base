@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <canvas id="canvas" width="225" height="225"></canvas>
+</body>
+<script>
+  var drawing_elem = document.querySelector('#canvas');
+  new drawMain(drawing_elem,'#000', '#eee')
+  function drawMain(drawing_elem, forecolor, bgcolor) {
+    /*
+        @drawing_elem: 绘制对象
+        @forecolor: 绘制圆环的前景色，颜色代码
+        @bgcolor: 绘制圆环的背景色，颜色代码
+    */
+    var offsetXY = 5;//除圆环外，所预留的空白区域
+    var context = drawing_elem.getContext("2d");
+    var center_x = (drawing_elem.width - offsetXY) / 2;
+    var center_y = (drawing_elem.height - offsetXY) / 2;
+    var rad = Math.PI * 2 / 100;
+    var speed = 0;
+
+    context.lineWidth = offsetXY * 2; //设置线宽
+
+    // 绘制背景圆圈
+    function backgroundCircle() {
+      context.save();
+      context.beginPath();
+      var radius = center_x - context.lineWidth;
+      context.lineCap = "round";
+      context.strokeStyle = bgcolor;
+      context.arc(center_x, center_y, radius, 0, Math.PI * 2, false);
+      context.stroke();
+      context.closePath();
+      context.restore();
+    }
+
+    //绘制运动圆环
+    function foregroundCircle(n) {
+      context.save();
+      context.strokeStyle = forecolor;
+      // context.lineCap = "round"; // 使得圆环边缘有弧度
+      var radius = center_x - context.lineWidth;
+      context.beginPath();
+      context.arc(center_x, center_y, radius, -Math.PI / 2, -Math.PI / 2 + n * rad, false); //用于绘制圆弧context.arc(x坐标，y坐标，半径，起始角度，终止角度，顺时针/逆时针)
+      context.stroke();
+      context.closePath();
+      context.restore();
+    }
+
+    // 画圆圈上的运动小点
+    var ball = {
+      x: 0,
+      y: -center_y + context.lineWidth,
+      radius: 6,
+      color: '#f08d49',
+      draw: function (n) {
+        context.save();
+        context.translate(center_x, center_y);
+        context.beginPath();
+        context.fillStyle = "#f09d48";
+
+        var mm = n * (360 / 100) * Math.PI / 180;// 100 为百分之最大值
+        context.rotate(mm);
+        context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+        context.fill();
+
+        context.closePath();
+        context.restore();
+      }
+    };
+
+    this.circlePoint = function (n) {
+      ball.draw(n);
+    }
+
+    //绘制文字
+    function text(n) {
+      n += "%";
+      context.save(); //save和restore可以保证样式属性只运用于该段canvas元素
+      context.fillStyle = forecolor;
+      var font_size = 40;
+      context.font = font_size + "px Helvetica";
+      var text_width = context.measureText(n).width;
+      context.fillText(n, center_x - text_width / 2, center_y + font_size / 2);
+      context.restore();
+    }
+
+    this.animate = function (percent) {
+      var interval = setInterval(function () {
+        context.clearRect(0, 0, drawing_elem.width, drawing_elem.height);
+        backgroundCircle();
+        text(percent);
+
+        foregroundCircle(speed);
+        circlePoint(speed);
+
+        if (speed >= percent) {
+          clearInterval(interval);
+          return;
+        };
+        speed += 1;
+
+      }, 10);
+
+      //(function drawFrame() {
+      //    window.requestAnimationFrame(drawFrame);
+      //    context.clearRect(0, 0, drawing_elem.width, drawing_elem.height);
+      //    backgroundCircle();
+      //    text(percent);
+      //    foregroundCircle(percent);
+      //    circlePoint(percent);
+
+      //    if (speed >= percent) return;
+      //    speed += 1;
+      //}());
+
+      //requestAnimationFrame(function () {
+      //    context.clearRect(0, 0, drawing_elem.width, drawing_elem.height);
+      //    backgroundCircle();
+      //    text(percent);
+
+      //    foregroundCircle(percent);
+      //    circlePoint(percent);
+
+      //    //if (speed < percent) {
+      //    //    animate(percent);
+      //    //    speed += 0.1;
+      //    //} else {
+      //    //    speed = 0;
+      //    //}
+
+      //    if (speed >= percent) return;
+      //    speed += 1;
+      //});
+    }
+
+    return this;
+  }
+
+</script>
+
+</html>

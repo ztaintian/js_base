@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="circleBar">
+    <canvas class="circle" id="canvas1" width="100" height="100"></canvas>
+  </div>
+</body>
+<script>
+  $(function () {
+    new CircleBar();
+  });
+  function CircleBar() {
+    this.data = null;
+    this.$el = $(".circleBar");
+    this.init();
+  }
+  CircleBar.prototype = {
+    init: function () {
+      this.setData();
+      this.create();
+      this.bindEvent();
+      this.renderBar();
+    },
+    //创建DOM
+    create: function () {
+
+    },
+    //绑定事件
+    bindEvent: function () {
+
+    },
+    //设置数据
+    setData: function () {
+      var barData = [this.getRandomInt(0, 100)];
+      console.log('barData', barData)
+      this.data = [81.2];
+    },
+    //画圆
+    renderBar: function () {
+      function draw(context, i) {
+        // 大圆框
+        context.beginPath();
+        // context.lineWidth = 1;
+        // context.arc(50, 50, 46, 0, Math.PI * 2);
+        // context.strokeStyle = "grey";
+        // context.stroke();
+        // 大圆
+        context.beginPath();
+        var grd = context.createLinearGradient(15, 15, 80, 80);
+        grd.addColorStop(0, "#000");
+        grd.addColorStop(1, "#f00");
+        context.arc(50, 50, 38, 0, Math.PI * 2 * (i / 100));
+        context.lineWidth = 10;
+        context.strokeStyle = grd;
+        context.lineCap = "round";
+        context.stroke();
+
+        // 小圆
+        context.beginPath();
+        context.arc(50, 50, 30, 0, Math.PI * 2);
+        context.lineWidth = 1;
+        context.strokeStyle = "grey";
+        context.stroke();
+        context.fillStyle = "white";
+        context.fill();
+        // 字
+        context.beginPath();
+        context.textBaseline = "middle";
+        context.textAlign = "center";
+        context.font = "20px Arial";
+        context.fillStyle = "black";
+        console.log('daadad', i)
+        context.fillText(i + "%", 50, 50);
+      }
+      //duration画进度条的时间
+      function animate(canvas, context, duration, progress) {
+        var i = 0;
+        var range = parseInt(progress  / 10);
+        console.log('ddad', range)
+        var timer = setInterval(function () {
+          if (i >= progress) {
+            clearInterval(timer);
+          }
+          context.clearRect(0, 0, canvas.width, canvas.height);
+          draw(context, i);
+          i = i + range;
+        }, 50);
+      }
+      var self = this;
+      var canvas = this.$el.find('canvas').get(0);
+      var context = canvas.getContext("2d");
+      animate(canvas, context, 2.5, self.data[0]);
+    },
+    //得到一个两数之间的随机整数
+    getRandomInt: function (min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+  };
+</script>
+
+</html>
