@@ -33,11 +33,8 @@ var t
   function addNum() {
 
     if (i < 82) {
-
-      i++;
-
+      i = i+1;
       $('canvas.process').text(i + "%");
-
       drawProcess();
 
     } else {
@@ -45,7 +42,6 @@ var t
       $('canvas.process').text(83.1 + "%");
       drawProcess();
       clearInterval(t);
-
     }
 
   }
@@ -58,7 +54,7 @@ var t
 
       var text = $(this).text();
 
-      var process = 82.1;
+      var process = i;
 
       var canvas = this;
 
