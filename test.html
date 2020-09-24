@@ -2,24 +2,51 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta charset="utf-8" />
+  <title>css3-放大突出效果</title>
+  <style>
+    ul {
+      display: block;
+    }
+
+    ul li {
+      transition: transform 0.25s ease;
+      float: left;
+      width: 200px;
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+      margin: 10px;
+      background-color: #00b5e1;
+      list-style: none;
+    }
+
+    ul li:hover {
+      transform: scale(1.2, 1.2);
+      box-shadow: 0 0 10px #0000ff;
+      cursor: pointer;
+    }
+  </style>
 </head>
-<style>
-</style>
-<script>
-
-
-</script>
 
 <body>
-  <div>
-    <h3 style="color:yellow;">dkldlasdla</h3>
-    <h3 style="font-size:20px;line-height:32px;text-align:center;margin:0 auto;">隐私条款</h3>
-    <!-- <h3 >(最后更新: 2019年1月1日)</h3> -->
-  </div>
-
+  <ul>
+    <li>123</li>
+    <li>123</li>
+    <li>123</li>
+    <li>123</li>
+  <li>123</li>
+  </ul>
 </body>
 
+<!-- https://img.jbzj.com/file_images/article/201401/20140114162339.gif?2014014162414 -->
+<div id="img"></div>
+
 </html>
+<style>
+  #img {
+    background: url('https://img.jbzj.com/file_images/article/201401/20140114162339.gif?2014014162414') no-repeat left top;
+    width: 34px;
+    height: 34px;
+  }
+</style>
