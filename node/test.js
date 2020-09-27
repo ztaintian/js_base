@@ -1,7 +1,18 @@
-var fs = require('fs')
-//  fs.readFile('index.txt', (err, data) => {
-//   console.log('读取', data.toString())
-//  })
+var obj = {
+  aa: 1,
+  bb: 2
+}
 
-var value = fs.readFileSync('index.txt', 'utf-8');
-console.log(value)
+var obj2 = {
+  bb: 55,
+  cc: 44
+}
+
+var cc = {
+  ...obj,
+  ...obj2,
+  ...{
+    aa: (() => 999)()
+  }
+}
+console.log(cc)
