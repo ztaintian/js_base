@@ -1,52 +1,327 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <title>css3-放大突出效果</title>
-  <style>
-    ul {
-      display: block;
-    }
-
-    ul li {
-      transition: transform 0.25s ease;
-      float: left;
-      width: 200px;
-      height: 200px;
-      line-height: 200px;
-      text-align: center;
-      margin: 10px;
-      background-color: #00b5e1;
-      list-style: none;
-    }
-
-    ul li:hover {
-      transform: scale(1.2, 1.2);
-      box-shadow: 0 0 10px #0000ff;
-      cursor: pointer;
-    }
-  </style>
-</head>
-
-<body>
-  <ul>
-    <li>123</li>
-    <li>123</li>
-    <li>123</li>
-    <li>123</li>
-  <li>123</li>
-  </ul>
-</body>
-
-<!-- https://img.jbzj.com/file_images/article/201401/20140114162339.gif?2014014162414 -->
-<div id="img"></div>
-
-</html>
+@{
+  Layout = "~/Views/XH2020/_LayoutXH.cshtml";
+}
 <style>
-  #img {
-    background: url('https://img.jbzj.com/file_images/article/201401/20140114162339.gif?2014014162414') no-repeat left top;
-    width: 34px;
-    height: 34px;
-  }
+.question-answer {
+  width: 1100px;
+  margin: 0 auto;
+  border: 3px solid #5D4BEF;
+  border-radius: 5px;
+  background:#2C1E86;
+  margin-top:50px;
+}
+
+.question-tabbar {
+  width: 1010px;
+  margin: 0 auto;
+  height: 75px;
+  line-height: 75px;
+  color:#fff;
+}
+.question-tabbar .all-tab {
+  width: 500px;
+  display: inline-block;
+  height: 100%;
+  cursor:pointer;
+  text-align: center;
+  display:inline-block;
+  background: url('/Content/XH2020/img/allQuestion.png') no-repeat center -20px ;
+}
+.question-tabbar .my-backimage {
+ background: url('/Content/XH2020/img/myQuestion.png') no-repeat center -20px ;
+ margin-left:4px; 
+}
+.all-question {
+  width: 1060px;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+.all-question .question-top {
+  background:#6D53EC;
+  height: 56px;
+  color: #fff;
+}
+.all-question .question-top .refinement {
+  float: left;
+  width: 160px;
+  text-align: center;
+  background: #F7E336;
+  line-height: 56px;
+  color:#522AD9;
+  font-weight:bold;
+  font-size: 16px;
+}
+.refinement-img {
+  width: 27px;
+  height: 25px;
+  display: inline-block;
+  margin-top: -10px;
+  margin-right: 5px;
+}
+.recruitment-img {
+  width: 26px;
+  height: 26px;
+  display: inline-block;
+  margin-top: -2px;
+  margin-right: 5px;
+}
+.all-question .question-top .recruitment-process {
+  float: right;
+  line-height: 56px;
+  font-size: 16px;
+  margin-right: 18px;
+}
+.page-dot {
+  width: 1080px;
+  margin: 0 auto;
+  height: 80px;
+  background: #30178C;
+}
+.question-q {
+  min-height: 60px;
+  padding: 15px 20px 15px 0;
+  background:#FCF3C0;
+  color:#264AE7;
+  padding-left: 56px;
+  font-size: 15px;
+  display:flex;
+  align-items: center;
+}
+.question-q img {
+  margin-right:36px;
+}
+.question-q span {
+  display:inline-block;
+  line-height: 24px;
+  
+}
+.a-color {
+ background:#F4C98D; 
+ color:#323232;
+} 
+.normal-color {
+  background:#E2DDF7;
+  color:#323232;
+}
+.normal-color-q {
+  background: #FFFFFF;
+}
+.a-img {
+  width:52px;
+  height:52px;
+  display:inline-block;
+}
+.question-qa {
+  position:relative;
+}
+.question-img1 {
+  width: 21px;
+  height: 22px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+.question-img2 {
+  width: 21px;
+  height: 22px;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+.question-model {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  margin: 0;
+  border-radius: 0;
+  background: rgba(17, 17, 17, 0.6);
+  transition: all 0.3s;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+}
+.question-model .question-model-content {
+  position:relative;
+  width: 790px;
+  height: 430px;
+  margin: 0 auto;
+  border: 4px solid #5C4CED;
+  background: #390D94;
+  border-radius: 8px;
+}
+.question-model-content .img-top {
+  margin: 0 auto;
+  margin-top: -20px;
+}
+.question-model-content .close-img {
+  position:absolute;
+  top:0px;
+  right:0px;
+  cursor: pointer;
+}
+.model-tabbar {
+  width: 760px;
+  margin:0 auto;
+  color:#fff;
+  margin-top: 30px;
+}
+.model-tabbar span {
+  width: 70px;
+  border-radius: 5px;
+  margin-right:5px;
+  display:inline-block;
+  height:25px;
+  line-height:25px;
+  font-size:12px;
+  text-align:center;
+  cursor:pointer;
+} 
+.model-tabbar .span1 {
+  border: 1px solid #B59DD7;
+  color: #B59DD7;
+}
+.model-tabbar .span2 {
+  border: 1px solid #FFA162;
+  color: #FFA162;
+}
+.model-tabbar .span3 {
+  border: 1px solid #79A5BC;
+  color: #79A5BC;
+}
+.model-tabbar .span4 {
+  border: 1px solid #68C9FC;
+  color: #68C9FC;
+}
+.model-tabbar .span5 {
+  border: 1px solid #60D395;
+  color: #60D395;
+}
+.model-tabbar .active-color {
+  color:#fff;
+}
+.model-tabbar .active-bg {
+  background: #B59DD7;
+}
+.text-area {
+  width: 760px;
+  margin:0 auto;
+  color:#fff;
+  margin-top: 10px;
+  position:relative;
+}
+.text-area textarea {
+  border:0;
+  width: 100%;
+  height:190px;
+  font-size:15px;
+  line-height: 1.5;
+  outline:none;
+  border-radius:5px;
+  padding: 10px 20px;
+  resize: none;
+}
+.text-area-num {
+  position: absolute;
+  right:0;
+  bottom:0;
+  color:#5741D6;
+  right:5px;
+  bottom:5px;
+}
+.model-send {
+  width: 760px;
+  margin:0 auto;
+  display: flex;
+  color: #F7E339;
+  padding-left:20px;
+  margin-top:20px;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+}
+.model-send img {
+  cursor:pointer;
+}
+.page-dot {
+  display: flex;
+  align-items:center;
+  justify-content:center;
+}
+.page-dot .dot {
+  display: inline-block;
+  border-radius:100%;
+  width: 15px;
+  height:15px;
+  margin-right: 8px;
+  background:#6D53EC;
+  cursor:pointer;
+}
+.page-dot .normal-dot {
+  width: 10px;
+  height:10px;
+  background:#999999;
+  align-self:center;
+  margin-top: 2px;
+  cursor:pointer;
+}
 </style>
+<div>
+  <div class="question-answer">
+      <div class="question-tabbar">
+          <!-- <img src="/Content/XH2020/img/icon1.png" /> -->
+          <p class="all-tab"></p>
+          <p class="all-tab my-backimage"></p>
+      </div>
+      <div class="all-question">
+          <div class="question-top">
+              <p class="refinement"><img class="refinement-img" src="/Content/XH2020/img/icon1.png" />加精</p>
+              <p class="recruitment-process"><img class="recruitment-img" src="/Content/XH2020/img/icon2.png" />招聘流程</p>
+          </div>
+          <div class="question-qa">
+              <img class="question-img1" src="/Content/XH2020/img/icon-lt.png" />
+              <p class="question-q"><img class="a-img" src="/Content/XH2020/img/icon-q.png" />
+              <span>方便透露下今年会进那些学校招聘么？</span></p>
+              <p class="question-q a-color"><img class="a-img" src="/Content/XH2020/img/icon-a.png" /><span>同学你好，我们在与各大院校积极联系中。今年有一半以上的院校可以进校。同学你好，我们在与各大院校积极联系中。今年有一半以上的院校可以进校同学你好，我们在与各大院校积极联系中。今年有一半以上的院校可以进校同学你好，我们在与各大院校积极联系中。今年有一半以上的院校可以进校，我们在与各大院校积极联系中。今年有一半以上的院校可以进校同学你好，我们在与各大院校积极联系中。今年有一半以上的院校可以进校，我们在与各大院校积极联系中。今年有一半以上的院校可以进校同学你好，我们在与各大院校积极联系中。今年有一半以上的院校可以进校</span></p>
+              <img class="question-img2" src="/Content/XH2020/img/icon-rb.png" />
+          </div>
+      </div>
+      <div class="all-question">
+          <div class="question-top">
+              <!-- <p class="refinement"><img class="refinement-img" src="/Content/XH2020/img/icon1.png" />加精</p> -->
+              <p class="recruitment-process"><img class="recruitment-img" src="/Content/XH2020/img/icon2.png" />招聘流程</p>
+          </div>
+          <div class="question-qa">
+              <img class="question-img1" src="/Content/XH2020/img/icon-lt.png" />
+              <p class="question-q normal-color-q"><img class="a-img" src="/Content/XH2020/img/icon-q.png" />
+              <span>方便透露下今年会进那些学校招聘么？</span></p>
+              <p class="question-q normal-color"><img class="a-img" src="/Content/XH2020/img/icon-a.png" /><span>同学你好，我们在与各大院校积极联系中。</span></p>
+              <img class="question-img2" src="/Content/XH2020/img/icon-rb.png" />
+          </div>
+      </div>
+      <div class="page-dot">
+          <span class="dot"></span>
+          <span class="dot normal-dot"></span>
+          <span class="dot normal-dot"></span>
+          <span class="dot normal-dot"></span>
+          <span class="dot normal-dot"></span>
+      </div>
+      <div class="question-model" style="display:none;">
+          <div class="question-model-content">
+              <img  class="img-top" src="/Content/XH2020/img/title-twly.png" />
+              <img  class="close-img" src="/Content/XH2020/img/icon-close.png" />
+              <div class="model-tabbar">
+                  <span class="span1 active-color active-bg">企业情况</span><span class="span2">招聘流程</span><span class="span3">薪酬福利</span><span class="span4">职位咨询</span><span class="span5">其它问题</span>
+              </div>
+              <div class="text-area">
+                  <textarea placeholder="在这里详细说明你的问题，以便获得HR更好的解答"></textarea>
+                  <p class="text-area-num">0/500</p>
+              </div>
+              <div class="model-send">※请输入问题描述<img src="/Content/XH2020/img/btn-tw.png" /></div>
+          </div>
+      </div>
+
+  </div>
+
+</div>
