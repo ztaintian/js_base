@@ -2,18 +2,38 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>css布局两端固定中间自适应</title>
 </head>
 <style>
 	*{margin:0;padding:0;}
-	.left{float:left;width:200px;height:100px;background:red;}
-	.right{float:right;width:200px;height:100px;background:red;}
+	/* float布局 */
+	/* .left{float:left;width:200px;height:100px;background:red;}
 	.center{height:100px;width:100%; background: yellow; margin:0 200px;}
+	.right{float:right;width:200px;height:100px;background:red;} */
+
+	/* flex布局 */
+	.container {
+		display: flex;
+	}
+	.left{width:200px;height:100px;background:red;}
+	/* .center{height:100px;width:100%; background: yellow;} */
+	.center{height:100px;flex:1; background: yellow;}
+	.right{width:200px;height:100px;background:red;}
+
 </style>
 <body>
-	<div class="right">右边</div>
-	<div class="left">左端</div>
-	<div class="center">中间</div>
+	<!-- float布局  -->
+	<!-- <div class="container">
+		<div class="right">右边</div>
+		<div class="left">左端</div>
+		<div class="center">中间</div>
+	</div> -->
+
+	<div class="container">
+		<div class="left">左端</div>
+		<div class="center">中间</div>
+		<div class="right">右边</div>
+	</div>
 	<a href="http://www.cnblogs.com/zhrn/p/4464773.html">参考链接</a>
 </body>
 </html>
