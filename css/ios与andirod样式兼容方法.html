@@ -1,0 +1,42 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>ios与andirod样式兼容方法</title>
+ </head>
+ <body>
+   <a href="https://blog.csdn.net/a772116804/article/details/78627934">1、css判断iPhone样式</a>
+   <p>
+    @media (device-height:480px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone4/4s */
+      .class{}
+    }
+    @media (device-height:568px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone5/SE */
+      .class{}
+    }
+    
+    ip6+的CSSmediaquery
+    
+    @media (device-height:667px) and (-webkit-min-device-pixel-ratio:2){
+    
+    /* 兼容iphone6、iphone7、iphone8*/
+    .class{}
+    
+    }
+    
+    @media (device-height:736px) and (-webkit-min-device-pixel-ratio:2){
+    
+    /* 兼容iphone6plus、iphone7plus、iphone8plus*/
+    .class{}
+    
+    }
+    
+    @media (device-height:812px) and (-webkit-min-device-pixel-ratio:2){
+    
+    /* 兼容iphoneX*/
+    .class{}
+    
+    }
+ </body>
+ </html>

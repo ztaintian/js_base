@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>图片毛玻璃效果</title>
+</head>
+<style>
+	img{
+		filter: blur(20px);
+	}
+</style>
+<body>
+	<img style="width:200px;height:200px;" src="./images/test.JPG" alt="">
+	<button id="change" type="">切换清晰图片</button>
+</body>
+<script>
+	var  cahngeDom = document.querySelector('#change');
+	var img = document.querySelector('img');
+	cahngeDom.addEventListener('click',function(){
+		img.style.filter = 'blur(0px)';
+	})
+</script>
+</html>

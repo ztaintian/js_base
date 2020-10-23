@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>transition</title>
+</head>
+<style>
+  div {
+    height: 100px;
+    width: 10px;
+    background: red;
+    transition: width 2s, height 2s, transform 2s;
+  }
+  div:hover{
+    width: 100px;
+    height: 100px;
+    transform:translateX(20px);
+  }
+</style>
+<body>
+  <div>transition</div>
+</body>
+</html>

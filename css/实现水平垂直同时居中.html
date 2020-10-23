@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>CSS实现水平垂直同时居中</title>
+</head>
+<style>
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		/*5、第五种方法*/
+		/* display: grid;
+		height: 100vh;
+		margin: 0;
+		place-items: center center; */
+		/*6、第六种方法*/
+		display: flex;
+	}
+
+	/*1、第一种方法*/
+	/*	.son{
+			position: absolute;
+			width:100px;
+			height:100px;
+			background: red;
+			top:0;
+			bottom:0;
+			left:0;
+			right:0;
+			margin:auto;
+		}*/
+
+	/*2、第二种方法*/
+	/*	.son{
+			position:absolute;
+			top:50%;
+			left:50%;
+			margin-top: -50px;
+			margin-left: -50px;
+			width:100px;
+			height:100px;
+			background: red;
+		}*/
+
+	/*3、第三种方法*/
+	/*		html,body{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.son{
+			width:100px;
+			height:100px;
+			background: red;
+		}
+*/
+	/*4、第四种方法*/
+	/*	.son{
+		 	position: absolute;   
+		    top: 50%;   
+		    left: 50%;   
+		    transform: translate(-50%,-50%);  
+		    width:100px;
+			height:100px;
+			background: red;
+		}*/
+	/*5、第五种方法*/
+	/* .son {
+		width: 100px;
+		height: 100px;
+		background: red;
+	} */
+	/*6、第六种方法*/
+	.son {
+		width: 100px;
+		height: 100px;
+		background: red;
+		margin: auto;
+	}
+</style>
+
+<body>
+	<div class="son"></div>
+</body>
+
+</html>

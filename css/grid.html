@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>grid布局</title>
+</head>
+<style>
+  .container {
+    display: grid;
+    height:200px;
+    grid-template-columns: 40px 50px auto 50px 40px;
+    grid-template-rows: 25% 100px auto;
+    justify-items: center;
+    align-items: center;
+  }
+  .item-1{
+    background: red;
+  }
+  .item-2{
+    background: #eee;
+  }
+  .item-3{
+    background: blue;
+  }
+  .item-4{
+    background: #f1f1f1;
+  }
+  .item-5{
+    background: yellow;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <div class="item item-1">1111</div>
+    <div class="item item-2">222</div>
+    <div class="item item-3">333</div>
+    <div class="item item-4">333</div>
+    <div class="item item-5">333</div>
+    <div class="item item-5">333</div>
+  </div>
+</body>
+
+</html>
