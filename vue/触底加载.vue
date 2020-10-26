@@ -1,6 +1,6 @@
 <template>
 <!-- // 组件不能直接使用 -->
-  <div ref="container" style="height:100%;overflow: auto;  -webkit-overflow-scrolling: touch;">
+  <div ref="container" style="height:100%;overflow: auto;-webkit-overflow-scrolling: touch;">
     <!--xxxxxxxx top 广告bg+搜索 xxxxxxxx -->
     <div ref="inner">
       <div class="home-top">
