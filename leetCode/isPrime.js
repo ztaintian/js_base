@@ -13,6 +13,7 @@ var isPrime = function (num) {
 
   let divisor = 3, limit = Math.sqrt(num);
   while (limit >= divisor) {
+    console.log(num)
     if (num % divisor === 0) {
       return false;
     } else {
@@ -21,4 +22,4 @@ var isPrime = function (num) {
   }
   return true;
 }
-console.log(isPrime(11)); // false
+console.log(isPrime(28)); // false
