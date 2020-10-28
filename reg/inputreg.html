@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 限制input输入数字只能输入正整数（不包括0） -->
+  <input v-model="item.limit"
+    v-on:input="if(item.limit.length==1){item.limit=item.limit.replace(/[^1-9]/,'')}else{item.limit=item.limit.replace(/\D/g,'')}"
+    placeholder="输入非0整数" style="width:100px;height:20px;margin:0 10px;" type="text" />
+</body>
+
+</html>
