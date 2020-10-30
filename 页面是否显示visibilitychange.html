@@ -9,7 +9,7 @@
 <script>
 document.addEventListener('visibilitychange', function() {
   console.log(document.visibilityState)
-  if (document.visibilityState === 'visible') {
+  if (!document.hidden) {
     document.title='欢迎回来';
   } else {
     document.title='不要离开我';
