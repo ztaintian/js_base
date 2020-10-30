@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>页面是否显示visibilitychange</title>
+</head>
+<script>
+document.addEventListener('visibilitychange', function() {
+  console.log(document.visibilityState)
+  if (document.visibilityState === 'visible') {
+    document.title='欢迎回来';
+  } else {
+    document.title='不要离开我';
+  }
+}, false);
+</script>
+
+<body>
+
+</body>
+
+</html>
