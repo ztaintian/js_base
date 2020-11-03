@@ -2,29 +2,47 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <script>
-    // 快排
-    var aa = [44,5,3,44,545,453424,24]
-    var quickSort = function(aa) {
-        var temp,leftArr = [],rightArr = [];
-        if (aa.length<=1) {
-            return aa
+  // 快排
+  function _get(obj, path, defaultVal) {
+    let newPath = path;
+    let result = {
+      ...obj
+    };
+    if (typeof path === "string") {
+      if (path.includes(".")) {
+        // 如果含有数组选项
+        if (path.includes("[")) {
+          newPath = newPath.replace(/\[(\w)+\]/g, ".$1");
         }
-        temp = aa.splice(0,1)[0];
-        aa.map((item) => {
-            if (item>temp) {
-                rightArr.push(item)
-            } else {
-                leftArr.push(item)
-            }
-        })
-    return [...quickSort(leftArr), ...[temp], ...quickSort(rightArr)]
+        newPath = newPath.split(".");
+      } else {
+        newPath = [path];
+      }
     }
-    console.log(quickSort(aa))
+    for (let i = 0; i < newPath.length; i++) {
+      let currentKey = newPath[i];
+      result = result[currentKey];
+      if (typeof result === "undefined") {
+        result = defaultVal;
+        break;
+      }
+    }
+
+    return result;
+  };
+
+  const data = {
+    a: {
+      b: [1, 2, 3]
+    }
+  };
+
+  console.log(_get(data, "a.b[4]", 20));
 </script>
 
 <body>
