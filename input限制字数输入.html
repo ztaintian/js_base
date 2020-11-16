@@ -17,6 +17,8 @@
   <textarea name="note" class="limit_100 advice" id="wishContent" placeholder="说点什么...<=20个字符以内"
     dragonfly="true"></textarea>
   <p class="limit statistics" style="color: red;"></p>
+
+  <textarea placeholder="限定300字"  onchange="this.value=this.value.substring(0, 200)" onkeydown="this.value=this.value.substring(0, 200)" onkeyup="this.value=this.value.substring(0, 200)"   class="layui-textarea"></textarea>
 </body>
 <script>
   /*texarea监听限制字数*/
