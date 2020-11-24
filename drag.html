@@ -39,14 +39,14 @@
   var draging = null;
   //使用事件委托，将li的事件委托给ul
   node.ondragstart = function (event) {
-    //console.log("start");
+    console.log("start");
     //firefox设置了setData后元素才能拖动！！！！
     event.dataTransfer.setData("te", event.target.innerText); //不能使用text，firefox会打开新tab
     //event.dataTransfer.setData("self", event.target);
     draging = event.target;
   }
   node.ondragover = function (event) {
-    //console.log("onDrop over");
+    console.log("onDrop over");
     event.preventDefault();
     var target = event.target;
     //因为dragover会发生在ul上，所以要判断是不是li
