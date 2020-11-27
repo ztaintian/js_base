@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .cartData {
+    height: .75rem;
+    min-width: .75rem;
+    border-radius: .375rem;
+    background: red;
+    color: white;
+    text-align: center;
+    line-height: .75rem;
+  }
+
+  .Num {
+    font-size: 20px;
+    transform: scale(0.5);
+  }
+</style>
+
+<body>
+  <div v-if="cartNum>=1" class="cartData">
+    <div class="Num" v-if="cartNum>=1&&cartNum<=99">{{cartNum}}</div>
+    <div class="Num" v-else-if="cartNum>99">99+</div>
+  </div>
+</body>
+
+</html>
