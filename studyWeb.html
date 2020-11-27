@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学习网站</title>
+</head>
+<style>
+  [v-cloak] {
+    display: none;
+  }
+</style>
+
+<body>
+  <div id="vueApp" v-cloak>
+    <div class="list" v-for="(item,index) in dataList" :key="index">
+      <div>{{item.title}}</div>
+      <div v-for="(itemC,indexC) in item.webList">
+        <a :href="itemC.url">{{itemC.name}}</a>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+  new Vue({
+    el: '#vueApp',
+    data() {
+      return {
+        dataList: [{
+          title: 'java',
+          webList: [{
+            name: 'Spring MVC',
+            url: 'http://c.biancheng.net/view/4391.html',
+          }]
+        }]
+      }
+    },
+    mounted() {
+      console.log(111)
+    }
+  })
+</script>
+
+</html>
