@@ -19,5 +19,16 @@
 // })
 
 // console.log(tempObj)
-var aa = Object.assign({},'123')
-console.log(aa)
+// var aa = Object.assign({},'123')
+// console.log(aa)
+
+// 循环拿obj的值
+
+var obj = {
+  name: 'xiaoming',
+  age: '18'
+}
+
+for (let value in obj) {
+  console.log('value', value, `obj[${value}]`, obj[value])
+}
