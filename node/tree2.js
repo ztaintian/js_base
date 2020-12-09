@@ -28,20 +28,20 @@
 var preorderTraversal = function (root) {
   let result = [];
   (function func(root) {
-    if (root)
-      
-    if (root && root.left) {
-      func(root.left);//递归
-    }
-    result.push(root.val);
-    if (root && root.right) {
-      func(root.right);//递归
+    if (root) {
+      if (root && root.left) {
+        func(root.left); //递归
+      }
+      result.push(root.val);
+      if (root && root.right) {
+        func(root.right); //递归
+      }
     }
   })(root);
   return result;
 };
 var root = {
-  val: 2,
+  val: 88,
   left: {
     val: 5
   },
