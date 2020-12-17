@@ -29,7 +29,7 @@
     // document.body.removeChild(elink);
 
     var blob = new Blob([rsp]);
-    if (navigator.msSaveBlob) {// ie10 以上兼容 Internet Explorer 10 的 msSaveBlob 和 msSaveOrOpenBlob 方法允许用户在客户端上保存文件
+    if (navigator.msSaveBlob) { // ie10 以上兼容 Internet Explorer 10 的 msSaveBlob 和 msSaveOrOpenBlob 方法允许用户在客户端上保存文件
       navigator.msSaveBlob(blob, "标准模板.xls");
     } else { // 兼容google
       var reader = new FileReader();
@@ -45,8 +45,31 @@
       };
     }
   })
-
-
+  exportExcel() {
+    // 导出
+    this.Ajax({
+      method: "post",
+      url: "/jp/positionTemp/export", // 请求地址
+      data: {
+        title: this.searchData.title
+      }, // 参数
+      responseType: "blob"
+    }).then(response => {
+      const blob = new Blob([response.data], {
+        type: "application/vnd.ms-excel"
+      });
+      let filename = "职位模板管理.xls";
+      // 创建一个超链接，将文件流赋进去，然后实现这个超链接的单击事件
+      const elink = document.createElement("a");
+      elink.download = filename;
+      elink.style.display = "none";
+      elink.href = URL.createObjectURL(blob);
+      document.body.appendChild(elink);
+      elink.click();
+      URL.revokeObjectURL(elink.href); // 释放URL 对象
+      document.body.removeChild(elink);
+    });
+  }
 </script>
 
 <body>
