@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,14 +19,17 @@
   export var nameReg = /^[\u4E00-\u9FA5\uf900-\ufa2d·s]{2,20}$/
   export var sixNumReg = /^\d{6}$/
   export var emailReg = /^\w+@[a-z0-9]+\.[a-z]+$/i
-  'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAZABk'.replace(/^.*?,/,'')
+  export var letterRegs = /^[a-zA-Z]{0,}$/ //匹配0到30个字母
+  export var numRegs = /^\d/ // 只能输入数字
+  'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAZABk'.replace(/^.*?,/, '') // 去掉data:image/jpeg;base64,头
   // 数字校验大于0 包括0
   var zzsReg = /^(\d+|0)(\.[0-9]\d+)*$/;
   // 特殊校验 '000' '000999' 可以直接使用Number去掉前面的00
   var str = Number('000099') // 99
-
 </script>
+
 <body>
-  
+
 </body>
+
 </html>
