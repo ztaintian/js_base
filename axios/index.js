@@ -1,13 +1,13 @@
-var name = "The Window";
+function foo() {
+  var a = 1;
 
-var object = {
-  name: "My Object",
-  getNameFunc: function () {
-    var that = this
-    return function () {
-      return that.name;
-    };
+  function bar() {
+    a++;
+    console.log(a)
   }
-};
-
-console.log(object.getNameFunc()());
+  return bar
+}
+var b = foo()
+setInterval(function () {
+  b()
+}, 1000)

@@ -14,25 +14,26 @@
   <div id="id2" type="text">ddas2</div>
 </body>
 <script>
-  window.onload = function () {
-    for (var i = 0; i < 3; i++) {
-      document.getElementById('id' + i).onclick = (function (i) { //保存于外部函函数
-        return function () {
-          alert(i);
-        }
-      })(i);
-    }
-    //可用闭包解决
-    // function makeCallback(num) {
-    //   return function () {
-    //     alert(num);
-    //   };
-    // }
-    // for (var i = 0; i < 3; i++) {
-    //   document.getElementById('id' + i).onfocus = makeCallback(i);
-    // }
+  // function foo() {
+  //   var a = 1;
 
+  //   function bar() {
+  //     a++;
+  //     console.log(a)
+  //   }
+  //   return bar
+  // }
+  // var b = foo()
+  // setInterval(function () {
+  //   b()
+  // }, 1000)
+  var a = [];
+  for (let i = 0; i < 10; i++) {
+    a[i] = function () {
+      console.log(i);
+    };
   }
+  a[6]()
 </script>
 
 </html>
