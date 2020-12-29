@@ -9,9 +9,15 @@
 
 <body>
   <!-- 限制input输入数字只能输入正整数（不包括0） -->
-  <input v-model="item.limit"
-    v-on:input="if(item.limit.length==1){item.limit=item.limit.replace(/[^1-9]/,'')}else{item.limit=item.limit.replace(/\D/g,'')}"
-    placeholder="输入非0整数" style="width:100px;height:20px;margin:0 10px;" type="text" />
+  <input
+    onchange="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/,'')}else{this.value=this.value.replace(/\D/g,'')}"
+    placeholder="输入非0整数" type="text" />
+
+
+  <!-- 0-10的整数 -->
+  <input
+    onchange="if(this.value>10){this.value=10}else{this.value=this.value.replace(/[^\d]/g,'')}if(this.value.indexOf(0)==0){this.value=0}"
+    v-model="this.value" placeholder="请输入" style="margin-left:10px;" />
 </body>
 
 </html>
