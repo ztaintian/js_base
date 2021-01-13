@@ -1,18 +1,28 @@
-var choice = function (arr) {
-  for (var i = 0; i < arr.length; i++) {
-    var min = arr[i + 1],
-      minIndex = i + 1;
-    for (var j = i + 1; j < arr.length; j++) {
-      if (arr[j] < min) {
-        minIndex = j;
-        min = arr[j];
-      }
-    }
-    if (arr[i] > arr[minIndex]) {
-      [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]]
-    }
-  }
-  return arr;
-}
-var arr = [13, 5545, 667, 7677, 43, 2, 5, 3, 2]
-console.log(choice(arr))
+const Koa = require('koa');
+const app = new Koa();
+
+// x-response-time
+
+app.use(async (ctx, next) => {
+  const start = Date.now();
+  await next();
+  const ms = Date.now() - start;
+  ctx.set('X-Response-Time', `${ms}ms`);
+});
+
+// logger
+
+app.use(async (ctx, next) => {
+  const start = Date.now();
+  await next();
+  const ms = Date.now() - start;
+  console.log(`${ctx.method} ${ctx.url} - ${ms}`);
+});
+
+// response
+
+app.use(async ctx => {
+  ctx.body = 'Hello World';
+});
+
+app.listen(3000);

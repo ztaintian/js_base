@@ -1,39 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>JS实现点击Div闪烁效果</title>
+  <style type="text/css">
+    #box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      color: #fff;
+      width: 200px;
+      height: 200px;
+      background: red;
+      cursor: pointer;
+      letter-spacing: 5px;
+      text-align: center;
+      font: 12px/200px Arial;
+      margin: -100px 0 0 -100px;
+    }
+  </style>
+  <script type="text/javascript">
+    window.onload = function () {
+      var oBox = document.getElementById("box");
+      var timer = null;
+      oBox.onclick = function () {
+        var i = 0;
+        clearInterval(timer);
+        timer = setInterval(function () {
+          oBox.style.display = i++ % 2 ? "none" : "block";
+          i > 20 && (clearInterval(timer))
+        }, 80)
+      }
+    };
+  </script>
 </head>
 
 <body>
-  <div id="id0" type="text">dsadad</div>
-
-  <div id="id1" type="text">ddas2</div>
-  <div id="id2" type="text">ddas2</div>
+  <a style='box-shadow:0+0+0+200px#b5e0ba,0+0+0+5in#5d3a3a'>
 </body>
-<script>
-  // function foo() {
-  //   var a = 1;
-
-  //   function bar() {
-  //     a++;
-  //     console.log(a)
-  //   }
-  //   return bar
-  // }
-  // var b = foo()
-  // setInterval(function () {
-  //   b()
-  // }, 1000)
-  var a = [];
-  for (let i = 0; i < 10; i++) {
-    a[i] = function () {
-      console.log(i);
-    };
-  }
-  a[6]()
-</script>
 
 </html>
