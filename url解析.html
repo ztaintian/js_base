@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,19 +8,23 @@
   <title>url解析</title>
 </head>
 <script>
-    var getUrlParam = (url) => {
-      var params = {}
-      var urls = url.split('?')
-      var arr = urls[1].split('&')
-      for (var i = 0, l = arr.length; i < l; i++) {
-        var a = arr[i].split('=')
-        params[a[0]] = a[1]
-      }
-      return params
+  var url =
+    'http://localhost:6060/#/RoleManagement/addRole?roleId=b8639729-45f5-4b13-af2c-625b1e58fafb&roleName=xiaoming'
+  var getUrlParam = (url) => {
+    var params = {}
+    var urls = url.split('?')
+    var arr = urls[1].split('&')
+    for (var i = 0, l = arr.length; i < l; i++) {
+      var a = arr[i].split('=')
+      params[a[0]] = a[1]
     }
-
+    return params
+  }
+  console.log(getUrlParam(url).roleId)
 </script>
+
 <body>
-  
+
 </body>
+
 </html>
