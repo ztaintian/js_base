@@ -1,28 +1,12 @@
-const Koa = require('koa');
-const app = new Koa();
-
-// x-response-time
-
-app.use(async (ctx, next) => {
-  const start = Date.now();
-  await next();
-  const ms = Date.now() - start;
-  ctx.set('X-Response-Time', `${ms}ms`);
-});
-
-// logger
-
-app.use(async (ctx, next) => {
-  const start = Date.now();
-  await next();
-  const ms = Date.now() - start;
-  console.log(`${ctx.method} ${ctx.url} - ${ms}`);
-});
-
-// response
-
-app.use(async ctx => {
-  ctx.body = 'Hello World';
-});
-
-app.listen(3000);
+var arr = [424, 43, 4346, 656, 767, 6565, 545]
+var bubleSort = function (arr) {
+  for (var i = 0; i < arr.length; i++) {
+    for (var j = 0; j < arr.length - 1 - i; j++) {
+      if (arr[j]>arr[j+1]) {
+        [arr[j],arr[j+1]] = [arr[j+1],arr[j]]
+      }
+    }
+  }
+  return arr
+}
+console.log(bubleSort(arr))
