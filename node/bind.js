@@ -1,12 +1,12 @@
-// Function.prototype.myBind = function (context) {
-//   context = context || window
-//   context.fn = this
-//   var args = [...arguments].slice(1)
-//   return function () {
-//     context.fn(...args)
-//     delete context.fn
-//   }
-// }
+Function.prototype.myBind = function (context) {
+  context = context || window
+  context.fn = this
+  var args = [...arguments].slice(1)
+  return function () {
+    context.fn(...args)
+    delete context.fn
+  }
+}
 
 // var obj = {
 //   name: 'gg'

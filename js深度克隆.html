@@ -20,7 +20,7 @@
     for (key in obj) {
       var copy = obj[key];
       if (isClass(copy) == "Object") {
-        result[key] = deepClone(copy);//递归调用
+        result[key] = deepClone(copy); //递归调用
       } else if (isClass(copy) == "Array") {
         result[key] = deepClone(copy);
       } else {

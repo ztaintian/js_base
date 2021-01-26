@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +10,8 @@
 <script>
   // 冒泡排序
   var maoPaoSort = function (arr) {
-    for (var i=0;i<arr.length;i++) {
-      for (var k=i+1;k<arr.length;k++) {
+    for (var i = 0; i < arr.length; i++) {
+      for (var k = i + 1; k < arr.length; k++) {
         if (arr[i] > arr[k]) {
           [arr[i], arr[k]] = [arr[k], arr[i]]
         }
@@ -18,7 +19,7 @@
     }
     return arr
   }
-  var arr = [3,6,5645,5,3,7,8,1]
+  var arr = [3, 6, 5645, 5, 3, 7, 8, 1]
   // 数组去重
   var quchong = function (arr) {
     var obj = {}
@@ -33,7 +34,9 @@
   }
   console.log(quchong(arr))
 </script>
+
 <body>
-  
+
 </body>
+
 </html>

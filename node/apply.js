@@ -34,7 +34,7 @@
 // }
 
 Function.prototype.myApply = function(context) {
-  contxet = context || global;
+  contxet = context || window;
   contxet.fn = this;
   var result;
   if (arguments[1]) {

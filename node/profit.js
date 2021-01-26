@@ -1,4 +1,4 @@
-var arr = [-1,66,777,33,555]
+var arr = [-1, 66, 777, 33, 555]
 //方法一es5
 // var getProfit = function(arr){
 // 	var minPrice = arr[0]
@@ -16,4 +16,4 @@ var arr = [-1,66,777,33,555]
 //方法二  es6
 var minProfit = Math.min(...arr)
 var maxProfit = Math.max(...arr)
-console.log(maxProfit - minProfit)
+console.log(minProfit, maxProfit, maxProfit - minProfit)
