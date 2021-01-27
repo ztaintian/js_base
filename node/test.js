@@ -1,6 +1,14 @@
-var arr = ["zuojj", "benjamin", "www.zuojj.com"];
+var man;
+(function () {
+  function Father(name) {
+    this.name = name;
+  }
+  Father.prototype.sayName = function () {
+    console.log(this.name);
+  }
+  man = new Father('aoyo');
+})()
+console.log(man.name)
+man.sayName(); // aoyo
 
-//Outputs: ["0", "1", "2"]  
-Object.keys(arr).map((item) => {
-  console.log(arr[item])
-});
+// console.log(Father); // Father is not defined

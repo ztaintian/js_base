@@ -1,3 +1,5 @@
+// js 宏任务和微任务 https://www.cnblogs.com/ckAng/p/11133643.html
+
 console.log(1)
 setTimeout(function() {
   console.log(2)
