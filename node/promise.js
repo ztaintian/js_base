@@ -1,136 +1,88 @@
-// var NewPromise = function (fn) {
-//   var that = this;
-//   that.arr = ''
-//   fn(resolve)
-//   function resolve(params) {
-//     that.arr = params;
-//   }
-//   this.then = function (thPar) {
-//     thPar(that.arr)
-//   }
-
-// }
-// var p1 = new NewPromise(function (resolve) {
-//   resolve('快快快快快')
-// })
-// p1.then(function (response) {
-//   console.log(response)
-// })
-
 /**
- * 串行的Promise
- * 1.then方法会返回一个新的promise
- * 2.串行Promise是指在当前promise达到fulfilled状态后，即开始进行下一个promise
- */
+ * Promise类实现原理
+ * 构造函数传入一个function，有两个参数，resolve：成功回调; reject：失败回调
+ * state: 状态存储 [PENDING-进行中 RESOLVED-成功 REJECTED-失败]
+ * doneList: 成功处理函数列表
+ * failList: 失败处理函数列表
+ * done: 注册成功处理函数
+ * fail: 注册失败处理函数
+ * then: 同时注册成功和失败处理函数
+ * always: 一个处理函数注册到成功和失败
+ * resolve: 更新state为：RESOLVED，并且执行成功处理队列
+ * reject: 更新state为：REJECTED，并且执行失败处理队列
+**/
 
-
-// 首先我们来实现then方法返回一个新的promise，我们只需要在then方法中返回一个新的promise即可
-function MyPromise(fn) {
-  var value = null;
-  var status = 'pending';
-  var deferreds = [];
-  this.then = function (onFulfilled) {
-
-    // 我们只需要在此处返回一个新的promise即可。but返回的promise和当前promise中的注册函数需要建立什么关系？
-    // 来看一下我们如何将返回的promise和当前的promise捆绑在一起的
-    return new MyPromise(resolve => {
-      if (status === 'pending') {
-        deferreds.push({   // 我们将当前promise的回调函数（onFulfilled）和 返回的新promise的resolve绑在一起，扔到当前deferreds的队列中
-          onFulfilled: onFulfilled,
-          resolve: resolve
-        });
-      } else {
-        var res = onFulfilled(value);
-        resolve(res);
-      }
-    })
-
+class PromiseNew {
+  constructor(fn) {
+    this.state = 'PENDING';
+    this.doneList = [];
+    this.failList = [];
+    fn(this.resolve.bind(this), this.reject.bind(this));
   }
 
-  function resolve(v) {
+  // 注册成功处理函数
+  done(handle) {
+    if (typeof handle === 'function') {
+      this.doneList.push(handle);
+    } else {
+      throw new Error('缺少回调函数');
+    }
+    return this;
+  }
+
+  // 注册失败处理函数
+  fail(handle) {
+    if (typeof handle === 'function') {
+      this.failList.push(handle);
+    } else {
+      throw new Error('缺少回调函数');
+    }
+    return this;
+  }
+
+  // 同时注册成功和失败处理函数
+  then(success, fail) {
+    this.done(success || function () { }).fail(fail || function () { });
+    return this;
+  }
+
+  // 一个处理函数注册到成功和失败
+  always(handle) {
+    this.done(handle || function () { }).fail(handle || function () { });
+    return this;
+  }
+
+  // 更新state为：RESOLVED，并且执行成功处理队列
+  resolve() {
+    this.state = 'RESOLVED';
+    let args = Array.prototype.slice.call(arguments);
     setTimeout(function () {
-      value = v;
-      status = 'fulfilled'
-      deferreds.forEach(function (deferred) {
-        // 当回调函数触发的时候，我们得到回调函数的返回值，并调用绑定的下一个promise的resolve方法
-        // 此时完成了当前promise达到fulfilled状态后，即开始进行下一个promise的功能
-        var res = deferred.onFulfilled(value);
-        deferred.resolve(res);
-      })
-    }, 0)
+      this.doneList.forEach((item, key, arr) => {
+        item.apply(null, args);
+        arr.shift();
+      });
+    }.bind(this), 200);
   }
 
-  fn(resolve);
+  // 更新state为：REJECTED，并且执行失败处理队列
+  reject() {
+    this.state = 'REJECTED';
+    let args = Array.prototype.slice.call(arguments);
+    setTimeout(function () {
+      this.failList.forEach((item, key, arr) => {
+        item.apply(null, args);
+        arr.shift();
+      });
+    }.bind(this), 200);
+  }
 }
 
-// 下面我们写段代码验证一下
-var p1 = new MyPromise(resolve => {
-  setTimeout(() => { resolve('1') }, 2000)
-})
-p1.then((res) => {
+// 下面一波骚操作
+new PromiseNew((resolve, reject) => {
+  resolve('hello world');
+  // reject('you are err');
+}).done((res) => {
   console.log(res);
-  return '2';
-}).then((res) => {
+}).fail((res) => {
   console.log(res);
-}).then(() => {
-  console.log('3');
 })
-
-// 完美，我们依次打印出了1，2，3。但是我们还剩一个问题没有解决。就是在then的回调函数中，返回值有可能是个promise，
-// 如果then的回调函数的返回值是个promise，那then返回的promise的内部value就应该是then的回调函数返回的promise的内部值
-// 我们应该怎么做呢。其实，很简单，我们从resolve方法做手脚，上边的例子我们已经实现了回调函数的返回值，会传给下一个promise的resolve方法。
-// 我们在resolve中判断接受到的值是一个普通的值，还是一个promise。如果不是promise，逻辑保持不变。如果是promise，则我们调用这个promise的then方法
-// 通过调用这个promise的then方法，把当前的resolve变成这个promise的回调函数。
-
-// function MyPromise(fn) {
-//   var value = null;
-//   var status = 'pending';
-//   var deferreds = [];
-//   this.then = function (onFulfilled) {
-//     return new MyPromise(resolve => {
-//       if (status === 'pending') {
-//         deferreds.push({
-//           onFulfilled: onFulfilled,
-//           resolve: resolve
-//         });
-//       } else {
-//         var res = onFulfilled(value);
-//         resolve(res);
-//       }
-//     })
-
-//   }
-
-//   function resolve(v) {
-//     setTimeout(function () {
-//       if (v instanceof MyPromise) {
-//         v.then(resolve);   // 如果v是一个promise，那就会等待v这个promise成完成态的时候，再次触发当前promise的resolve方法。
-//       } else {
-//         value = v;
-//         status = 'fulfilled'
-//         deferreds.forEach(function (deferred) {
-//           var res = deferred.onFulfilled(value);
-//           deferred.resolve(res);
-//         })
-//       }
-//     }, 0)
-//   }
-
-//   fn(resolve);
-// }
-
-
-// // 实验成果的时候到了。我们看看下面这段代码的输出
-// var p1 = new MyPromise(resolve => {
-//   setTimeout(() => { resolve('1') }, 2000)
-// })
-// p1.then((res) => {
-//   console.log(res);
-//   return new MyPromise(resolve => { setTimeout(() => resolve('2'), 3000) })
-// }).then((res) => {
-//   console.log(res);
-// }).then(() => {
-//   console.log('3');
-// })
-
-
