@@ -1,15 +1,9 @@
-function traceMethodCalls(obj) {
-  const handler = {
-    get(target, propKey, receiver) {
-      const origMethod = target[propKey]; // 获取原始方法
-      return function (...args) {
-        const result = origMethod.apply(this, args);
-        console.log(
-          propKey + JSON.stringify(args) + " -> " + JSON.stringify(result)
-        );
-        return result;
-      };
-    },
-  };
-  return new Proxy(obj, handler);
+var arr = [323, [22, 3, 2, [32, 43]], 4, 5, 3, 3, 21, 2, 3, 2]
+
+function cc(arr) {
+  return arr.reduce((acc, cur) => {
+    return acc.concat(Array.isArray(cur) ? cc(cur) : cur)
+  }, [])
 }
+
+console.log(cc(arr))

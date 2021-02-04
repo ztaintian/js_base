@@ -33,6 +33,14 @@
 // }, [])
 // // [1,2,3,4,5,6]
 
+// 数组扁平化
+var arr = [323, [22, 3, 2, [32, 43]], 4, 5, 3, 3, 21, 2, 3, 2]
+
+function cc(arr) {
+  return arr.reduce((acc, cur) => {
+    return acc.concat(Array.isArray(cur) ? cc(cur) : cur)
+  }, [])
+}
 
 // 计算数组中每个元素出现的个数
 const testArr = [1, 3, 4, 1, 3, 2, 9, 8, 5, 3, 2, 0, 12, 10]
@@ -48,7 +56,7 @@ testArr.reduce((acc, cur) => {
 // {0: 1, 1: 2, 2: 2, 3: 3, 4: 1, 5: 1, 8: 1, 9: 1, 10: 1, 12: 1}
 
 // 数组去重
-const testArr = [1,2,2,3,4,4,5,5,5,6,7]
+const testArr = [1, 2, 2, 3, 4, 4, 5, 5, 5, 6, 7]
 testArr.reduce((acc, cur) => {
   if (!(acc.includes(cur))) {
     acc.push(cur)

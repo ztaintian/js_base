@@ -24,7 +24,7 @@
 
 // 循环拿obj的值
 
-var obj = {
+let obj = {
   name: 'xiaoming',
   age: '18'
 }
