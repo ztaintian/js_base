@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script>
+  /**
+   * 字符串隐藏部分内容
+   * 说明：实现一个方法，接收一个字符串和一个符号，将字符串中间四位按指定符号隐藏
+   *   1. 符号无指定时使用星号（*）
+   *   2. 接收的字符串小于或等于四位时，返回同样长度的符号串，等同于全隐藏，如 123，隐藏后是 ***
+   *   3. 字符串长度是大于四位的奇数时，如 123456789，隐藏后是 12****789，奇数多出来的一位在末尾
+   * 示例：
+   *   mask('blibaba', '#');  // b####ba
+   *   mask('05716666');   // 05****66
+   *   mask('hello');  // ****o
+   *   mask('abc', '?');  // ???
+   *   mask('哔里巴巴集团', '?'); // 哔????团
+   */
+  function mask(str, char = "*") {
+    if (str.length <= 4) return char.repeat(str.length);
+    /* 代码实现 */
+    let result = "";
+    let i = Math.floor(str.length / 2) - 1;
+    let j = Math.floor(str.length / 2);
+
+    while (result.length !== str.length) {
+      if (j - i <= 4) {
+        result = char + result;
+        result += char;
+      } else {
+        result = (str[i] || "") + result;
+        result += str[j];
+      }
+      i--;
+      j++;
+    }
+    return result;
+  }
+  console.log(mask('2'))
+</script>
+
+<body>
+
+</body>
+
+</html>
