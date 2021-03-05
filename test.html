@@ -13,12 +13,17 @@
   <div class="clikMe">click me</div>
 </body>
 <script type="text/javascript">
-  var clickMeDom = document.querySelectorAll('.clikMe')
-  for (var i = 0; i < clickMeDom.length; i++) {
-    clickMeDom[i].addEventListener('click', (function (i) {
-      return function () {
-        console.log(i)
+  var obj = {
+    a: 1,
+    b: {
+      a: 2,
+      func: function () {
+        console.log(this.a); // 输出结果为2
+        console.log(this); // 输出结果是b对象
       }
-    })(i), false)
+    }
   }
+
+  // 调用
+  obj.b.func();
 </script>
