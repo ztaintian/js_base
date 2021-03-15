@@ -10,3 +10,7 @@
 # git强制覆盖本地命令（单条执行）：
 
     git fetch --all && git reset --hard origin/分支名 && git pull
+    
+# git clone时sslVerify报错： 
+
+    git config --global http.sslVerify false

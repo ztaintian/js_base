@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文字竖排序</title>
+</head>
+<style>
+  .upright {
+    writing-mode: vertical-lr;
+  }
+
+  .upright span {
+    text-combine-upright: all;
+    /* forSafari */
+    -webkit-text-combine: horizontal;
+    text-combine-upright: digits 2;
+    /* 不加文字缩小宽度文字大小 */
+    writing-mode: initial;
+  }
+</style>
+
+<body>
+  <p class="upright">竖排序，<span>2021</span>年<span>2</span>月<span>18</span>日我<span>36</span>岁</p>
+</body>
+
+</html>
