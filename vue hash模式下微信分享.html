@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>vue hash模式下微信分享</title>
+</head>
+
+<body>
+  <a href="https://www.jianshu.com/p/97729dd2c94d"></a>
+</body>
+<script>
+  // 一、全局路由里拦截链接
+
+  // 1、在 # 号前面加上 ? 号
+  // 经过试验发现，只要在路由的 # 号前面加上 ？号，微信分隔链接的时候只会在域名与参数之间加上 ?from=singlemessage&isappinstalled=0，后面还是会携带原本的参数的，不会被完全切掉。所以，加上之后：
+
+  let shareLink = 'https://hxkj.vip/?#/article?article_id=8';
+  shareLink = shareLink.replace('/#/', '/?#/');
+
+  // 待分享的链接变成了：https://hxkj.vip/?#/article?article_id=8
+  // 分享出去之后，链接变成了这个：https://hxkj.vip/?from=singlemessage&isappinstalled=0#/article?article_id=8
+
+  // 2、正则替换 ?from=singlemessage&isappinstalled=0
+  // router.js
+  router.beforeEach((to, from, next) => {
+    let url = window.location.href;
+    if (url.includes('?from=')) { // 判断是否携带了 from 参数，这一步灵活变通，只要能判断出是从微信分享链接进来的就 OK
+      url = url.replace(/vip.+.#/,
+        'vip/#'); // 利用正则表达式去掉微信携带的 ?from=singlemessage&isappinstalled=0 这串参数，如果这串参数对于你当前的页面有用处的话，可以重新拼接到你正常的链接后面去
+      window.location.href = url; // 重定向到正常链接
+    }
+  })
+
+  // 二、前端页面中转，重定向
+  // 在 public 文件夹里新建一个 html 页面（与项目中 index.html 同级），命名为 redirect.html，文件内容如下：
+  // 1、新建中转页
+  let url = location.href.split('?')
+  let params = url[1].split('&')
+  let data = {}
+  params.forEach((n, i) => {
+    let p = n.split('=')
+    data[p[0]] = p[1]
+  })
+  if (!!data.shareRedirect) {
+    window.location.href = decodeURIComponent(data.shareRedirect)
+  }
+  // 2、组装分享链接
+  let shareLink = 'https://hxkj.vip/#/article?article_id=8';
+  shareLink = window.location.href.split('#')[0] + 'redirect.html?shareRedirect=' + encodeURIComponent(shareLink);
+</script>
+
+</html>
