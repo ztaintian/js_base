@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script>
+  // 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+  // 示例 1:
+  // 输入: [2,2,1]
+  // 输出: 1
+
+  // 示例 2:
+  // 输入: [4,1,2,1,2]
+  // 输出: 4
+  /**
+   * @param {number[]} nums
+   * @return {number}
+   */
+  var singleNumber = function (nums) {
+    /** 解法1：暴力遍历
+     *  性能：704ms 40.5MB
+     */
+    let numsSet = Array.from(new Set(nums));
+    let numsMap = numsSet.map((num) => ({
+      num,
+      count: 0,
+    }));
+    nums.forEach((num, i) => {
+      numsMap.forEach((numM, j) => {
+        if (numM.num === num) {
+          numM.count++;
+        }
+      });
+    });
+    let filterArr = numsMap.filter((num) => num.count === 1);
+    return filterArr[0].num;
+    /** 解法2：Set 首次出现add 二次出现delete
+     *  性能: 72 ms 38MB
+     */
+    let numsSet = new Set();
+    for (let i = 0; i < nums.length; i++) {
+      if (!numsSet.has(nums[i])) {
+        numsSet.add(nums[i]);
+      } else {
+        numsSet.delete(nums[i]);
+      }
+    }
+    return [...numsSet][0];
+  };
+  // 解法三
+  var arr = [11, 2, 2, 33, 44, 33, 44];
+
+  function oneShow(arr) {
+    var obj = {};
+    arr.map((item) => {
+      if (obj[item]) {
+        obj[item] += obj[item];
+      } else {
+        obj[item] = 1;
+      }
+    })
+    var tempItem;
+    Object.keys(obj).map((item) => {
+      if (obj[item] === 1) {
+        tempItem = item;
+      }
+    })
+    return tempItem;
+  }
+  console.log(oneShow(arr))
+</script>
+
+<body>
+
+</body>
+
+</html>

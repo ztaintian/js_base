@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>汇总区间</title>
+</head>
+<script>
+  //   给定一个乱序整形数组[0,1,7,13,15,16,2,4,5]，找出其中连续出现的数字区间为如下：["0->2", "4->5", "7", "13", "15->16"]
+  // 这是一道leetcode 中等难度的题。
+  // 题目：leetcode 228 汇总区间
+  // 题解：228汇总区间(Summary Ranges)
+  var arr = [0, 1, 7, 13, 15, 16, 2, 4, 5];
+
+  function continuous(arr) {
+    // sort
+    arr.sort((a, b) => a - b);
+    console.log(arr)
+    var track = [];
+    var result = [];
+    arr.map((item) => {
+      if (track.length === 0 || item - track[track.length - 1] === 1) {
+        track.push(item)
+      } else {
+        if (track.length > 1) {
+          result.push(`${track[0]}->${track[track.length-1]}`);
+        } else {
+          result.push(`${track[0]}`)
+        }
+        track = [];
+        track.push(item);
+      }
+    })
+    console.log(result)
+  }
+  continuous(arr)
+</script>
+
+<body>
+
+</body>
+
+</html>
