@@ -13,17 +13,9 @@
   <div class="clikMe">click me</div>
 </body>
 <script type="text/javascript">
-  var obj = {
-    a: 1,
-    b: {
-      a: 2,
-      func: function () {
-        console.log(this.a); // 输出结果为2
-        console.log(this); // 输出结果是b对象
-      }
-    }
+  function factorial(n, total = 1) {
+    if (n === 1) return total;
+    return factorial(n - 1, n * total);
   }
-
-  // 调用
-  obj.b.func();
+  console.log(factorial(5)) // 120
 </script>
