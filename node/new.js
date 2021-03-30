@@ -15,8 +15,8 @@ function Test(name, age) {
   }
 }
 var myNewTest = myNew(Test, '小明', 19)
-console.log(myNewTest.name)
-console.log(myNewTest.age)
+console.log('dadada', myNewTest.name)
+console.log('dadadad',myNewTest.age)
 var newTest = new Test('小天', 28)
 console.log(newTest.name)
 console.log(newTest.age)
