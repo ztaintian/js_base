@@ -84,7 +84,7 @@ export default {
 					// 获取到裁剪后的图片
 					// 下面是上传到服务器的方法
           wx.uploadFile({
-            url: 'https://hrplusx-xcx.ciicsh.com/api/UpLoad/FileSave', // 仅为示例，非真实的接口地址
+            url: '', // 仅为示例，非真实的接口地址
             filePath: avatar,
             header: {'Authorization': 'Bearer ' + _this.token},
             name: 'file',
@@ -104,7 +104,7 @@ export default {
 			});
 		},
 		UpdateMemberHead (imgUrl) { // 更换用户头像
-			this.$http.post('/Member/UpdateMemberHead', {
+			this.$http.post('', {
 				openId: this.openId,
 				imgUrl: imgUrl
 			}).then((response) => {
