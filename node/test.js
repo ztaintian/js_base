@@ -1,15 +1,6 @@
-const cart = {
-  _wheels: 4,
-
-  get wheels () {
-    return this._wheels;
-  },
-
-  set wheels (value) {
-    if (value < this._wheels) {
-      throw new Error('数值太小了！');
-    }
-    this._wheels = value;
-  }
-}
-cart._wheels = 1
+console.log(a); //输出：function a(){ alert('我是函数') }
+function a() {
+  alert("我是函数");
+} //
+var a = "我是变量";
+console.log(a); //输出：'我是变量'

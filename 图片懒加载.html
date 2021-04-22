@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script>
+  let imgList = [...document.querySelectorAll('img')]
+  let length = imgList.length
+
+  const imgLazyLoad = function () {
+    let count = 0
+    return function () {
+      let deleteIndexList = []
+      imgList.forEach((img, index) => {
+        let rect = img.getBoundingClientRect()
+        if (rect.top < window.innerHeight) {
+          img.src = img.dataset.src
+          deleteIndexList.push(index)
+          count++
+          if (count === length) {
+            document.removeEventListener('scroll', imgLazyLoad)
+          }
+        }
+      })
+      imgList = imgList.filter((img, index) => !deleteIndexList.includes(index))
+    }
+  }
+  // 这里最好加上防抖处理
+  document.addEventListener('scroll', imgLazyLoad)
+</script>
+
+<body>
+  <img src="https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E5%9B%BE%E7%89%87&step_word=&hs=2&pn=2&spn=0&di=167750&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=3225163326%2C3627210682&os=350330249%2C2599662640&simid=3515799065%2C357855384&adpicid=0&lpn=0&ln=1687&fr=&fmq=1617257872865_R&fm=&ic=undefined&s=undefined&hd=undefined&latest=undefined&copyright=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=https%3A%2F%2Fgimg2.baidu.com%2Fimage_search%2Fsrc%3Dhttp%3A%2F%2Fi1.sinaimg.cn%2FIT%2F2010%2F0419%2F201041993511.jpg%26refer%3Dhttp%3A%2F%2Fi1.sinaimg.cn%26app%3D2002%26size%3Df9999%2C10000%26q%3Da80%26n%3D0%26g%3D0n%26fmt%3Djpeg%3Fsec%3D1619849879%26t%3D956c87435275d9d691fbac9d41cc2b8f&fromurl=ippr_z2C%24qAzdH3FAzdH3Fks52_z%26e3Bftgw_z%26e3BvgAzdH3F1r55sAzdH3Fks52AzdH3FfAzdH3Fks52_9a8l1djla8aatnmp_z%26e3Bip4s%3F41%3D21&gsm=2&rpstart=0&rpnum=0&islist=&querylist=&force=undefined" alt="">
+</body>
+
+</html>
