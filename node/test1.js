@@ -1,56 +1,20 @@
-class EventEmitter {
-  constructor() {
-    this.list = {}
-  }
-  on(event, fn) {
-    let _this = this;
-    (_this.list[event] || (_this.list[event] = [])).push(fn)
-    console.log('_this.list', _this.list)
-  }
-  off(event, fn) {
-    let _this = this;
-    let fns = _this.list[event];
-    console.log('fns', fns)
-    if (!fns) return false
-    if (!fn) {
-      fns && (fhs.lenght = 0);
-    } else {
-      for (let i = 0; i < fns.length; i++) {
-        if (fns[i] === fn || fns[i].fn === fn) {
-          fns.splice(i, 1);
-          break;
-        }
-      }
-    }
-  }
-  emit() {
-    let _this = this;
-    let event = [].shift.call(arguments);
-    let fns = _this.list[event];
-    if (!fns || fns.length === 0) {
-      return false;
-    }
-    fns.map((fn) => {
-      fn.apply(_this, arguments)
-    })
-  }
-  once(event, fn) {
-    // 先绑定，调用后删除
-    let _this = this;
 
-    function on() {
-      _this.off(event, on);
-      fn.apply(_this, arguments);
-    }
-    _this.on(event, on);
-  }
-}
-var bb = new EventEmitter()
 
-function use1(content) {
-  console.log('content', content)
-}
-// bb.on('even', use1)
-bb.once('even', use1)
-bb.emit('even', 'lll')
-bb.emit('even', '2222')
+/*
+语言,项目,键值,文本
+---
+zh,AlarmReasonType,C2,测试预警类型
+en,AlarmReasonType,C2,test alarm type
+zh,AlarmReasonType,C1,忽视设备劣化
+en,AlarmReasonType,C1,Ignore equipment deterioration
+...
+*/
+const data =
+  'zh,AlarmReasonType,C2,测试预警类型\r\nen,AlarmReasonType,C2,test alarm type\r\nzh,AlarmReasonType,C1,忽视设备劣化\r\nen,AlarmReasonType,C1,Ignore equipment deterioration\r\nzh,AlarmReasonType,C2,人员缺乏培训\r\nen,AlarmReasonType,C2,Lack of personnel training\r\nzh,DataType,C1,布尔\r\nen,DataType,C1,Bool\r\nzh,DataType,C2,整数\r\nen,DataType,C2,Int\r\nzh,Dictionary,code,代码\r\nen,Dictionary,code,Code\r\nzh,EquipmentType,C1,主发电机\r\nen,EquipmentType,C1,Major dynamo\r\nzh,EquipmentType,C2,中压配电板\r\nen,EquipmentType,C2,MV main switchboard\r\nzh,EquipmentType,C3,变压器\r\nen,EquipmentType,C3,Transformer\r\nzh,EquipmentUnits,C1,流送及真空\r\nen,EquipmentUnits,C1,Fllowing and Vacuum\r\nzh,EquipmentUnits,C2,电子的\r\nen,EquipmentUnits,C2,Electrical\r\nzh,EquipmentUnits,C3,浆料混合器\r\nen,EquipmentUnits,C3,Paste Mixer\r\nzh,EquipmentUnits,C4,cccc\r\nen,EquipmentUnits,C4,aaa\r\nzh,login,title,西门子船舶智能管家\r\nzh,login,logIn,登录\r\nzh,login,username,账号\r\nzh,login,password,密码\r\nen,login,title,Siemens Ship Intelligent Management System\r\nen,login,logIn,Login\r\nen,login,username,Username\r\nen,login,password,password\r\nzh,login,available,正常\r\nzh,login,unavailable,不可用\r\nzh,login,refresh,刷新\r\nen,login,available,available\r\nen,login,unavailable,unavailable\r\nen,login,refresh,refresh\r\nzh,Module,Asset,资产管理\r\nen,Module,Asset,AssetManagement\r\nzh,Permission,A00,查看资产\r\nen,Permission,A00,Show Asset\r\nen,PropertyCatalogDefine,BasicProp,BasicProp\r\nzh,PropertyCatalogDefine,BasicProp,基本信息\r\nen,PropertyCatalogDefine,DeviceParameter,DeviceParameter\r\nzh,PropertyCatalogDefine,DeviceParameter,设备参数\r\nen,PropertyCatalogDefine,DeviceStatus,DeviceStatus\r\nzh,PropertyCatalogDefine,DeviceStatus,设备状态\r\nen,PropertyCatalogDefine,DeviceDiagnose,DeviceDiagnose\r\nzh,PropertyCatalogDefine,DeviceDiagnose,设备诊断\r\nen,PropertyCatalogDefine,Additional,Additional\r\nzh,PropertyCatalogDefine,Additional,附加信息\r\nen,PropertyCatalogDefine,DeviceUnit,DeviceUnit\r\nzh,PropertyCatalogDefine,DeviceUnit,设备单元\r\nen,PropertyCatalogDefine,DeviceCircuit,DeviceCircuit\r\nzh,PropertyCatalogDefine,DeviceCircuit,设备回路\r\nen,PropertyCultureDefine,DeviceNo,DeviceNo\r\nzh,PropertyCultureDefine,DeviceNo,设备编号\r\nzh,PropertyDefine,Current,电流\r\nen,PropertyDefine,Current,Current\r\nzh,PropertyUnit,A,安培\r\nen,PropertyUnit,A,A\r\nzh,PropertyUnit,V,伏\r\nen,PropertyUnit,V,V\r\nzh,UI,save,保存\r\nen,UI,save,Save\r\nzh,UI,AddNew,新增\r\nen,UI,AddNew,New\r\n'
+  data.split(/\r\n/g).reduce((obj, item) => {
+    if(!item)return obj
+    let props = item.split(',')
+    let value = props.pop(), nprop = props.pop()
+    props.reduce((o, prop) => o[prop] ? o[prop] : (o[prop] = {}), obj)[nprop] = value
+    return obj
+}, {})
