@@ -1,6 +1,7 @@
-console.log(a); //输出：function a(){ alert('我是函数') }
-function a() {
-  alert("我是函数");
-} //
-var a = "我是变量";
-console.log(a); //输出：'我是变量'
+var a = 18+4.7+550.77
+console.log(a)
+var b = 18+345.88
+console.log(b)
+var c = 18+45
+console.log(c)
+console.log(a+b+c)
