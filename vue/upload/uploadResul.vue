@@ -737,7 +737,7 @@ export default {
     .uploading_list::-webkit-scrollbar-thumb{
       background-color:rgba(0,0,0,.05);
       border-radius:10px;
-      -webkit-box-shadow:inset 1px 1px 0 rgba(0,0,0,.1);
+      box-shadow:inset 1px 1px 0 rgba(0,0,0,.1);
     }
   }
 }
