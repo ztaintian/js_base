@@ -17,7 +17,7 @@
     } else {
       return obj;
     }
-    for (key in obj) {
+    for (var key in obj) {
       var copy = obj[key];
       if (isClass(copy) == "Object") {
         result[key] = deepClone(copy); //递归调用
