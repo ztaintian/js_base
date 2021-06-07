@@ -5,6 +5,7 @@
 <meta id="i18n_pagename" content="message">
 <link rel="stylesheet" th:href="@{/static/style/console.css}" media="all">
 <link rel="stylesheet" th:href="@{/font2/iconfont.css}"/>
+<link rel="stylesheet" th:href="@{/font3/iconfont.css}"/>
 <head th:include="include :: header">
 <body>
 <div class="layui-fluid" style="padding-bottom: 0;">
@@ -12,8 +13,47 @@
     <span class="icon iconfont icon-notice"></span>
     <font id="notice"></font>
   </div>
-  <div class="notice personnel-reminder box-shadow-index">
+  <div class="personnel-reminder box-shadow-index">
     <div class="text">人事提醒</div>
+    <!-- <div class="personnel-reminder-icon">敬请期待。。。</div> -->
+    <div class="personnel-reminder-icon">
+      <div class="personnel-reminder-box">
+        <i class="iconfont3 icon-weiqianhetong">
+          <span class="layui-badge">99</span>
+        </i>
+        <p>入职当日合同未签</p>  
+      </div>
+      <div class="personnel-reminder-box">
+        <i class="iconfont3 icon-shiyongqiguanli">
+          <span class="layui-badge">99</span>
+        </i>
+        <p>本月试用期到期</p>  
+      </div>
+      <div class="personnel-reminder-box">
+        <i class="iconfont3 icon-daoqitixing">
+          <span class="layui-badge">99</span>
+        </i>
+        <p>合同即将到期</p>  
+      </div>
+      <div class="personnel-reminder-box">
+        <i class="iconfont3 icon-shengri">
+          <span class="layui-badge">99</span>
+        </i>
+        <p>本月生日员工</p>  
+      </div>
+      <div class="personnel-reminder-box">
+        <i class="iconfont3 icon-jingqingqidai"></i>
+        <p>即将退休</p>  
+      </div>
+      <div class="personnel-reminder-box">
+        <i class="iconfont3 icon-jingqingqidai"></i>
+        <p>本月实习到期</p>  
+      </div>
+      <div class="personnel-reminder-box">
+        <i class="iconfont3 icon-jingqingqidai"></i>
+        <p>本月入职周年</p>  
+      </div>
+    </div>
   </div>
 
   <div class="layui-row">
@@ -126,6 +166,27 @@
         </div>
         <div class="layui-col-md3 box-shadow-index">
           <div class="layui-card h388 h388_1" style="border-radius:20px;">
+            <div class="layui-card-header header-top">
+              <div class="console-left i18n">档案柜</div>
+              <div class="layui-row">
+                <div class="layui-col-md4 file-cabinet-num">
+                  <p>999</p>
+                  <p class="color">已收集</p>
+                </div>
+                <div class="layui-col-md4 file-cabinet-num">
+                  <p>999</p>
+                  <p class="color">已提交</p>
+                </div>
+                <div class="layui-col-md4 file-cabinet-num">
+                  <p>999</p>
+                  <p class="color">进行中</p>
+                </div>
+              </div>
+              <a lay-href="boss/contract/directContract" style="display:block;text-align: center;margin-top:60px;">
+                <button type="button"  class="layui-btn layui-btn-normal layui-btn-radius view-details-button">查看详情</button>
+              </a>
+              <p style="text-align: center;margin-top:20px;">可发送份数：99991434</p>
+            </div>
           </div>
         </div>
       </div>
@@ -687,6 +748,25 @@ var ctxx = [[@{../}]];
     position:relative;
     top:0px;
     font-size: 25px;
+  }
+  .file-cabinet-num {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .file-cabinet-num p {
+    display: inline-block;
+    height: 30px;
+  }
+  .file-cabinet-num .color {
+    color:#999999;
+    font-size: 18px;
+  }
+  .view-details-button {
+    width:75%;
+    font-size:18px;
+    margin:0 auto;
   }
 </style>
 </body>
