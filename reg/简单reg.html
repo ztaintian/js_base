@@ -8,6 +8,7 @@
   <title>简单reg</title>
 </head>
 <script>
+  var password = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[._~!@#$^&*])[A-Za-z0-9._~!@#$^&*]{6,20}$/  // 8-20位，必须符合3种字符条件(字母，数字，符号)
   export var password = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z]).[0-9a-zA-Z]{5,50}$/
   export var emptyReg = /^\s*$/
   export var twoNumberReg = /^\d+\.?(\d{1,2})?$/
