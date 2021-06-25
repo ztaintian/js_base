@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script src="./exit.js"></script>
+<script>
+  function upload(files) {
+    console.log(files.target.files, EXIF)
+    EXIF.getData(files.target.files[0], function () {
+      EXIF.getAllTags(this);
+      let Orientation = EXIF.getTag(this, 'Orientation');
+      console.log('Orientation', Orientation)
+    });
+  }
+</script>
+
+<body>
+  <input type="file" id="input" onchange="upload(event)" />
+</body>
+
+</html>
