@@ -60,6 +60,8 @@ class myPromise {
   status = 'pending'
   value = ''
   reason = ''
+  successCallback = []
+  failCallback = []
   constructor(fun) {
     fun(this.resolve, this.reject)
   }
@@ -78,6 +80,9 @@ class myPromise {
       successCallback(this.value)
     } else if (this.status === 'reject') {
       failCallback(this.reason)
+    } else {
+      this.successCallback = successCallback;
+      this.failCallback = failCallback;
     }
   }
 }
