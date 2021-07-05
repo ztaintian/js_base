@@ -25,6 +25,13 @@
   var newTest = new Test('小天', 28)
   console.log(newTest.name)
   console.log(newTest.age)
+  var myNew2 = function (obj,...arges) {
+    console.log(args)
+    var _obj = {}
+    _obj.__proto__ = obj.prototype
+    var result = obj.apply(_obj, args)
+    return typeof result === 'object' ? reslut : _obj
+  }
 </script>
 
 <body>

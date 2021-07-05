@@ -1,26 +1,14 @@
-export default defineComponent({
-  setup() {
-    const [isLoading, countA] = useGet('/api');
-    return {
-      isLoading,
-      countA
-    };
+var myObject = {
+  foo: 4,
+  set bar(value) {
+    return this.foo = value;
   },
-});
+};
 
-export function useGet(url) {
-  const isLoading = ref(true);
-  const dataSource = ref();
-  axios
-    .get(url)
-    .then(({
-      data
-    }) => {
-      dataSource.value = data;
-    })
-    .finally(() => {
-      isLoading.value = false;
-    });
-  return [isLoading, dataSource];
-  isLoading, dataSource
-}
+var myReceiverObject = {
+  foo: 0,
+};
+
+Reflect.set(myObject, 'bar', 1, myReceiverObject);
+myObject.foo // 4
+myReceiverObject.foo // 1

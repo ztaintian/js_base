@@ -3,70 +3,48 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Object.defineProperty</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
 </head>
-<script>
-	//1、Object.defineProperty
-	// var pattern = {
-	//     get: function () {
-	//         return 'I alway return this string,whatever you have assigned';
-	//     },
-	//     set: function () {
-	//         this.vv = 'this is my name string';
-	//     }
-	// };
-
-
-	// function TestDefineSetAndGet() {
-	//     Object.defineProperty(this, 'myproperty', pattern);
-	// }
-
-
-	// var instance = new TestDefineSetAndGet();
-	// console.log(instance)
-	// instance.myproperty = 'test';
-	// instance.vv = 'hhhh'
-
-	// // 'I alway return this string,whatever you have assigned'
-	// console.log(instance.myproperty);
-	// // 'this is my name string'
-	// console.log(instance.vv);
-
-	//2、Object.getPrototypeOf(object);
-	//console.log(Object.getPrototypeOf(instance))//返回对象的原型
-
-	// 3、Object.assign() 方法用于将所有可枚举的属性的值从一个或多个源对象复制到目标对象。它将返回目标对象。
-	// let a = {a:1}, b= {b:2}, c={c:3}; //相同键会被后面的覆盖掉 如：b={a:2}
-	// let abc = Object.assign({},a,b,c);
-	// console.log(abc,a,b,c)
-
-
-	//4、constructor 属性返回对创建此对象的数组函数的引用。
-
-	var test = new Array();
-	console.log(test.constructor, Array)
-	if (test.constructor === Array) {
-		document.write("This is an Array");
-	}
-	if (test.constructor == Boolean) {
-		document.write("This is a Boolean");
-	}
-	if (test.constructor === Date) {
-		document.write("This is a Date");
-	}
-	if (test.constructor == String) {
-		document.write("This is a String");
-	}
-
-	var a = {
-		A: 1
-	}
-
-	console.log(a.A)
-</script>
 
 <body>
+	<div id="app">
+		<input id="input" type="text">
+		<div id="showText"></div>
+	</div>
+	<script>
+		let obj = {
+			text: ''
+		};
 
+		// defineProperty
+		// Object.defineProperty(obj, 'text', {
+		// 	get() {
+		// 		return obj;
+		// 	},
+		// 	set(newValue) {
+		// 		console.log(newValue)
+		// 		document.querySelector('#showText').innerHTML = newValue;
+		// 	}
+		// })
+		// window.addEventListener('keyup', function (e) {
+		// 	obj.text = e.target.value;
+		// })
+
+		// Proxy
+		var proxy = new Proxy(obj, {
+			get(target, key, receiver) {
+				console.log('target', target, 'key', key, 'receiver', receiver)
+				return Reflect.get(target, key, receiver);
+			},
+			set(target, key, value, receiver) {
+				console.log('target', target, 'key', key, 'value', value, 'receiver', receiver)
+				return Reflect.set(target, key, value, receiver);
+			}
+		})
+		proxy.text = 'gggg'
+	</script>
 </body>
 
 </html>

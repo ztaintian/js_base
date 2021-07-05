@@ -1,11 +1,35 @@
-<div style="float:left;line-height: 28px;font-size: 12px;" v-if="!batchNo">
-  成功：{{batchDetailListAll.length - batchDetailListError.length}}条，失败：{{batchDetailListError.length}}条</div>
-<div style="text-align:center;line-height: 28px;font-size: 12px;"  v-if="!batchNo">
-  <el-button v-if="batchDetailListError.length>0" @click="showAll()" size="mini"
-    :class="activedButton == 'all' ? 'actived' : ''">
-    显示全部</el-button>
-  <el-button v-if="batchDetailListError.length>0" @click="showError()" size="mini"
-    :class="activedButton == 'all' ? '' : 'actived'">显示错误</el-button>
-  <el-button v-if="FileId" type="primary" @click="save" plain size="mini">保存</el-button>
-  <el-button type="primary" v-if="FileId" @click="exportData" palin size="small">导出</el-button>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <input id="input" type="text">
+    <div id="showText"></div>
+  </div>
+  <script>
+    let obj = {
+      text: ''
+    };
+    Object.defineProperty(obj,'text',{
+      get() {
+        return obj;
+      },
+      set(newValue) {
+        console.log(newValue)
+        document.querySelector('#showText').innerHTML = newValue;
+      }
+    })
+    window.addEventListener('keyup', function(e){
+      obj.text = e.target.value;
+    })
+  </script>
+</body>
+
+</html>
