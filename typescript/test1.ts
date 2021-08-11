@@ -1,11 +1,10 @@
-// 账号
-let account: string | number = "";
+type Bar<T> = T extends {
+  a: (x: infer U) => void;
+  b: (x: infer U) => void;
+} ? U : never;
 
-// 密码
-let password: string = "";
+// type T1 = string
+type T1 = Bar<{ a: (x: string) => void; b: (x: string) => void }>;
 
-// 手机号
-let phone: number = 0;
-
-// 是否记住密码
-let keepPwd: boolean = false;
+// type T2 = never
+type T2 = Bar<{ a: (x: string) => void; b: (x: number) => void }>;

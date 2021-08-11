@@ -14,3 +14,15 @@
 # git clone时sslVerify报错： 
 
     git config --global http.sslVerify false
+
+# git 合并指定commit
+
+    git reflog 查看 commitID
+
+    git cherry-pick 62ecb3<commitID>
+
+# git tag 打标签推送远程
+
+    git tag <tagName>
+
+    git push origin <tagName>

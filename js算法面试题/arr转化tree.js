@@ -20,6 +20,7 @@ const map = arr.reduce((obj, cur) => {
 const test = arr.reduce((result, cur) => {
   const { id, pid } = cur;
   const parentObj = map[pid];
+  console.log('parentObj', parentObj)
   // 不存在 直接插入
   if (!parentObj) {
     result.push(cur);
@@ -33,69 +34,54 @@ const test = arr.reduce((result, cur) => {
   return result;
 }, []);
 
-// const arrayToTree = (arr, pid) => {
-//   const result = [];
-//   treeFunction(arr,pid, result);
-//   return result;
-// };
-// function treeFunction(arr, pid, result) {
-//   arr.map((item) => {
-//     if (item.pid === pid) {
-//       result.push({ ...item, children: [] });
-//       treeFunction(arr, item.id, item.children)
-//     }
-//   });
-// }
-// console.log(arrayToTree(arr,0))
+const arrayToTree = (data, pid) => {
+  const result = [];
+  getChildren(data, result, pid);
+  return result;
+};
+const getChildren = (data, result, pid) => {
+  for (const item of data) {
+    if (item.pid === pid) {
+      const newItem = { ...item, children: [] };
+      result.push(newItem);
+      getChildren(data, newItem.children, item.id);
+    }
+  }
+};
+console.log(arrayToTree(arr, 0));
 
-// const arrayToTree = (data, pid) => {
-//   const result = [];
-//   getChildren(data, result, pid);
-//   return result;
-// };
-// const getChildren = (data, result, pid) => {
-//   for (const item of data) {
-//     if (item.pid === pid) {
-//       const newItem = { ...item, children: [] };
-//       result.push(newItem);
-//       getChildren(data, newItem.children, item.id);
-//     }
-//   }
-// };
-// console.log(arrayToTree(arr, 0));
+function arrayToTree(items) {
+  const result = []; // 存放结果集
+  const itemMap = {}; //
+  for (const item of items) {
+    const id = item.id;
+    const pid = item.pid;
 
-// function arrayToTree(items) {
-//   const result = []; // 存放结果集
-//   const itemMap = {}; //
-//   for (const item of items) {
-//     const id = item.id;
-//     const pid = item.pid;
+    if (!itemMap[id]) {
+      itemMap[id] = {
+        children: [],
+      };
+    }
 
-//     if (!itemMap[id]) {
-//       itemMap[id] = {
-//         children: [],
-//       };
-//     }
+    itemMap[id] = {
+      ...item,
+      children: itemMap[id]["children"],
+    };
 
-//     itemMap[id] = {
-//       ...item,
-//       children: itemMap[id]["children"],
-//     };
+    const treeItem = itemMap[id];
 
-//     const treeItem = itemMap[id];
-
-//     if (pid === 0) {
-//       result.push(treeItem);
-//     } else {
-//       if (!itemMap[pid]) {
-//         itemMap[pid] = {
-//           children: [],
-//         };
-//       }
-//       itemMap[pid].children.push(treeItem);
-//     }
-//   }
-//   return result;
-// }
+    if (pid === 0) {
+      result.push(treeItem);
+    } else {
+      if (!itemMap[pid]) {
+        itemMap[pid] = {
+          children: [],
+        };
+      }
+      itemMap[pid].children.push(treeItem);
+    }
+  }
+  return result;
+}
 
 // 链接：https://juejin.cn/post/6983904373508145189
