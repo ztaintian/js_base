@@ -1,10 +1,23 @@
-type Bar<T> = T extends {
-  a: (x: infer U) => void;
-  b: (x: infer U) => void;
-} ? U : never;
+function padLeft(value: string,padding: string | number) {
 
-// type T1 = string
-type T1 = Bar<{ a: (x: string) => void; b: (x: string) => void }>;
+  if (typeof padding === 'number') {
 
-// type T2 = never
-type T2 = Bar<{ a: (x: string) => void; b: (x: number) => void }>;
+      console.log(padding + 3); //正常
+
+      console.log(padding + 2); //正常
+
+      console.log(padding + 5); //正常
+
+       //正常
+
+      return Array(padding + 1).join(' '); 
+
+  }
+
+  if (typeof padding === 'string') {
+
+      return padding + value;
+
+  }
+
+}

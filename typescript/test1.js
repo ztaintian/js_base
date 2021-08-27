@@ -1,8 +1,6 @@
-// 账号
-var account = "";
-// 密码
-var password = "";
-// 手机号
-var phone = 0;
-// 是否记住密码
-var keepPwd = false;
+function getName<T,U> (name: T, id: U): [T, U] {
+  return [name, id]
+}
+getName('peen', 1);
+getName('peen', '222'); // 正常
+getName<string, number>('peen', '22'); // 报错: '22'不是number类型
