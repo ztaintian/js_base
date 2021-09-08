@@ -1,19 +1,45 @@
-var arr = [323, 435, 6, 4, 3, 24, 342];
-function quickSort(arr) {
-  var left = [],
-    right = [],
-    tempValue;
-  if (arr.length < 2) {
-    return arr;
+class EventEmitter {
+  constructor() {
+    this.events = {}; // 存放着所有的事件{eventName: [callback, ...]}
   }
-  tempValue = arr.splice(0, 1)[0];
-  arr.map((item) => {
-    if (item < tempValue) {
-      left.push(item);
+  on(eventName, callback) {
+    if (!this.events[eventName]) {
+      this.events[eventName] = [callback];
     } else {
-      right.push(item);
+      this.events[eventName].push(callback);
     }
-  });
-  return [...quickSort(left), tempValue, ...quickSort(right)];
+  }
+  emit(eventName, ...argu) {
+    if (this.events[eventName]) {
+      this.events[eventName].forEach((fn) => fn(...argu));
+    }
+  }
+  off(eventName, callback) {
+    if (this.events[eventName]) {
+      this.events[eventName] = this.events[eventName].filter(
+        (fn) => callback !== fn && fn.l !== callback
+      );
+    }
+  }
+  once(eventName, callback) {
+    const _once = () => {
+      callback();
+      this.off(eventName, _once);
+    };
+    _once.l = callback;
+    this.on(eventName, _once);
+  }
 }
-console.log(quickSort(arr));
+
+var aa = new EventEmitter();
+
+
+Proxy(target, {
+  set: function(target, name, value, receiver) {
+    var success = Reflect.set(target, name, value, receiver);
+    if (success) {
+      console.log('property ' + name + ' on ' + target + ' set to ' + value);
+    }
+    return success;
+  }
+});
