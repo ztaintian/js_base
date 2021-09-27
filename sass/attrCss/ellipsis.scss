@@ -1,0 +1,24 @@
+// [ellipsis1] [ellipsis2] [ellipsis3]
+@mixin box-clamp($lines: 1, $substract: 0) {
+  @if $lines == 1 {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 100% - $substract;
+    overflow: hidden;
+  } @else {
+    overflow:hidden;
+    // display:-webkit-box;
+    // display:box;
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+  }
+}
+
+@for $i from 1 through 3 {
+  [ellipsis#{$i}] {
+    @include box-clamp($i);
+  }
+}
