@@ -3,7 +3,7 @@
     <div class="header-content">
       <div class="header-left">
         <div class="logo-icon"></div>
-        <i @click="collapseClick" :class="isCollapse?'el-icon-s-fold':'el-icon-s-unfold'"></i>
+        <i @click="collapseClick" :class="isCollapse?'el-icon-s-unfold':'el-icon-s-fold'"></i>
       </div>
       <div class="header-right">
         <el-popover placement="bottom" width="104" popper-class="popper-modify" trigger="hover">
@@ -33,7 +33,7 @@
     name: 'Header',
     data() {
       return {
-        isCollapse: true
+        isCollapse: false
       }
     },
     computed: {
@@ -45,11 +45,12 @@
       http.parentList((data) => {
         console.log(data)
       })
-      console.log('http', http)
+      
     },
     methods: {
       collapseClick() {
         this.isCollapse = !this.isCollapse
+        this.$emit('on-collapse', this.isCollapse)
       },
       modifyPsw() {
         // 修改密码
@@ -101,6 +102,7 @@
 </style>
 <style lang="scss" scoped>
   .header {
+    z-index: 99999999;
     height: 70px;
     background: $blue;
     padding: 0 50px;

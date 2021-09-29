@@ -1,11 +1,11 @@
 <template>
   <div class="layout">
     <el-container>
-      <el-header>
-        <Header />
+      <el-header >
+        <Header @on-collapse="parentEvent" />
       </el-header>
       <el-container>
-        <Aside />
+        <Aside :collapse="isCollapse" />
         <el-main>
           <Breadcrumb />
           <div class="wrapper">
@@ -23,6 +23,7 @@
   import Aside from './Aside'
   import Breadcrumb from './Breadcrumb'
   export default {
+    name: 'Layout',
     components: {
       Header,
       Aside,
@@ -30,12 +31,17 @@
     },
     data() {
       return {
+        isCollapse: false,
         currentRouter: []
       }
     },
     mounted() {
       this.currentRouter = this.$route
-      console.log('currentRouter', this.$route)
+    },
+    methods: {
+      parentEvent(value){
+        this.isCollapse = value
+      }
     }
   }
 </script>
@@ -52,14 +58,11 @@
     .fade-leave-to {
       opacity: 0;
     }
-
+    ::v-deep.el-header {
+      z-index: 9999999;
+    }
     ::v-deep.el-main{
       padding:0;
-      position: absolute;
-      left: 220px;
-      right: 0;
-      top: 70px;
-      bottom: 0;
       overflow-y: auto;
       -webkit-transition: all 0.3s ease-in-out;
       transition: all 0.3s ease-in-out;
