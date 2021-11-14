@@ -1,2 +1,9 @@
-var aa = new Array(10).fill(4)
-console.log(aa)
+var json = {
+  0: 1,
+};
+var params = Object.keys(json)
+  .map(function (key) {
+    return encodeURIComponent(key) + "=" + encodeURIComponent(json[key]);
+  })
+  .join("&");
+  console.log('params', params)
