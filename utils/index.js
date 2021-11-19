@@ -56,3 +56,14 @@ export function getType(obj) {
   }
   return Object.prototype.toString.call(obj).replace(/^\[object (\S+)\]$/, '$1')
 }
+
+// 解析url
+function getParams(url, params){
+  var res = new RegExp("(?:&|/?)" + params + "=([^&$]+)").exec(url);
+  return res ? res[1] : '';
+}
+// const id = getParams(window.location.search, 'id')
+
+const urlSearchParams = new URLSearchParams(window.location.search);
+const params = Object.fromEntries(urlSearchParams.entries());
+// params.id
