@@ -1,116 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <style>
-    html,
-    body {
-      height: 100%;
-    }
-
-    div {
-      height: 100%;
-    }
-
-    .container {
-      display: flex;
-    }
-
-    .content {
-      flex: 1 1;
-      order: 2;
-      background: #f00;
-    }
-
-    .left {
-      flex: 0 0 200px;
-      order: 1;
-      background: #0f0;
-    }
-
-    .right {
-      flex: 0 0 300px;
-      order: 3;
-      background: #00f;
-    }
-  </style>
+  <script src=""></script>
 </head>
 <script>
-  const patchChildren = (n1, n2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized =
-    false) => {
-    const c1 = n1 && n1.children;
-    const prevShapeFlag = n1 ? n1.shapeFlag : 0;
-    const c2 = n2.children;
-    const {
-      patchFlag,
-      shapeFlag
-    } = n2;
-    // fast path
-    if (patchFlag > 0) {
-      if (patchFlag & 128 /* KEYED_FRAGMENT */ ) {
-        // this could be either fully-keyed or mixed (some keyed some not)
-        // presence of patchFlag means children are guaranteed to be arrays
-        /*
-         *1 - patchKeyedChildren
-         */
-        patchKeyedChildren(c1, c2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds,
-        optimized);
-        return;
-      } else if (patchFlag & 256 /* UNKEYED_FRAGMENT */ ) {
-        // unkeyed
-        /*
-         * 2 - patchUnkeyedChildren
-         */
-        patchUnkeyedChildren(c1, c2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds,
-          optimized);
-        return;
-      }
-    }
-    // children has 3 possibilities: text, array or no children.
-    if (shapeFlag & 8 /* TEXT_CHILDREN */ ) {
-      // text children fast path
-      if (prevShapeFlag & 16 /* ARRAY_CHILDREN */ ) {
-        unmountChildren(c1, parentComponent, parentSuspense);
-      }
-      if (c2 !== c1) {
-        hostSetElementText(container, c2);
-      }
-    } else {
-      if (prevShapeFlag & 16 /* ARRAY_CHILDREN */ ) {
-        // prev children was array
-        if (shapeFlag & 16 /* ARRAY_CHILDREN */ ) {
-          // two arrays, cannot assume anything, do full diff
-
-          patchKeyedChildren(c1, c2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds,
-            optimized);
-        } else {
-          // no new children, just unmount old
-          unmountChildren(c1, parentComponent, parentSuspense, true);
-        }
-      } else {
-        // prev children was text OR null
-        // new children is array OR null
-        if (prevShapeFlag & 8 /* TEXT_CHILDREN */ ) {
-          hostSetElementText(container, '');
-        }
-        // mount new if array
-        if (shapeFlag & 16 /* ARRAY_CHILDREN */ ) {
-          mountChildren(c2, container, anchor, parentComponent, parentSuspense, isSVG, slotScopeIds, optimized);
-        }
-      }
-    }
-  };
+  window.onload = function () {
+    console.log(document.querySelector('.cc'))
+    var aa = document.querySelector('.cc')
+    aa.parentNode.removeChild(aa)
+  }
 </script>
-
 <body>
-  <div class="container">
-    <div class="content">hello world</div>
-    <div class="left">你好</div>
-    <div class="right">王鹏浩</div>
+  <div>
+    <p class="cc"></p>
+    <p class="bb"></p>
   </div>
 </body>
-
 </html>

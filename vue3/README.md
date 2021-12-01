@@ -28,3 +28,9 @@
     
     createApp(App).use(router).mount('#app')
 
+  # index.html
+
+    引入js加上随机数去缓存
+
+    <script src="/config.js?<%= _.random(0, 100, true) %>"></script>
+
