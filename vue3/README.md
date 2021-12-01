@@ -34,3 +34,20 @@
 
     <script src="/config.js?<%= _.random(0, 100, true) %>"></script>
 
+  # axios 
+
+    
+    //增加随机数，防止缓存
+    if (config.method === 'post') {
+      config.data = {
+        ...config.data,
+        _t: Date.parse(new Date())
+      }
+    } else if (config.method === 'get') {
+      config.params = {
+        _t: Math.random(),
+        ...config.params
+      }
+    }
+
+
