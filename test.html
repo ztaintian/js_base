@@ -8,11 +8,27 @@
   <script src=""></script>
 </head>
 <script>
-  window.onload = function () {
-    console.log(document.querySelector('.cc'))
-    var aa = document.querySelector('.cc')
-    aa.parentNode.removeChild(aa)
+class PromiseManager {
+  constructor() {
+    this.pendingPromise = new Set()
+    this.loading = false
   }
+
+  generateKey() {
+    return `${new Date().getTime()}-${parseInt(Math.random() * 1000)}`
+  }
+
+  push(...requestFns) {
+    for (const requestFn of requestFns) {
+      const key = this.generateKey()
+      this.pendingPromise.add(key)
+      requestFn().finally(() => {
+        this.pendingPromise.delete(key)
+        this.loading = this.pendingPromise.size !== 0
+      })
+    }
+  }
+}
 </script>
 <body>
   <div>
