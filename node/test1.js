@@ -1,7 +1,10 @@
-function a(){ 
-  console.log(this,'a')
-};
-function b(){
-  console.log(this,'b')
+function Super() {
+  this.color = ['red']
 }
-a.call(b,'b')  
+
+function Sub() {
+
+}
+
+Sub.prototype = new Super()
+
