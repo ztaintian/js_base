@@ -1,9 +1,5 @@
-var json = {
-  0: 1,
-};
-var params = Object.keys(json)
-  .map(function (key) {
-    return encodeURIComponent(key) + "=" + encodeURIComponent(json[key]);
+function test(str) {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
   })
-  .join("&");
-  console.log('params', params)
+}

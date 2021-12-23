@@ -11,3 +11,9 @@ let numberReg = /^[+]{0,1}(\d+)$/
 let number = 464534534543
 console.log('number', numberReg.test(number))
 
+// 标题头个字大写
+function test(str) {
+  return str.replace(/\w\S*/g, function (txt) {
+    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+  })
+}
