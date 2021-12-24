@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  meter {
+    width: calc(3 * var(--size));
+    border: 0;
+    /* Safari */
+    position: relative;
+    --size: 60px;
+    --gradient: linear-gradient(to right, red calc(var(--size) - 1px), transparent 0 calc(var(--size) + 1px), orange 0 calc(var(--size) * 2 - 1px), transparent 0 calc(var(--size) * 2 + 1px), green 0);
+  }
+
+  meter::after {
+    content: '弱 中 强 aaaaaaaaaaaaaaaaaaaaaa';
+    position: absolute;
+    font-size: 14px;
+    line-height: 20px;
+    height: 20px;
+    overflow: hidden;
+    left: calc(var(--size) / 2 - .5em);
+    right: calc(var(--size) / 2 - .5em);
+    text-align: justify;
+    -webkit-text-fill-color: transparent;
+    background: var(--gradient) calc(.5em - var(--size) / 2) / calc(3 * var(--size));
+    -webkit-background-clip: text;
+  }
+
+  ::-webkit-meter-bar {
+    height: 12px;
+    width: calc(3 * var(--size));
+    border: 0;
+    background: #eee;
+    -webkit-mask: var(--gradient);
+    mask: var(--gradient);
+  }
+
+  _::-moz-meter-bar,
+  meter {
+    height: 12px;
+    background: #eee;
+  }
+
+  ::-webkit-meter-even-less-good-value {
+    background: red;
+  }
+
+  ::-webkit-meter-suboptimum-value {
+    background: linear-gradient(to right, red var(--size), orange 0);
+  }
+
+  ::-webkit-meter-optimum-value {
+    background: linear-gradient(to right, red var(--size), orange 0 calc(2 * var(--size)), green 0);
+  }
+
+</style>
+
+<body>
+  <form class="form">
+    <label for="un">用户名：</label>
+    <p><input id="un" class="ui-input" value="zhangxinxu" readonly></p>
+    <label for="pwd">密码：</label>
+    <p><input id="pwd" type="password" class="ui-input" autocomplete="new-password" required></p>
+    <p class="strong">
+      <meter id="meter" min="0" max="12" low="4" high="8" optimum="10" value="0"></meter>
+    </p>
+    <p class="submit">
+      <button type="primary" class="ui-button">提交</button>
+    </p>
+  </form>
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+<script>
+  pwd.addEventListener('input', function () {
+    var value = this.value;
+    meter.value = zxcvbn(value).guesses_log10;
+  });
+
+</script>
+
+</html>

@@ -1,5 +1,1 @@
-function test(str) {
-  return str.replace(/\w\S*/g, function (txt) {
-    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-  })
-}
+var arr = [1,2,34,5,66,7,88,88];

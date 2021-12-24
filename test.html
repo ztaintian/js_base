@@ -7,43 +7,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<style>
-  .box {
-    padding: 4px;
-    position: relative;
-    overflow: hidden;
-  }
+<script>
+  let arr = [{
+      id: 1,
+      name: '部门1',
+      pid: 0
+    },
+    {
+      id: 2,
+      name: '部门2',
+      pid: 1
+    },
+    {
+      id: 3,
+      name: '部门3',
+      pid: 1
+    },
+    {
+      id: 4,
+      name: '部门4',
+      pid: 3
+    },
+    {
+      id: 5,
+      name: '部门5',
+      pid: 4
+    },
+  ]
+var result = [];
 
-  .box>* {
-    background-color: #fff;
-    position: relative;
-  }
+// arr.map((item) => {
+//   if (item.pid) {
 
-  .box:before {
-    content: '';
-    animation: roll linear 2s infinite;
-    background: conic-gradient(#58e, #fff);
-    position: absolute;
-    width: 1000px;
-    height: 1000px;
-    left: 50%;
-    top: 50%;
-  }
-
-  @keyframes roll {
-    from {
-      transform: translate(-50%, -50%) rotateZ(0deg);
+//   }
+// })
+function test(pid) {
+  arr.map((item) => {
+    if (item.id === pid) {
+      var newitem = {...item, children: []};
+      result.push(newitem)
     }
-
-    to {
-      transform: translate(-50%, -50%) rotateZ(-360deg);
-    }
-  }
-
-</style>
+  })
+}
+</script>
 
 <body>
-  <div class="box"></div>
+
 </body>
 
 </html>
