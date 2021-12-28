@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title></title>
+</head>
+<script>
+  function ajax({
+    url,
+    type,
+    data
+  }) {
+    console.log(url, type, data)
+    return new Promise((resolve, reject) => {
+      let xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          resolve(xhr.responseText)
+        } else {
+          reject('cuowu')
+        }
+      }
+      xhr.open(type, url)
+      if (type.toLowerCase === 'post') {
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+      }
+      if (type.toLowerCase === 'post' && data) {
+        xhr.send(data)
+      } else {
+        xhr.send()
+      }
+    })
+  }
+  let parmar = {
+    url: 'test.url',
+    type: 'post',
+    data: {
+      name: 'name'
+    }
+  }
+  ajax(parmar)
+
+</script>
+
+<body>
+
+</body>
+
+</html>
