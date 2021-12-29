@@ -7,52 +7,112 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script>
-  let arr = [{
-      id: 1,
-      name: '部门1',
-      pid: 0
-    },
-    {
-      id: 2,
-      name: '部门2',
-      pid: 1
-    },
-    {
-      id: 3,
-      name: '部门3',
-      pid: 1
-    },
-    {
-      id: 4,
-      name: '部门4',
-      pid: 3
-    },
-    {
-      id: 5,
-      name: '部门5',
-      pid: 4
-    },
-  ]
-var result = [];
+  window.onload = function () {
+    var vm = new Vue({
+      el: '#app',
+      data() {
+        return {
+          arrNum: [{
+            num: 1,
+            bg: 'red'
+          }, {
+            num: 2,
+            bg: 'rebeccapurple'
+          }, {
+            num: 5,
+            bg: 'rebeccapurple'
+          }, {
+            num: 4,
+            bg: 'rebeccapurple'
+          }, {
+            num: 3,
+            bg: 'rebeccapurple'
+          }]
+        }
+      },
+      mounted() {
+        var that = this
+        var quickSort = function (arr) {
+          if (arr.length < 2) {
+            return arr
+          }
+          var tempNum = arr.splice(0, 1)[0];
+          var leftArr = [];
+          var rightArr = [];
+          arr.map((item) => {
+            if (item.num > tempNum.num) {
+              rightArr.push(item);
+            } else {
+              leftArr.push(item)
+            }
+          })
+          // that.arrNum = [...quickSort(leftArr), ...[tempNum], ...quickSort(rightArr)]
+          console.log('-----', [...quickSort(leftArr), ...[tempNum], ...quickSort(rightArr)])
+          return [...quickSort(leftArr), ...[tempNum], ...quickSort(rightArr)]
+        }
+        quickSort([{
+          num: 1,
+          bg: 'red'
+        }, {
+          num: 2,
+          bg: 'rebeccapurple'
+        }, {
+          num: 5,
+          bg: 'rebeccapurple'
+        }, {
+          num: 4,
+          bg: 'rebeccapurple'
+        }, {
+          num: 3,
+          bg: 'rebeccapurple'
+        }])
+        console.log(quickSort([{
+          num: 1,
+          bg: 'red'
+        }, {
+          num: 2,
+          bg: 'rebeccapurple'
+        }, {
+          num: 5,
+          bg: 'rebeccapurple'
+        }, {
+          num: 4,
+          bg: 'rebeccapurple'
+        }, {
+          num: 3,
+          bg: 'rebeccapurple'
+        }]))
+      }
+    })
+  }
 
-// arr.map((item) => {
-//   if (item.pid) {
-
-//   }
-// })
-function test(pid) {
-  arr.map((item) => {
-    if (item.id === pid) {
-      var newitem = {...item, children: []};
-      result.push(newitem)
-    }
-  })
-}
 </script>
+<style>
+  #app {
+    display: flex;
+    align-items: end;
+  }
+
+  .box {
+    height: 100px;
+    width: 40px;
+    align-items: end;
+    display: flex;
+    justify-content: center;
+    background: rebeccapurple;
+    margin-right: 10px;
+  }
+
+</style>
 
 <body>
+  <div id="app">
+    <div v-for="(item,index) in arrNum" :style="'background:'+item.bg+';height:'+item.num*100 + 'px;'" class="box">
+      {{item.num}}</div>
 
+  </div>
 </body>
 
 </html>
