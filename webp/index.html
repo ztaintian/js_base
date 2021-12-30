@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script>
+  (function () {
+    var WebP = new Image();
+    WebP.onload = WebP.onerror = function () {
+      console.log('WebPWebP', WebP.height)
+      if (WebP.height != 2) { // 不支持WebP
+      } else { // 支持WebP
+      }
+    };
+    WebP.src =
+      'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+  })();
+
+</script>
+
+<body>
+  <picture>
+    <source srcset="./test.webp" type="image/webp" />
+    <source srcset="./test.jpg" type="image/jpeg" />
+    <img src="./test.webp" alt="img" />
+  </picture>
+
+</body>
+
+</html>
