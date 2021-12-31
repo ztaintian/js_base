@@ -35,7 +35,6 @@
     }
     remove = function (key, fn) {
       var fns = catchList[key];
-      console.log('fn', fn, fns)
       if (!fn) {
         fns && (fns.length = 0);
       } else {
