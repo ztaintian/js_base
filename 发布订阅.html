@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发布订阅模式</title>
+</head>
+<script>
+  let _Event = (function () {
+    var catchList = {},
+      addlisten, trigger, remove;
+    /**
+     *增加订阅者
+     *@key {string} 类型
+     *@fn {Function}  回调函数
+     **/
+    addlisten = function (key, fn) {
+      if (!catchList[key]) {
+        catchList[key] = []
+      }
+      catchList[key].push(fn)
+    }
+    trigger = function () {
+      console.log('arguments', arguments)
+      var key = [].shift.call(arguments),
+        fns = catchList[key];
+      if (!fns) {
+        return;
+      }
+      fns.map((item) => {
+        item.apply(null, arguments)
+      })
+    }
+    remove = function (key, fn) {
+      var fns = catchList[key];
+      console.log('fn', fn, fns)
+      if (!fn) {
+        fns && (fns.length = 0);
+      } else {
+        for (var i=0;i<fns.length;i++) {
+          debugger
+          if (fns[i] === fn) {
+            fns.splice(i,1);
+            break;
+          }
+        }
+      }
+    }
+    return {
+      addlisten: addlisten,
+      trigger: trigger,
+      remove: remove
+    }
+  })()
+  function test1() {
+    console.log('1111')
+  }
+  _Event.addlisten('test', test1)
+  _Event.remove('test',  test1)
+  _Event.trigger('test')
+
+</script>
+
+<body>
+
+</body>
+
+</html>
