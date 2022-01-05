@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul,
+  li {
+    list-style: none;
+  }
+
+  .content {
+    height: 200px;
+    display: flex;
+  }
+
+  .content li {
+    border-right: 1px solid rgb(241, 132, 132);
+    width: 40px;
+    margin-left: -5px;
+    height: 100%;
+    text-align: center;
+    font-size: 30px;
+    background: rgb(27, 27, 109);
+    color: #fff;
+  }
+
+  .content .bg {
+    background: rgb(27, 109, 38);
+  }
+  .active {
+    color: rgb(241, 132, 132);
+    flex: 1;
+    transition: 0.5s;
+  }
+</style>
+<script>
+  window.onload = function () {
+    var app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          arr: [1, 2, 3, 4, 5]
+        }
+      },
+      mounted() {
+        console.log(this)
+      },
+      methods: {
+        hoverOn(item) {
+          console.log('itemitemitem', item.target)
+          item.target.setAttribute("class",'active')
+          // console.log(item.target.parentNode.classList.remove('content'))
+        }
+      }
+    })
+  }
+</script>
+
+<body>
+  <div id="app">
+    <ul class="content">
+      <li v-on:mouseenter="hoverOn($event, item)" v-for="(item,index) in arr">2<br />0<br />1<br />{{item}}
+        <span>201{{item}}niannannnnnn</span>
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>
