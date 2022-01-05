@@ -1,3 +1,5 @@
+// 参考https://www.vue-js.com/topic/5f65510896b2cb0032c3854e
+
 // 时间复杂度
 
 function test() {
