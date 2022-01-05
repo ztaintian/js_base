@@ -1,15 +1,42 @@
-function Parent() {
-  this.pName = 'name'
+
+
+var emitEvent = {
+  _list: {},
+  on(event,fn) {
+    // 订阅
+    (this._list[event]||(this._list[event]=[])).push(fn)
+  },
+  emit(event) {
+    // 发布
+    var fns = this._list[event]
+    if (!fns||fns.length === 0){
+      return
+    }
+    for (var i=0;i<fns.length;i++) {
+      fns[i].apply(null)
+    }
+    console.log('i', i)
+  },
+  off(event,fn) {
+    var fns = this._list[event]
+    if (!fn) {
+      fns = []
+    } else {
+      for (var i=0; i<fns.length;i++) {
+        if (fns[i] === fn) {
+          fns.splice(i,1);
+          break;
+        }
+      }
+    }
+  }
 }
-Parent.prototype.say = function () {}
-function Child(sex) {
-  Parent.call(this,sex)
+const aa = emitEvent
+function test(){
+  console.log('dadad')
 }
 
-Child.prototype = Object.create(Parent.prototype)
-Child.constructor = Child
-
-var cc = new Child('father')
-var bb = new Child('vvv')
-
-console.log(cc.say === bb.say)
+aa.on('test',test)
+console.log(aa._list)
+aa.off('test', test)
+aa.emit('test')
