@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script>
+  window.onload = function () {
+    var dom = document.querySelector('.drag');
+    var dragFlag = false;
+    var startX,startY,objX,objY,diffX,diffY;
+    dom.style.left = '0';
+    dom.style.top = '0';
+    dom.onmousedown = function (e) {
+      dragFlag = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      objX = dom.offsetLeft;
+      objY = dom.offsetTop;
+      diffX = startX - objX;
+      diffY = startY - objY;
+    }
+    document.onmousemove = function (e) {
+      if (dragFlag) {
+        console.log('可以移动', e.clientX)
+        dom.style.left = e.clientX - startX + objX + 'px'
+        dom.style.top = e.clientY - startY + objY + 'px'
+        if (e.clientX - diffX < 0) {
+          dom.style.left = 0 + 'px';
+        } else if ((e.clientX-diffX)>(window.innerWidth - dom.offsetWidth)) {
+          dom.style.left = window.innerWidth - dom.offsetWidth + 'px'
+        }
+
+        if (e.clientY - diffY < 0) {
+          dom.style.top = 0 + 'px';
+        } else if ((e.clientY - diffY) > (window.innerHeight - dom.offsetHeight)) {
+          dom.style.top = window.innerHeight - dom.offsetHeight + 'px'
+        }
+      }
+    }
+    document.onmouseup = function (e) {
+      dragFlag = false;
+    }
+  }
+</script>
+<style>
+  *{
+    margin:0;
+    padding: 0;
+  }
+  .drag {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: red;
+  }
+</style>
+
+<body>
+  <div class="drag"></div>
+</body>
+
+</html>

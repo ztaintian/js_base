@@ -8,21 +8,21 @@
   <title>模拟apply</title>
 </head>
 <script>
-  Function.prototype.myApply = function (context) {
-    context = context || window
-    context.fn = this
-    var args = [...arguments].slice(1)
-    console.log('args', args, ...args[0])
-    console.log(arguments[1])
-    // var result
-    // if (arguments[1]) {
-    //   result = context.fn(...arguments[1])
-    // } else {
-    //   result = context.fn()
-    // }
-    // delete context.fn
-    // return result
-  }
+  // Function.prototype.myApply = function (context) {
+  //   context = context || window
+  //   context.fn = this
+  //   var args = [...arguments].slice(1)
+  //   console.log('args', args, ...args[0])
+  //   console.log(arguments[1])
+  //   // var result
+  //   // if (arguments[1]) {
+  //   //   result = context.fn(...arguments[1])
+  //   // } else {
+  //   //   result = context.fn()
+  //   // }
+  //   // delete context.fn
+  //   // return result
+  // }
   Function.prototype.myApply = function (obj) {   //使用该方式在原型链上拓展方法，以便所有的函数都能够使用.方式调用
     var obj = obj || window;                      //取到传入的对象(执行上下文)，如果不传参数默认指向window
     obj.func = this;                        //给obj对象添加一个func方法，this也就是调用myCall的函数
@@ -39,12 +39,10 @@
     a: 99
   }
   function test(a) {
-    console.log(a)
+    console.log('dadad', a)
   }
   test.myApply(obj, ['fff', '23', 7])
-  Function.prototype.myApply = function (obj) {
-
-  }
+  test.apply(obj, ['fff', '23', 7])
 </script>
 
 <body>

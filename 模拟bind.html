@@ -26,6 +26,41 @@
       delete context.fn
     }
   }
+
+  Function.prototype.bind2 = function (context) {
+    var self = this; // 这句实际上是把调用bind2的函数赋给self，console.log(self)得到的是一个函数
+    var args = Array.prototype.slice.call(arguments, 1); // 获取传入的参数，将其变为数组存入args中
+
+    return function () {
+      var funArgs = Array.prototype.slice.call(arguments); // 这里的arguments是这个return函数中传入的参数
+      return self.apply(context, args.concat(funArgs)) // 将this指向context，将self的参数和return的function的参数拼接起来
+    }
+  }
+
+
+
+  Function.prototype.bind2 = function (context) {
+    // 如果bind绑定的不是函数，则抛错
+    if (typeof this !== "function") {
+      throw new Error("Function.prototype.bind - what is trying to be bound is not callable")
+    }
+
+    var self = this;
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    var fNOP = function () {};
+
+    var fBound = function () {
+      var funArgs = Array.prototype.slice.call(arguments);
+      return self.apply(
+        this instanceof fNOP ? this : context,
+        args.concat(funArgs)
+      );
+    }
+    fNOP.prototype = this.prototype;
+    fBound.prototype = new fNOP();
+    return fBound;
+  }
   var newShow1 = people.show.myBind(other, "geek", "male");
   // newShow1(); //20 'geek' 'male'
   Function.prototype.myBind = function (context) {
@@ -35,6 +70,24 @@
       context.fn(...args)
       delete context.fn
     }
+  }
+
+  Function.prototype.myBind = function (context) {
+    // 保存原函数
+    const ofn = this
+    // 获取除第一个参数之后的所有参数
+    const args = Array.from(arguments).slice(1)
+
+    function O() {}
+
+    function fn() {
+      // 第一个参数的判断是为了忽略使用new实例化函数时让this指向它自己，否则就指向这个context指定对象
+      // 第二个参数的处理做了参数合并， 就是 bind & fn 两个函数的参数合并
+      ofn.apply(this instanceof O ? this : context, args.concat(Array.from(arguments)))
+    }
+    O.prototype = this.prototype
+    fn.prototype = new O()
+    return fn
   }
 </script>
 

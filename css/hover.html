@@ -59,8 +59,13 @@
       methods: {
         hoverOn(item) {
           console.log('itemitemitem', item.target)
+          // Array.prototype.slice.call(item.target.parentNode.childNodes).map((itemc) => {
+          //   itemc.remove('active')
+          // })
+          // Array.prototype.slice.call(item.target.parentNode.childNodes)
           item.target.setAttribute("class",'active')
-          // console.log(item.target.parentNode.classList.remove('content'))
+          // console.log(item.target.parentNode.childNodes.remove('active'))
+          console.log('dadadad', Array.prototype.slice.call(item.target.parentNode.childNodes))
         }
       }
     })
