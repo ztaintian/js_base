@@ -1,16 +1,22 @@
-// 参考 https://www.cnblogs.com/apple78/p/12972004.html
-
-function f() {
-  let args = [...arguments];
-  let add = function() {
-    args.push(...arguments);
-    return add;
-  };
-  add.toString = function() {
-    return args.reduce((a, b) => {
-      return a + b;
-    });
-  };
-  return add;
+function add (...args) {
+	return args.reduce((a, b) => a + b)
 }
-console.log(+f(1)(2)(3)); // 6
+
+function currying (fn) {
+	let args = []
+	return function _c (...newArgs) {
+		if (newArgs.length) {
+			args = [
+				...args,
+				...newArgs
+			]
+			return _c
+		} else {
+			return fn.apply(this, args)
+		}
+	}
+}
+
+let addCurry = currying(add)
+// 注意调用方式的变化
+console.log(addCurry(1)(2)(3)(4)())

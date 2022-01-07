@@ -1,27 +1,29 @@
-// 简单实现
-
-class PrmiseJ {
+class PrmiseX {
   constructor(fn) {
+    this.states = 'pending';
+    this.value = null;
     this.list = [];
-    fn(this.resolve.bind(this)) 
-  }
-  then(fn) {
-    console.log('this.list', this.list, fn)
-    this.list.push(fn)
-    console.log('this.list', this.list, fn)
-
+    fn(this.resolve.bind(this))
   }
   resolve(value) {
-    console.log('this.listthis.list', this.list)
-    if (this.list.length === 0) return
-    this.list.forEach(fn => fn(value))
+    this.states = 'full';
+    this.value = value;
+    this.list.forEach((fn) => fn(value))
+  }
+  then(fn) {
+    if (this.states === 'pending') {
+      this.list.push(fn)
+    } else {
+      fn(this.value)
+    }
+    return this
   }
 }
-
-new PrmiseJ((resolve) => {
-  setTimeout(() => {
-    resolve('dd')
-  })  
-}).then((value) => {
-  console.log('value', value)
+var p = new PrmiseX((resolve) => {
+  resolve('111')
+}) 
+p.then((value) => {
+  console.log(value)
+}).then(() => {
+  console.log('ggggg')
 })
