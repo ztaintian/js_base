@@ -19,9 +19,10 @@ function ajaxC(success) {
   }, 1000);
 }
 
-function ajaxD() {
+function ajaxD(success) {
   setTimeout(function () {
     console.log("DDDDDDDDD");
+    success();
   }, 2000);
 } //模拟异步编程效果
 function MyPromise(func) {
@@ -29,17 +30,20 @@ function MyPromise(func) {
   var count = 0;
   this.cbklist = [];
   this.then = function (callback) {
+    console.log('callback', callback)
     this.cbklist.push(callback);
-    console.log(this)
     return this;
   }
   this.success = function () {
+    console.log('count', count, self.cbklist[count++])
     if (count == self.cbklist.length) return;
     self.cbklist[count++](self.success);
   }
-  setTimeout(function () {
+  // setTimeout(function () {
     func(self.success);
-  }, 0);
+  // }, 0);
 }
 //强制程序按then的顺序执行
-new MyPromise(ajaxA).then(ajaxB).then(ajaxC).then(ajaxD);
+new MyPromise(ajaxA).then(ajaxB).then(ajaxC).then(ajaxD).then(() => {
+  console.log('dadada')
+});

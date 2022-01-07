@@ -7,15 +7,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
 <script>
-  var myBind = function (context) {
-    if (typeof this !== 'function') {
-      throw new Error('not is function')
+  //极简的实现
+  class Promise {
+    callbacks = [];
+    constructor(fn) {
+      fn(this._resolve.bind(this));
+    }
+    then(onFulfilled) {
+      this.callbacks.push(onFulfilled);
+    }
+    _resolve(value) {
+      this.callbacks.forEach(fn => fn(value));
     }
   }
-  var obj = {}
-  myBind(obj)
+
+  //Promise应用
+  let p = new Promise(resolve => {
+    debugger
+    setTimeout(() => {
+      console.log('done');
+      resolve('5秒');
+    }, 5000);
+  }).then((tip) => {
+    console.log(tip);
+  })
 </script>
 <style>
   #app {

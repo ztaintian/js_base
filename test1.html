@@ -8,21 +8,30 @@
   <title>Document</title>
 </head>
 <script>
-  function bubbleSort(arr) {
-    for (var i = 0; i < arr.length; i++) {
-      debugger
-      for (var j = 0; j < arr.length-1-i; j++) {
-        if (arr[j] < arr[j + 1]) {
-          [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
-        }
-      }
+  //极简的实现
+  class Promise {
+    callbacks = [];
+    constructor(fn) {
+      fn(this._resolve.bind(this));
     }
-    return arr;
+    then(onFulfilled) {
+      this.callbacks.push(onFulfilled);
+    }
+    _resolve(value) {
+      this.callbacks.forEach(fn => fn(value));
+    }
   }
 
-  var arr = [55,434,  3, 32, 32, 1, 3, 2, 34];
-  console.log(bubbleSort(arr))
-
+  //Promise应用
+  let p = new Promise(resolve => {
+    debugger
+    setTimeout(() => {
+      console.log('done');
+      resolve('5秒');
+    }, 5000);
+  }).then((tip) => {
+    console.log(tip);
+  })
 </script>
 
 <body>

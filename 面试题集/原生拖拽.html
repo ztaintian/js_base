@@ -25,7 +25,6 @@
     }
     document.onmousemove = function (e) {
       if (dragFlag) {
-        console.log('可以移动', e.clientX)
         dom.style.left = e.clientX - startX + objX + 'px'
         dom.style.top = e.clientY - startY + objY + 'px'
         if (e.clientX - diffX < 0) {
