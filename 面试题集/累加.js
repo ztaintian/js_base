@@ -20,3 +20,18 @@ function currying (fn) {
 let addCurry = currying(add)
 // 注意调用方式的变化
 console.log(addCurry(1)(2)(3)(4)())
+
+
+
+// function add(x) {
+//   var sum = x;
+//   var tmp = function (y) {
+//     sum = sum + y;
+//     return tmp;
+//   };
+//   tmp.toString = function () {
+//     return sum;
+//   };
+//   return tmp;
+// }
+// console.log(+add(1)(2)(3)); //6

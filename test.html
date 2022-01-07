@@ -9,30 +9,29 @@
 </head>
 <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
 <script>
-  //极简的实现
-  class Promise {
-    callbacks = [];
-    constructor(fn) {
-      fn(this._resolve.bind(this));
-    }
-    then(onFulfilled) {
-      this.callbacks.push(onFulfilled);
-    }
-    _resolve(value) {
-      this.callbacks.forEach(fn => fn(value));
-    }
+  function add(...args) {
+    return args.reduce((a, b) => {
+      return a + b;
+    })
   }
 
-  //Promise应用
-  let p = new Promise(resolve => {
+  function test(fn) {
+    var args = [];
     debugger
-    setTimeout(() => {
-      console.log('done');
-      resolve('5秒');
-    }, 5000);
-  }).then((tip) => {
-    console.log(tip);
-  })
+    return function _fn(...newArgs) {
+      if (newArgs.length) {
+        args = [
+          ...args,
+          ...newArgs
+      ]
+        return _fn
+      } else {
+        return fn.apply(this, args)
+      }
+    }
+  }
+  var bb = test(add)
+  console.log(bb(1)(2)())
 </script>
 <style>
   #app {
