@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("\n\n//# sourceURL=webpack://webpack5.2/./src/index.js?");
+eval("// var path = require('path');\n// console.log('join', path.join(__dirname, '/dist/index.html'))\n// console.log('resolve',path.resolve(__dirname, './dist', 'index.html'))\n\n//# sourceURL=webpack://webpack5.2/./src/index.js?");
 
 /***/ })
 
