@@ -1,11 +1,28 @@
-var arr = [1,2,3,4,5,6];
-var arr2 = [1,254,43,321,32322,232,2,3];
-var temp = []
-for (var i = 0;i<arr.length;i++) {
-  for (var j=0;j<arr2.length;j++) {
-    if (arr[i] === arr2[j]) {
-      temp.push(arr[i])
+// 示例 1:
+// 输入: [2,2,1]
+// 输出: 1
+
+// 示例 2:
+// 输入: [4,1,2,1,2]
+// 输出: 4
+
+var arr = [22, 3, 4, 22];
+
+function once(arr) {
+  var obj = {};
+  var temp = []
+  arr.map((item) => {
+    if (obj[item]) {
+      obj[item] = obj[item] + 1;
+    } else {
+      obj[item] = 1;
+    }
+  });
+  for (var i in obj) {
+    if (obj[i] === 1) {
+      temp.push(i)
     }
   }
+  return temp;
 }
-console.log(temp)
+console.log(once(arr))

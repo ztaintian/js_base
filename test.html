@@ -1,61 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- parent -->
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
-<script>
-  function add(...args) {
-    return args.reduce((a, b) => {
-      return a + b;
-    })
+<template>
+
+  <p class="parent">
+  
+   <p>我是父亲, 对儿子说： {{sthGiveChild}}</p>
+  
+   <Child v-model="sthGiveChild"></Child>
+  
+  </p>
+  
+  </template>
+  
+  <script>
+  
+  import Child from './Child.vue';
+  
+  export default {
+  
+   data() {
+  
+    return {
+  
+     sthGiveChild: '给你100块'
+  
+    };
+  
+   },
+  
+   components: {
+  
+    Child
+  
+   }
+  
   }
-
-  function test(fn) {
-    var args = [];
-    debugger
-    return function _fn(...newArgs) {
-      if (newArgs.length) {
-        args = [
-          ...args,
-          ...newArgs
-      ]
-        return _fn
-      } else {
-        return fn.apply(this, args)
-      }
-    }
-  }
-  var bb = test(add)
-  console.log(bb(1)(2)())
-</script>
-<style>
-  #app {
-    display: flex;
-    align-items: end;
-  }
-
-  .box {
-    height: 100px;
-    width: 40px;
-    align-items: end;
-    display: flex;
-    justify-content: center;
-    background: rebeccapurple;
-    margin-right: 10px;
-  }
-</style>
-
-<body>
-  <div id="app">
-    <div v-for="(item,index) in arrNum" :style="'background:'+item.bg+';height:'+item.num*100 + 'px;'" class="box">
-      {{item.num}}</div>
-
-  </div>
-</body>
-
-</html>
+  </script>

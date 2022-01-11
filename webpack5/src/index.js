@@ -1,10 +1,4 @@
-class Animal {
-  constructor(name) {
-      this.name = name;
-  }
-  getName() {
-      return this.name;
-  }
-}
+var path = require('path');
 
-const dog = new Animal('dog');
+console.log('join', path.join(__dirname, '/dist/index.html'))
+console.log('resolve',path.resolve(__dirname, './dist', 'index.html'))
