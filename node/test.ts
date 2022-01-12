@@ -6,7 +6,6 @@ enum HelloType {
 interface Hello {
   sayHello();
 }
-
 class A implements Hello {
   sayHello() {
     console.log("A");
