@@ -7,23 +7,57 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<script>
-  function add(x) {
-    var sum = x;
-    var tmp = function (y) {
-      sum = sum + y;
-      return tmp;
-    };
-    tmp.toString = function () {
-      return sum;
-    };
-    return tmp;
+<style>
+  a:link {
+    color: red;
   }
-  console.log(+add(1)(2)(3)); //6
+
+  a:visited {
+    color: green;
+  }
+
+  a:hover {
+    color: yellow;
+  }
+
+  a:active {
+    color: blue;
+  }
+</style>
+<script>
+  async function async1() {
+    console.log('async1 start'); // 2
+    await async2();
+    console.log('async1 end'); // 6
+  }
+  async function async2() {
+    console.log('async2'); // 3
+  }
+  console.log('script start'); // 1
+  setTimeout(function () {
+    console.log('setTimeout'); // 8
+  }, 0)
+  async1();
+  new Promise(function (resolve) {
+    console.log('promise1'); //4
+    resolve();
+  }).then(function () {
+    console.log('promise2'); // 7
+  });
+  console.log('script end'); // 5
+
+//   script start
+// test1.html:29 async1 start
+// test1.html:34 async2
+// test1.html:42 promise1
+// test1.html:47 script end
+// test1.html:31 async1 end
+// test1.html:45 promise2
+// test1.html:38 setTimeout
 </script>
 
 <body>
-
+  <a target="blank" href="www.baidu.com">百度</a>
 </body>
 
 </html>
