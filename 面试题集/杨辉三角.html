@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script>
+  // function combination(m, n) {
+  //   if (n == 0) return 1; //第一个数为1
+  //   else if (m == n) return 1; //最后一个数为1
+  //   else return combination(m - 1, n - 1) + combination(m - 1, n); //中间的数为前一行的两个数相加
+  // }
+
+  // function Print(n) {
+  //   for (var i = 0; i < n; i++) {
+  //     let arr = []; //用来放第i行的数
+  //     for (var j = 0; j <= i; j++) {
+  //       arr.push(combination(i, j));
+  //     }
+  //     console.log(arr.join(' ')); //字符串形式输出
+  //   }
+  // }
+  //   Print(8)
+  /**
+   * @param {number} numRows
+   * @return {number[][]}
+   */
+  var generate = function (numRows) {
+    let result = []
+    let rowArr = []
+    if (numRows <= 0) {
+      return result
+    }
+    for (let i = 0; i < numRows; i++) {
+      rowArr = []
+      for (let j = 0; j <= i; j++) {
+        if (j > 0 && j < i) {
+          rowArr.push(result[i - 1][j - 1] + result[i - 1][j])
+        } else {
+          rowArr.push(1)
+        }
+      }
+      console.log('rowArr', rowArr);
+      result.push(rowArr)
+    }
+    console.log(result)
+    return result
+  }
+  generate(8)
+
+
+  /**
+ * @param {number} numRows
+ * @return {number[][]}
+ */
+const generate = function(numRows) {
+  if (numRows === 0) return []
+  if (numRows === 1) return [[1]]
+
+  const ans = generate(numRows - 1)
+  const prev = ans[ans.length - 1]
+  const item = []
+  for (let i = 0; i < prev.length + 1; i++) {
+    item[i] = (prev[i - 1] || 0) + (prev[i] || 0)
+  }
+  return ans.concat([item])
+}
+
+</script>
+
+<body>
+
+</body>
+
+</html>

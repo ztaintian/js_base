@@ -1,36 +1,21 @@
-var HelloType;
-(function (HelloType) {
-    HelloType[HelloType["A"] = 0] = "A";
-    HelloType[HelloType["B"] = 1] = "B";
-})(HelloType || (HelloType = {}));
-var A = /** @class */ (function () {
-    function A() {
+var arr = [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]];
+
+function conmb(m, n) {}
+
+function result(numRow) {
+  var arr = [];
+  var result = [];
+  for (var i = 0; i < numRow; i++) {
+    for (var j = 0; j <= i; j++) {
+      // arr.push(conmb(i,j-1))
+      if (j > 0 && j < i) {
+        arr.push(1);
+      } else {
+        arr.push(result[i - 1][j - 1] + result[i - 1][j]);
+      }
     }
-    A.prototype.sayHello = function () {
-        console.log("A");
-    };
-    return A;
-}());
-var B = /** @class */ (function () {
-    function B() {
-    }
-    B.prototype.sayHello = function () {
-        console.log("B");
-    };
-    return B;
-}());
-var HelloFactory = /** @class */ (function () {
-    function HelloFactory() {
-    }
-    HelloFactory.getHello = function (type) {
-        return HelloFactory.list.get(type);
-    };
-    HelloFactory.list = new Map([
-        [HelloType.A, new A()],
-        [HelloType.B, new B()],
-    ]);
-    return HelloFactory;
-}());
-// test
-HelloFactory.getHello(HelloType.A).sayHello();
-HelloFactory.getHello(HelloType.B).sayHello();
+    result.push(arr);
+  }
+}
+
+
