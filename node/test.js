@@ -1,21 +1,27 @@
-var arr = [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1], [1, 4, 6, 4, 1]];
-
-function conmb(m, n) {}
-
-function result(numRow) {
-  var arr = [];
-  var result = [];
-  for (var i = 0; i < numRow; i++) {
-    for (var j = 0; j <= i; j++) {
-      // arr.push(conmb(i,j-1))
-      if (j > 0 && j < i) {
-        arr.push(1);
+function testPlugin() {
+  return {
+    name: "test-plugin",
+    buildStart() {
+      if (!this.cache.has("prev")) {
+        this.cache.set("prev", "上一次插件执行的结果");
       } else {
-        arr.push(result[i - 1][j - 1] + result[i - 1][j]);
+        // 第二次执行 rollup 的时候会执行
+        console.log(this.cache.get("prev"));
       }
-    }
-    result.push(arr);
-  }
+    },
+  };
+}
+let cache;
+async function build() {
+  const chunks = await rollup.rollup({
+    input: "src/main.js",
+    plugins: [testPlugin()],
+    // 需要传递上次的打包结果
+    cache,
+  });
+  cache = chunks.cache;
 }
 
-
+build().then(() => {
+  build();
+});

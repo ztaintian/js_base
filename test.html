@@ -1,38 +1,17 @@
-<!-- parent -->
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>菜鸟教程(runoob.com)</title>
+<script>
+function newDoc(){
+	window.location.assign("https://www.runoob.com")
+}
+</script>
+</head>
+<body>
 
-<template>
+<input type="button" value="载入新文档" onclick="newDoc()">
 
-  <p class="parent">
-  
-   <p>我是父亲, 对儿子说： {{sthGiveChild}}</p>
-  
-   <Child v-model="sthGiveChild"></Child>
-  
-  </p>
-  
-  </template>
-  
-  <script>
-  
-  import Child from './Child.vue';
-  
-  export default {
-  
-   data() {
-  
-    return {
-  
-     sthGiveChild: '给你100块'
-  
-    };
-  
-   },
-  
-   components: {
-  
-    Child
-  
-   }
-  
-  }
-  </script>
+</body>
+</html>
