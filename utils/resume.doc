@@ -1,0 +1,518 @@
+@using CIIC.Tcp.Entities;
+@using CIIC.Tcp.Dtos;
+@model ResumeDetailDto;
+@{
+    Layout = null;
+
+    var baseInfo = Model.basic as ResumeCompanyDto;
+    var works = ViewBag.Works as List<ResumeWorkViewResultDto>;
+    var projs = ViewBag.Projs as List<ResumeCompanyProjectExperience>;
+    var educs = ViewBag.Educs as List<ResumeEducationResultViewDto>;
+    var trins = ViewBag.Trins as List<ResumeCompanyTrainning>;
+    var rweas = ViewBag.Rewas as List<ResumeCompanyAwardCertificate>;
+    var skils = ViewBag.Skils as List<ResumeCompanySkill>;
+    var langs = ViewBag.Langs as List<ResumeCompanyLanguage>;
+
+}
+<html>
+
+<head>
+    <meta http-equiv=Content-Type content="text/html; charset=utf-8">
+    <meta name=Generator content="Microsoft Word 15 (filtered)">
+    <style>
+        /* Font Definitions */
+        @@font-face {
+            font-family: 宋体;
+            panose-1: 2 1 6 0 3 1 1 1 1 1;
+        }
+
+        @@font-face {
+            font-family: "Cambria Math";
+            panose-1: 2 4 5 3 5 4 6 3 2 4;
+        }
+
+        @@font-face {
+            font-family: Calibri;
+            panose-1: 2 15 5 2 2 2 4 3 2 4;
+        }
+
+        @@font-face {
+            font-family: 微软雅黑;
+            panose-1: 2 11 5 3 2 2 4 2 2 4;
+        }
+
+        @@font-face {
+            font-family: "\@@微软雅黑";
+            panose-1: 2 11 5 3 2 2 4 2 2 4;
+        }
+
+        @@font-face {
+            font-family: "\@@宋体";
+            panose-1: 2 1 6 0 3 1 1 1 1 1;
+        }
+        /* Style Definitions */
+        p.MsoNormal, li.MsoNormal, div.MsoNormal {
+            margin: 0cm;
+            margin-bottom: .0001pt;
+            text-align: justify;
+            text-justify: inter-ideograph;
+            font-size: 10.5pt;
+            font-family: "Calibri","sans-serif";
+        }
+
+        p.MsoHeader, li.MsoHeader, div.MsoHeader {
+            mso-style-link: "页眉 Char";
+            margin: 0cm;
+            margin-bottom: .0001pt;
+            text-align: center;
+            layout-grid-mode: char;
+            border: none;
+            padding: 0cm;
+            font-size: 9.0pt;
+            font-family: "Calibri","sans-serif";
+        }
+
+        p.MsoFooter, li.MsoFooter, div.MsoFooter {
+            mso-style-link: "页脚 Char";
+            margin: 0cm;
+            margin-bottom: .0001pt;
+            layout-grid-mode: char;
+            font-size: 9.0pt;
+            font-family: "Calibri","sans-serif";
+        }
+
+        span.Char {
+            mso-style-name: "页眉 Char";
+            mso-style-link: 页眉;
+        }
+
+        span.Char0 {
+            mso-style-name: "页脚 Char";
+            mso-style-link: 页脚;
+        }
+
+        .MsoChpDefault {
+            font-family: "Calibri","sans-serif";
+        }
+        /* Page Definitions */
+        @@page WordSection1 {
+            size: 595.3pt 841.9pt;
+            margin: 72.0pt 50.0pt 72.0pt 50.0pt;
+            layout-grid: 15.6pt;
+        }
+
+        table {
+            border-collapse: collapse;
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        td {
+            border: 1px solid #ddd;
+            word-break: break-all;
+        }
+
+        div.WordSection1 {
+            page: WordSection1;
+        }
+
+        p.tags {
+            float: left;
+            margin-right: 0;
+            padding: 3px 8px;
+            background: #eee;
+            border-radius: 5px;
+        }
+    </style>
+
+</head>
+
+<body lang=ZH-CN style='text-justify-trim:punctuation'>
+
+    <div class=WordSection1 style='layout-grid:12pt'>
+        <p class=MsoNormal align=center style='text-align:center'>
+            <b>
+                简历
+            </b>
+        </p>
+        <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+        <table class=MsoTable15Grid4Accent1 border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+            <tr style='height:15pt;'>
+                <td colspan=4 valign=top style='border-left:none;border-right:none;background:#17578B;padding:0cm 5.4pt 0cm 5.4pt;height:15pt'>
+                    <p class=MsoNormal>
+                        <b>
+                            <span style='color:#fff;font-size:15.0pt;margin:0 20px 0 20px;display:block;'>●</span>
+                            <span style='color:white;font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>
+                                个人信息<span style='color:white'></span>
+                            </span>
+                        </b>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td style='border:none;'>
+                    <p class=MsoNormal align=left style='text-align:left'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</span>
+                    </p>
+                </td>
+                <td valign=left style='border:none;text-align:left;'>
+                    <p style='text-align:left;'><span lang=EN-US style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>{{model.basic.name}} </span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style='border:none;'>
+                    <p class=MsoNormal align=left style='text-align:left'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>出生年月：</span>
+                    </p>
+                </td>
+                <td width=440 colspan=3 valign=top style='width:440pt;border:none;'>
+                    <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>{{model.basic.birthday | date.to_string '%F'}}</span></p>
+                </td>
+            </tr>
+
+            <tr>
+                <td style='border:none;'>
+                    <p class=MsoNormal align=left style='text-align:left'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
+                    </p>
+                </td>
+                <td width=440 colspan=3 valign=top style='width:440pt;border:none;'>
+                    <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>{{model.basic.birthday | date.to_string '%F'}}</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style='border:none;'>
+                    <p class=MsoNormal align=left style='text-align:left'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>户&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;口：</span>
+                    </p>
+                </td>
+                <td width=440 colspan=3 valign=top style='width:440pt;border:none;'>
+                    <p class=MsoNormal><span lang=EN-US style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>{{model.basic.birthday | date.to_string '%F'}}</span></p>
+                </td>
+            </tr>
+
+        </table>
+        <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+        <table class=MsoTable15Grid4Accent1 border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+            <tr style='height:15pt;'>
+                <td colspan=4 valign=top style='border-left:none;border-right:none;background:#17578B;padding:0cm 5.4pt 0cm 5.4pt;height:15pt'>
+                    <p class=MsoNormal>
+                        <b>
+                            <span style='color:#fff;font-size:15.0pt;'>●</span>
+                            <span style='color:white;font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>
+                                自我评价<span style='color:white'></span>
+                            </span>
+                        </b>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td valign=left style='border:none;text-align:left;'>
+                    <p style='text-align:left;'><span lang=EN-US style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>{{model.basic.self_evaluation}} </span></p>
+                </td>
+            </tr>
+        </table>
+        <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+        {{if model.work != null}}
+        <table class=MsoTable15Grid4Accent1 border=1 cellspacing=0 cellpadding=0
+               style='border-collapse:collapse;border:none'>
+            <tr style='height:15pt'>
+                <td valign=top colspan=4 valign=top style='border-left:none;border-right:none;background:#17578B;padding:0cm 5.4pt 0cm 5.4pt;height:15pt'>
+                    <p class=MsoNormal>
+                        <b>
+                            <span style='color:#fff;font-size:15.0pt;'>●</span>
+                            <span style='color:white;font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>
+                                工作经验<span style='color:white'></span>
+                            </span>
+                        </b>
+                    </p>
+                </td>
+            </tr>
+            {{for wok in model.work}}
+            <tr>
+                <td width=553 valign=top style='width:414.8pt;border:none;'>
+                    <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:0cm;line-height:10.0pt'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>
+                            {{wok.company_name}}
+                            {{wok.position}}
+                            （<span lang=EN-US>
+                                {{wok.start_time | date.to_string '%Y-%m'}}
+                                {{wok.end_time | date.to_string '%Y-%m'}}
+                            </span>）
+                        </span>
+                    </p>
+                    <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:0cm;line-height:10.0pt'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>公司行业：{{wok.industry}}</span>
+                    </p>
+                    <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:0cm;line-height:10.0pt'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>月薪范围：{{wok.salary}}</span>
+                    </p>
+                    <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:0cm;line-height:10.0pt'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>工作职责：{{wok.description}}</span>
+                    </p>
+                </td>
+            </tr>
+            {{end}}
+        </table>
+        {{end}}
+        <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+
+        @if (projs.Count > 0)
+        {
+        <table class=MsoTable15Grid4Accent1 border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+            <tr style='height:15pt'>
+                <td valign=top colspan=4 valign=top style='border-left:none;border-right:none;background:#17578B;padding:0cm 5.4pt 0cm 5.4pt;height:15pt'>
+                    <p class=MsoNormal>
+                        <b>
+                            <span style='color:#fff;font-size:15.0pt;'>●</span>
+                            <span style='color:white;font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>项目经验<span style='color:white'></span>
+                            </span>
+                        </b>
+                    </p>
+                </td>
+            </tr>
+            @foreach (var proj in projs)
+            {
+            <tr>
+                <td  style='width:414.8pt;border:none;'>
+                    <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:0cm;line-height:10.0pt'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>
+                        @(string.IsNullOrWhiteSpace(proj.ProjectName) ? "" : proj.ProjectName)
+                        （<span lang=EN-US>
+                        @(proj.StartTime.HasValue ? proj.StartTime.Value.ToString("yyyy/MM") + " - " : "" )
+                            @(proj.EndTime.HasValue ? proj.EndTime.Value.ToString("yyyy/MM") : "" )
+                            </span>）
+                        </span>
+                    </p>
+                    <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:0cm;line-height:10.0pt'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>项目职责：@(string.IsNullOrWhiteSpace(proj.Duty) ? "未知" : proj.Duty)</span>
+                    </p>
+                    <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:0cm;line-height:10.0pt'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>项目描述：@(string.IsNullOrWhiteSpace(proj.Description) ? "未知" : proj.Description)</span>
+                    </p>
+                </td>
+            </tr>
+            }
+        </table>
+
+        <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+        }
+
+        @if (educs.Count > 0)
+        {
+        <table  class=MsoTable15Grid4Accent1 border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+            <tr style='height:15pt'>
+                <td valign=top colspan=4 valign=top style='border-left:none;border-right:none;background:#17578B;padding:0cm 5.4pt 0cm 5.4pt;height:15pt'>
+                    <p class=MsoNormal>
+                        <b>
+                            <span style='color:#fff;font-size:15.0pt;'>●</span>
+                            <span style='color:white;font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>学习背景<span style='color:white'></span>
+                            </span>
+                        </b>
+                    </p>                
+                </td>
+            </tr>
+            @foreach (var educ in educs)
+            {
+            <tr>
+                <td width=553 valign=top style='width:414.8pt;border:none;padding:0cm 5.4pt 0cm 5.4pt'>
+                    <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:0cm;line-height:10.0pt'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>
+                            @(string.IsNullOrWhiteSpace(educ.SchoolName) ? "" : educ.SchoolName)
+                            @(string.IsNullOrWhiteSpace(educ.EducationTxt) ? "" : " | " + educ.EducationTxt)
+                            （<span lang=EN-US>
+                                @(educ.StartTime.HasValue ? educ.StartTime.Value.ToString("yyyy/MM") + " - " : "" ) 
+                                @(educ.EndTime.HasValue ? educ.EndTime.Value.ToString("yyyy/MM") : "" )
+                              </span>）
+                        </span>
+                    </p>
+                    <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:0cm;line-height:10.0pt'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>专业名称：@(string.IsNullOrWhiteSpace(educ.Major) ? "未知" : educ.Major)</span>
+                    </p>
+                    <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:0cm;line-height:10.0pt'>
+                        <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>描述：@(string.IsNullOrWhiteSpace(educ.Description) ? "未知" : educ.Description)</span>
+                    </p>
+                </td>
+            </tr>
+            }
+        </table>
+        <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+        }
+
+        @if (skils.Count > 0)
+        {
+        <table class=MsoTable15Grid4Accent1 border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+            <tr style='height:15pt'>
+                <td valign=top colspan=4 valign=top style='border-left:none;border-right:none;background:#17578B;padding:0cm 5.4pt 0cm 5.4pt;height:15pt'>
+                    <p class=MsoNormal>
+                        <b>
+                            <span style='color:#fff;font-size:15.0pt;'>●</span>
+                            <span style='color:white;font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>证书<span style='color:white'></span>
+                            </span>
+                        </b>
+                    </p>                  
+                </td>
+            </tr>
+            <tr>
+                <td width=553 valign=top style='width:414.8pt;border:none;padding:0cm 5.4pt 0cm 5.4pt'>
+                    @foreach (var skil in skils)
+                    {
+                        <span lang=EN-US style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>@skil.SkillName；</span>
+                    }
+                </td>
+            </tr>
+        </table>
+        <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+        }
+
+       @if (trins.Count > 0)
+        {
+        <table  class=MsoTable15Grid4Accent1 border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+            <tr style='height:15pt'>
+                <td valign=top colspan=4 valign=top style='border-left:none;border-right:none;background:#17578B;padding:0cm 5.4pt 0cm 5.4pt;height:15pt'>
+                    <p class=MsoNormal>
+                        <b>
+                            <span style='color:#fff;font-size:15.0pt;'>●</span>
+                            <span style='color:white;font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>培训<span style='color:white'></span>
+                            </span>
+                        </b>
+                    </p>                  
+                </td>
+            </tr>
+            @foreach (var trin in trins)
+            {
+                <tr>
+                    <td width=553 valign=top style='width:414.8pt;border:none;padding:0cm 5.4pt 0cm 5.4pt'>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:0cm;line-height:10.0pt'>
+                            <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>@(string.IsNullOrWhiteSpace(trin.Course) ? "" : trin.Course)
+                            （
+                                <span lang=EN-US>
+                                    @(trin.StartTime.HasValue ? trin.StartTime.Value.ToString("yyyy/MM") + " - " : "" )
+                                    @(trin.EndTime.HasValue ? trin.EndTime.Value.ToString("yyyy/MM") : "" )
+                                </span>）</span>
+                        </p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:0cm;line-height:10.0pt'>
+                            <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>机构名称：@(string.IsNullOrWhiteSpace(trin.Institutions) ? "未知" : trin.Institutions)</span>
+                        </p>
+                        <p class=MsoNormal style='margin-top:7.8pt;margin-right:0cm;margin-bottom:7.8pt;margin-left:0cm;line-height:10.0pt'>
+                            <span style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>描述：@(string.IsNullOrWhiteSpace(trin.Description) ? "未知" : trin.Description)</span>
+                        </p>
+                    </td>
+                </tr>
+            }
+        </table>
+
+        <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+        }
+
+        @if (langs.Count > 0)
+        {
+        <table class=MsoTable15Grid4Accent1 border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+            <tr style='height:15pt'>
+                <td valign=top colspan=4 valign=top style='border-left:none;border-right:none;background:#17578B;padding:0cm 5.4pt 0cm 5.4pt;height:15pt'>
+                    <p class=MsoNormal>
+                        <b>
+                            <span style='color:#fff;font-size:15.0pt;'>●</span>
+                            <span style='color:white;font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>语言能力<span style='color:white'></span>
+                            </span>
+                        </b>
+                    </p>                  
+                </td>
+            </tr>
+            <tr>
+                <td width=553 valign=top style='width:414.8pt;border:none;padding:0cm 5.4pt 0cm 5.4pt'>
+                @foreach (var lang in langs)
+                {
+                    <span lang=EN-US style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>@lang.LanguageName；</span>
+                }
+                </td>
+            </tr>
+        </table>
+
+        <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+        }
+
+        @if (skils.Count > 0)
+        {
+        <table class=MsoTable15Grid4Accent1 border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+            <tr style='height:15pt'>
+                <td valign=top colspan=4 valign=top style='border-left:none;border-right:none;background:#17578B;padding:0cm 5.4pt 0cm 5.4pt;height:15pt'>
+                    <p class=MsoNormal>
+                        <b>
+                            <span style='color:#fff;font-size:15.0pt;'>●</span>
+                            <span style='color:white;font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>IT技能<span style='color:white'></span>
+                            </span>
+                        </b>
+                    </p>                  
+                </td>
+            </tr>
+            <tr>
+                <td width=553 valign=top style='width:414.8pt;border:none;padding:0cm 5.4pt 0cm 5.4pt'>
+                    @foreach (var skil in skils)
+                    {
+                        <span lang=EN-US style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>@skil.SkillName；</span>
+                    }
+                </td>
+            </tr>
+        </table>
+        <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+        }
+
+
+        @if (skils.Count > 0)
+        {
+        <table class=MsoTable15Grid4Accent1 border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+            <tr style='height:15pt'>
+                <td valign=top colspan=4 valign=top style='border-left:none;border-right:none;background:#17578B;padding:0cm 5.4pt 0cm 5.4pt;height:15pt'>
+                    <p class=MsoNormal>
+                        <b>
+                            <span style='color:#fff;font-size:15.0pt;'>●</span>
+                            <span style='color:white;font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>技能<span style='color:white'></span>
+                            </span>
+                        </b>
+                    </p>                  
+                </td>
+            </tr>
+            <tr>
+                <td width=553 valign=top style='width:414.8pt;border:none;padding:0cm 5.4pt 0cm 5.4pt'>
+                    @foreach (var skil in skils)
+                    {
+                        <span lang=EN-US style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>@skil.SkillName；</span>
+                    }
+                </td>
+            </tr>
+        </table>
+        <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+        }
+
+
+        @if (skils.Count > 0)
+        {
+        <table class=MsoTable15Grid4Accent1 border=1 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+            <tr style='height:15pt'>
+                <td valign=top colspan=4 valign=top style='border-left:none;border-right:none;background:#17578B;padding:0cm 5.4pt 0cm 5.4pt;height:15pt'>
+                    <p class=MsoNormal>
+                        <b>
+                            <span style='color:#fff;font-size:15.0pt;'>●</span>
+                            <span style='color:white;font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>其它<span style='color:white'></span>
+                            </span>
+                        </b>
+                    </p>                  
+                </td>
+            </tr>
+            <tr>
+                <td width=553 valign=top style='width:414.8pt;border:none;padding:0cm 5.4pt 0cm 5.4pt'>
+                    @foreach (var skil in skils)
+                    {
+                        <span lang=EN-US style='font-size:10.0pt;font-family:"微软雅黑","sans-serif"'>@skil.SkillName；</span>
+                    }
+                </td>
+            </tr>
+        </table>
+        <p class=MsoNormal><span lang=EN-US style='font-size:9.0pt;font-family:"微软雅黑","sans-serif"'>&nbsp;</span></p>
+        }
+    </div>
+
+</body>
+
+</html>
