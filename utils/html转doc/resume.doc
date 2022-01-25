@@ -123,12 +123,32 @@
             background: #eee;
             border-radius: 5px;
         }
+    @page Section1 {
+        mso-page-orientation:landscape;
+        margin-buttom: 10px;
+        mso-header: h1;
+    }
+
+    div.Section1 {page:Section1;}
+
+    p.headerFooter { margin:0in; text-align: left; }
     </style>
 
 </head>
 
 <body lang=ZH-CN style='text-justify-trim:punctuation'>
-
+    <div class="Section1"> 
+        <table  border=0 cellspacing=0 cellpadding=0 style='border-collapse:collapse;border:none'>
+            <tr style='height:0.1pt;mso-height-rule:exactly'>
+                <td>
+                    <div style='mso-element:header;margin:0 0 10pt 0;' id=h1>
+                        <img src="http://rck-auth.k8stest.ciicsh.com/images/logo.png" width="120" height="54" style="width:233pt;height:54pt;" />
+                        <span width="120" style="width:60pt;height:54pt;">SHANGHAI CIIC HR CONSULTING CO., LTD. Recruitment Service</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
     <div class=WordSection1 style='layout-grid:12pt'>
         <p class=MsoNormal align=center style='text-align:center'>
             <b>

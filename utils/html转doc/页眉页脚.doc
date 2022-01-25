@@ -1,0 +1,49 @@
+<html>
+<head>
+    <style type="text/css">
+    @page Section1 {
+        margin:0.75in 0.75in 0.75in 0.75in;
+        size:841.7pt 595.45pt;
+        mso-page-orientation:landscape;
+        mso-header-margin:0.5in;
+        mso-header: h1;
+        mso-footer-margin:0.5in;
+        mso-footer: f1;
+    }
+
+    div.Section1 {page:Section1;}
+
+    p.headerFooter { margin:0in; text-align: center; }
+    </style>
+</head>
+<body><div class=Section1>
+
+<table style='margin-left:50in;'><tr style='height:1pt;mso-height-rule:exactly'>
+    <td>
+      <div style='mso-element:header' id=h1>
+        <p class=headerFooter>
+            Header content goes here
+         </p>
+      </div>
+      &nbsp;
+    </td>
+
+    <td>
+      <div style='mso-element:footer' id=f1>
+        <p class=headerFooter>
+        Page
+        <span style='mso-field-code:PAGE'></span>
+        of
+        <span style='mso-field-code:NUMPAGES'></span>
+      </p>
+      </div>
+      &nbsp;
+</td></tr></table>
+
+Main content goes here.
+Here's a page break:
+<br clear=all style='mso-special-character:line-break; page-break-before:always'>
+This is page 2
+
+</div></body>
+</html>
