@@ -1,27 +1,16 @@
-function testPlugin() {
-  return {
-    name: "test-plugin",
-    buildStart() {
-      if (!this.cache.has("prev")) {
-        this.cache.set("prev", "上一次插件执行的结果");
-      } else {
-        // 第二次执行 rollup 的时候会执行
-        console.log(this.cache.get("prev"));
-      }
-    },
-  };
-}
-let cache;
-async function build() {
-  const chunks = await rollup.rollup({
-    input: "src/main.js",
-    plugins: [testPlugin()],
-    // 需要传递上次的打包结果
-    cache,
-  });
-  cache = chunks.cache;
+function Node(value, left, right) {
+  if (value) {
+    this.value = value;
+    if (left) this.left = left;
+    if (right) this.right = right;
+  }
 }
 
-build().then(() => {
-  build();
-});
+function Btree(arr) {
+  if (arr) {
+    if (arr.length === 1) {
+      return new Node(arr[0]);
+    }
+    return new Node(arr[0], Btree(arr[1]), Btree(arr[2]));
+  }
+}

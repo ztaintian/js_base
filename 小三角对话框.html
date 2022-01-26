@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .test {
+    width: 140px;
+    height: 50px;
+    background-color: #0fe;
+    filter: drop-shadow(0px 0px 0.5px black);
+  }
+
+  .test:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 50px;
+    border-color: transparent #0fe;
+    border-width: 0 0 15px 15px;
+    border-style: solid;
+    overflow: hidden;
+  }
+
+  .box {
+    margin: 40px;
+    padding: 50px;
+    background-color: #ff7272;
+    position: relative;
+    font-size: 24px;
+  }
+
+  .cor {
+    position: absolute;
+    left: -40px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    border: 20px solid transparent;
+    border-right-color: #ff7272;
+  }
+
+  .drop-shadow {
+    filter: drop-shadow(0px 0px 1px black);
+  }
+</style>
+
+<body>
+  <div class="test">
+  </div>
+
+  <div class="box drop-shadow">
+    <i class="cor"></i>
+    filter: drop-shadow
+  </div>
+</body>
+
+</html>
