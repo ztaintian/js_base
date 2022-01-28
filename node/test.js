@@ -1,16 +1,36 @@
-function Node(value, left, right) {
-  if (value) {
-    this.value = value;
-    if (left) this.left = left;
-    if (right) this.right = right;
-  }
-}
-
-function Btree(arr) {
-  if (arr) {
-    if (arr.length === 1) {
-      return new Node(arr[0]);
+var HelloType;
+(function (HelloType) {
+    HelloType[HelloType["A"] = 0] = "A";
+    HelloType[HelloType["B"] = 1] = "B";
+})(HelloType || (HelloType = {}));
+var A = /** @class */ (function () {
+    function A() {
     }
-    return new Node(arr[0], Btree(arr[1]), Btree(arr[2]));
-  }
-}
+    A.prototype.sayHello = function () {
+        console.log("A");
+    };
+    return A;
+}());
+var B = /** @class */ (function () {
+    function B() {
+    }
+    B.prototype.sayHello = function () {
+        console.log("B");
+    };
+    return B;
+}());
+var HelloFactory = /** @class */ (function () {
+    function HelloFactory() {
+    }
+    HelloFactory.getHello = function (type) {
+        return HelloFactory.list.get(type);
+    };
+    HelloFactory.list = new Map([
+        [HelloType.A, new A()],
+        [HelloType.B, new B()],
+    ]);
+    return HelloFactory;
+}());
+// test
+HelloFactory.getHello(HelloType.A).sayHello();
+HelloFactory.getHello(HelloType.B).sayHello();
