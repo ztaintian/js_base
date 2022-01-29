@@ -1,36 +1,18 @@
-var HelloType;
-(function (HelloType) {
-    HelloType[HelloType["A"] = 0] = "A";
-    HelloType[HelloType["B"] = 1] = "B";
-})(HelloType || (HelloType = {}));
-var A = /** @class */ (function () {
-    function A() {
+var arr = [23,43,2,2,3,2,2,2]
+
+function quickSort(arr) {
+    if (arr.length < 2) {
+        return arr;
     }
-    A.prototype.sayHello = function () {
-        console.log("A");
-    };
-    return A;
-}());
-var B = /** @class */ (function () {
-    function B() {
-    }
-    B.prototype.sayHello = function () {
-        console.log("B");
-    };
-    return B;
-}());
-var HelloFactory = /** @class */ (function () {
-    function HelloFactory() {
-    }
-    HelloFactory.getHello = function (type) {
-        return HelloFactory.list.get(type);
-    };
-    HelloFactory.list = new Map([
-        [HelloType.A, new A()],
-        [HelloType.B, new B()],
-    ]);
-    return HelloFactory;
-}());
-// test
-HelloFactory.getHello(HelloType.A).sayHello();
-HelloFactory.getHello(HelloType.B).sayHello();
+    var tempArr = arr.splice(0,1)[0];
+    var leftArr=[], rightArr=[];
+    arr.map((item) => {
+        if (item < tempArr) {
+            rightArr.push(item);
+        } else {
+            leftArr.push(item)
+        }
+    })
+    return [...quickSort(rightArr), ...[tempArr], ...quickSort(leftArr)]
+}
+console.log(quickSort(arr))
