@@ -7,6 +7,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<script>
+  function deepClone (origin, weakMap = new WeakMap()) {
+    if (origin == undefined || typeof origin != 'object') {
+      return origin
+    }
+    if (origin instanceof Date) {
+      return new Date(origin)
+    }
+    if (origin instanceof RegExp) {
+      return new RegExp(origin)
+    }
+    const val = weakMap.get(origin)
+    if (val) return val
+    const target = new origin.constructor()
+    weakMap.set(origin, target)
+    for (let k in origin) {
+      target[k] = deepClone(origin[k], weakMap)
+    }
+    return target
+  }
+ let obj1 = {}  
+ obj1.obj2 = obj1  
+ let obj2 = deepClone(obj1)  
+ console.log(obj2, 'obj2')
+</script>
 <style>
   a:link {
     color: red;

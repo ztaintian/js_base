@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script>
+  // 利用 WeakMap 解决循环引用
+  let map = new WeakMap()
+
+  function deepClone(obj) {
+    if (obj instanceof Object) {
+      if (map.has(obj)) {
+        return map.get(obj)
+      }
+      let newObj
+      if (obj instanceof Array) {
+        newObj = []
+      } else if (obj instanceof Function) {
+        newObj = function () {
+          return obj.apply(this, arguments)
+        }
+      } else if (obj instanceof RegExp) {
+        // 拼接正则
+        newobj = new RegExp(obj.source, obj.flags)
+      } else if (obj instanceof Date) {
+        newobj = new Date(obj)
+      } else {
+        newObj = {}
+      }
+      // 克隆一份对象出来
+      let desc = Object.getOwnPropertyDescriptors(obj)
+      let clone = Object.create(Object.getPrototypeOf(obj), desc)
+      map.set(obj, clone)
+      for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          newObj[key] = deepClone(obj[key])
+        }
+      }
+      return newObj
+    }
+    return obj
+  }
+  function deepClone (origin, weakMap = new WeakMap()) {
+    if (origin == undefined || typeof origin != 'object') {
+      return origin
+    }
+    if (origin instanceof Date) {
+      return new Date(origin)
+    }
+    if (origin instanceof RegExp) {
+      return new RegExp(origin)
+    }
+    const val = weakMap.get(origin)
+    if (val) return val
+    const target = new origin.constructor()
+    weakMap.set(origin, target)
+    for (let k in origin) {
+      target[k] = deepClone(origin[k], weakMap)
+    }
+    return target
+  }测试代码：
+ let obj1 = {}  obj1.obj2 = obj1  let obj2 = deepClone(obj1)  console.log(obj2, 'obj2')
+  var obj = {
+    a: {
+      b:1
+    }
+  }
+  var bb = deepClone(obj);
+  bb.a = {
+    b: 4
+  }
+  console.log(obj, 'bb', bb)
+</script>
+
+<body>
+  <style>
+    .content {
+      display: flex;
+    }
+
+    .left {
+      width: 100px;
+      /* flex-basis: 100px; */
+      flex: 0 1 100px;
+      background: red;
+    }
+
+    .right {
+      width: 300px;
+      /* flex-basis: 300px; */
+      flex: 0 0 300px;
+      background: yellow;
+    }
+
+    .center {
+      flex: 1;
+      background: green;
+    }
+  </style>
+  <div class="content">
+    <div class="left">1</div>
+    <div class="center">2</div>
+    <div class="right">3</div>
+  </div>
+</body>
+
+</html>
