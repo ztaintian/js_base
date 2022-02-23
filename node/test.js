@@ -1,22 +1,10 @@
-function promiseA() {
-  return new Promise((resolve,reject) => {
-    setTimeout(() => {
-      console.log('A')
-      resolve('A')
-    }, 3000)
-  })
+function curry(){
+  
 }
 
+var fn = curry(function(a, b, c) {
+  return [a, b, c];
+});
 
-function promiseB() {
-  return new Promise((resolve,reject) => {
-    setTimeout(() => {
-      console.log('B')
-      resolve('B')
-    }, 1000)
-  })
-}
+fn("a", "b", "c") // ["a", "b", "c"]
 
-Promise.all([promiseA(),promiseB()]).then(reslove => {
-  console.log(reslove)
-})

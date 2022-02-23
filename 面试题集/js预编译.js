@@ -6,3 +6,5 @@ function test(a) {
 }
 
 test(1)
+
+// 1、执行环境AST（抽象语法树）
