@@ -1,64 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=div, initial-scale=1.0">
   <title>Document</title>
 </head>
-<script>
-  function deepClone (origin, weakMap = new WeakMap()) {
-    if (origin == undefined || typeof origin != 'object') {
-      return origin
-    }
-    if (origin instanceof Date) {
-      return new Date(origin)
-    }
-    if (origin instanceof RegExp) {
-      return new RegExp(origin)
-    }
-    const val = weakMap.get(origin)
-    if (val) return val
-    const target = new origin.constructor()
-    weakMap.set(origin, target)
-    for (let k in origin) {
-      target[k] = deepClone(origin[k], weakMap)
-    }
-    return target
-  }
- let obj1 = {}  
- obj1.obj2 = obj1  
- let obj2 = deepClone(obj1)  
- console.log(obj2, 'obj2')
-</script>
 <style>
-  a:link {
-    color: red;
+  .content {
+    display: flex;
+    flex-direction: column-reverse;
+    height:400px;
+    background: red;
   }
-
-  a:visited {
-    color: green;
-  }
-
-  a:hover {
-    color: yellow;
-  }
-
-  a:active {
-    color: blue;
+  .content p {
+    height:20px;
   }
 </style>
-<script>
-  function createObj(o) {
-    function F(){}
-    F.prototype = o;
-    return new F()
-  }
-</script>
-
 <body>
-  <a target="blank" href="www.baidu.com">百度</a>
+  <div class="content">
+    <p>11111</p>
+    <p>2222</p>
+    <p class="">33333</p>
+  </div>
 </body>
-
 </html>
