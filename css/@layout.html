@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  /* https://juejin.cn/post/7077758893442465806 */
+  @layer B,A,C;
+  div{
+    width:100px;
+    height:100px;
+  }
+  @layer A {
+    div{
+      background:blue;
+    }
+  }
+  @layer B {
+    div{
+      background:red;
+    }
+  }
+</style>
+<body>
+  <div></div>
+</body>
+</html>
