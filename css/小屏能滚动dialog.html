@@ -479,12 +479,8 @@
           getkeyWord(flag, itemCode) {
             // 高亮关键词
             var _this = this;
-            $.ajax({
-              url: "@HTApiUrl" + '/MohrssActivity/getMohrssCityList?needDeleted=true&keyword=' + _this
-                .inputValue,
-              type: "get",
-              data: {},
-              success: function (result) {
+     
+              
                 if (result.IsSuccess) {
                   _this.showMessage = result.Data.length > 0 ? false : true;
                   _this.keyList = result.Data;
@@ -494,56 +490,12 @@
                     item.highlights = item.Memo.replace(replaceReg, replaceString)
                   })
                 }
-              }
-            });
+            
+            
           },
           getCity(flag, itemCode) {
             // 获取城市list
             var _this = this;
-            $.ajax({
-              url: "@HTApiUrl" + '/MohrssActivity/loadMohrssCityList?needDeleted=true&itemCode=' + itemCode,
-              type: "get",
-              data: {},
-              dataType: 'json',
-              timeout: 30000,
-              xhrFields: {
-                withCredentials: true // 这里设置了withCredentials
-              },
-              success: function (result) {
-                @ * alert('result', result) * @
-                if (result.IsSuccess) {
-                  switch (flag) {
-                    case '':
-                      _this.proviceList = result.Data.Citys;
-                      _this.proviceList.unshift({
-                        DisplayName: "不限",
-                        DictCode: "",
-                        HasSon: false
-                      })
-                      console.log(_this.proviceList);
-                      break;
-                    case 'proviceIndex':
-                      _this.cityList = result.Data.Citys;
-                      _this.cityList.unshift({
-                        DisplayName: "全部",
-                        DictCode: _this.proviceList[_this.proviceIndex].DisplayName
-                      })
-                      break;
-                    case 'cityIndex':
-                      _this.districtList = result.Data.Citys;
-                      _this.districtList.unshift({
-                        DisplayName: "全部",
-                        DictCode: _this.cityList[_this.cityIndex].DisplayName
-                      })
-                      break;
-                    default:
-                      break;
-                  }
-
-                }
-              }
-            });
-
           },
           selectCity(parmars, index, item) {
             // 选中城市 
