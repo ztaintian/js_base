@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+    <div v-if="visible" id="CityDemo" class="CityDemo" v-cloak>
+      <i></i>
+      <div class="CityDemo-content">
+        <div class="CityDemo-title">
+          <span>请选择见习地点</span>
+          <img id="closeImgCity" src="~/Content/Activity2022/rsj/close.png" alt="" v-on:click="onHide">
+        </div>
+
+        <div style="padding: 0 65px;" id="cityApp">
+          <div class="city-input">
+            <div class="city-input-title">搜索</div>
+            <div class="input" id="selectContent">
+              <input type="text" v-model="inputValue" v-on:input="searchFn" placeholder="搜索城市名/区县" />
+              <p v-on:click="inputValue='';selectShow=false;" v-if="inputValue" class="clear-x"><img
+                  src="~/StaticCompany/company/Img/clean-x.png" alt=""></p>
+              <div class="select-content" v-show="selectShow">
+                <p v-on:click="selectP(item)" class="p-hover" v-for="(item,index) in keyList" v-html="item.highlights">
+                </p>
+                <p v-if="showMessage" class="show-message">暂无“{{inputValue}}”行政区</p>
+              </div>
+            </div>
+          </div>
+          <div class="content-city">
+            <div class="provice">
+              <p v-for="(item,index) in proviceList" v-on:click="selectCity('proviceIndex', index, item)"
+                :class="proviceIndex==index?'active-city':''"><span v-bind:title="item.DisplayName"
+                  class="city-dot">{{item.DisplayName}}</span><span v-if="item.HasSon">></span></p>
+            </div>
+            <div class="city">
+              <p :class="cityIndex==index?'active-city':''" v-on:click="selectCity('cityIndex', index, item)"
+                v-for="(item,index) in cityList"><span v-bind:title="item.DisplayName"
+                  class="city-dot">{{item.DisplayName}}</span><span v-if="item.HasSon">></span></p>
+            </div>
+            <div class="district">
+              <template v-for="(item, index) in districtList">
+                <div v-if="index == 0">
+                  <span :class="districtIndex==index?'active-city':''"
+                    v-on:click="selectCity('districtIndex', index, item)">{{item.DisplayName}}</span>
+                </div>
+                <span v-else :class="districtIndex==index?'active-city':''"
+                  v-on:click="selectCity('districtIndex', index, item)">{{item.DisplayName}}</span>
+
+              </template>
+
+            </div>
+          </div>
+          <div class="city-footer">
+            <p class="have-select">已选所在区:<span
+                style="color:#6E87FA;font-size:16px;margin-left:20px;">{{selectName}}</span></p>
+            <p class="button">
+              <span class="confirm" v-on:click="onConfirm">确&nbsp;定</span>
+              <span class="reset" v-on:click="reset">重&nbsp;置</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+    <style>
+      .CityDemo {
+        /*display: none;*/
+        height: 100%;
+        overflow: scroll;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 99999999999999;
+      }
+
+      .CityDemo-content {
+        border-radius: 8px;
+        z-index: 9999;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 780px;
+        height: 576px;
+        overflow: hidden;
+        background: #fff;
+      }
+
+      .CityDemo-content .CityDemo-title {
+        color: #6b7485;
+        font-weight: 800;
+        height: 39px;
+        border-bottom: 1px solid rgb(235, 235, 238);
+        padding: 0 10px;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        line-height: 39px;
+      }
+
+      .CityDemo-content .CityDemo-title img {
+        cursor: pointer;
+      }
+
+      .CityDemo-content .text {
+        font-size: 14px;
+        text-align: center;
+        color: #717171;
+        padding: 0 48px;
+        margin: 40px 0 50px 0;
+        line-height: 24px;
+        font-weight: bold;
+      }
+
+
+      .CityDemo-content .model-submit {
+        text-align: center;
+        font-size: 16px;
+        color: rgb(255, 255, 255);
+      }
+
+      .CityDemo-content .model-submit button {
+        border-radius: 4px;
+        width: 80px;
+        height: 29px;
+        line-height: 29px;
+        cursor: pointer;
+      }
+
+      .CityDemo-content .model-submit .fabu {
+        background-color: rgb(93, 122, 250);
+      }
+
+      .CityDemo-content .model-submit .model-close {
+        border: 1px solid rgb(93, 122, 250);
+        color: rgb(93, 122, 250);
+        margin-left: 16px;
+      }
+
+      .CityDemo-content .title img {
+        cursor: pointer;
+      }
+
+      .CityDemo-content .input {
+        position: relative;
+      }
+
+      .CityDemo-content .select-content {
+        position: absolute;
+        top: 30px;
+        max-height: 216px;
+        box-shadow: 1.5px 2.598px 7px 0px rgba(0, 0, 0, 0.35);
+        overflow-y: auto;
+        border: 1px solid rgb(204, 204, 204);
+        width: 416px;
+        background: #fff;
+      }
+
+      .CityDemo-content .city-input {
+        display: flex;
+        align-items: center;
+      }
+
+      .CityDemo-content .city-input-title {
+        font-weight: 400;
+        margin: 20px 20px 24px 0;
+        color: #666666;
+        font-weight: bold;
+      }
+
+      .CityDemo-content .city-input .select-content p {
+        margin: 0px;
+        padding-left: 10px;
+        height: 27px;
+        line-height: 27px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+
+      .CityDemo-content .city-input input {
+        outline-style: none;
+        height: 28px;
+        line-height: 28px;
+        border: 1px solid rgb(204, 204, 204);
+        padding-left: 8px;
+        width: 408px;
+        font-size: 12px;
+        font-family: "Microsoft soft";
+        color: #666666;
+      }
+
+      .CityDemo-content .city-input input::placeholder {
+        color: rgb(204, 204, 204);
+      }
+
+      .CityDemo-content .city-input input:focus {
+        border-color: #66afe9;
+        outline: 0;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
+      }
+
+      .CityDemo-content .content-city {
+        width: 620px;
+        height: 296px;
+        overflow: hidden;
+        display: flex;
+        border: 1px solid rgb(204, 204, 204);
+      }
+
+      .CityDemo-content .content-city .provice {
+        height: 100%;
+        overflow-y: auto;
+        cursor: pointer;
+        width: 150px;
+        border-right: 1px solid rgb(204, 204, 204);
+      }
+
+      .CityDemo-content .select-content,
+      .city,
+      .provice {
+        scrollbar-color: #ccc #f5f5f5;
+        scrollbar-width: thin;
+      }
+
+      .CityDemo-content .city::-webkit-scrollbar,
+      .CityDemo-content .provice::-webkit-scrollbar,
+      .CityDemo-content .district::-webkit-scrollbar,
+      .select-content::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+        background-color: #f5f5f5;
+      }
+
+      .CityDemo-content .city::-webkit-scrollbar-thumb,
+      .CityDemo-content .provice::-webkit-scrollbar-thumb,
+      .CityDemo-content .district::-webkit-scrollbar-thumb,
+      .CityDemo-content .select-content::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #ccc;
+      }
+
+      .CityDemo-content .city::-webkit-scrollbar-track,
+      .CityDemo-content .provice::-webkit-scrollbar-track,
+      .CityDemo-content .district::-webkit-scrollbar-track,
+      .CityDemo-content .select-content::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #f5f5f5;
+      }
+
+      .CityDemo-content .content-city .provice p,
+      .CityDemo-content .content-city .city p {
+        display: flex;
+        padding: 0 15px;
+        color: #666666;
+        justify-content: space-between;
+        height: 26px;
+        border-bottom: 1px solid rgb(204, 204, 204);
+        line-height: 26px;
+      }
+
+      .CityDemo-content .content-city .city {
+        height: 100%;
+        overflow-y: auto;
+        width: 150px;
+        cursor: pointer;
+        border-right: 1px solid rgb(204, 204, 204);
+      }
+
+      .CityDemo-content .content-city .district {
+        padding: 10px 0 0px 20px;
+        flex: 1;
+        overflow: auto;
+      }
+
+      .CityDemo-content .content-city .district span {
+        cursor: pointer;
+      }
+
+      .CityDemo-content .content-city .district span {
+        font-size: 14px;
+        border: 1px solid rgb(204, 204, 204);
+        margin: 0 8px 8px 0;
+        padding: 0 10px;
+        border-radius: 4px;
+        color: #666666;
+        display: inline-block;
+        line-height: 22px;
+        height: 22px;
+      }
+
+      .CityDemo-content .city-dot {
+        width: 100px;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .CityDemo-content .content-city .provice .active-city,
+      .CityDemo-content .content-city .city .active-city,
+      .CityDemo-content .content-city .district .active-city {
+        background-color: #FFE1E0;
+        color: #F35F5A;
+      }
+
+      .CityDemo-content .content-city .district .active-city {
+        border-color: #FFE1E0;
+      }
+
+      .CityDemo-content .city-footer {
+        margin-top: 40px;
+      }
+
+      .CityDemo-content .have-select {
+        color: rgb(102, 102, 102);
+      }
+
+      .CityDemo-content .city-footer .button {
+        margin-top: 45px;
+        text-align: center;
+      }
+
+      .CityDemo-content .city-footer .confirm,
+      .city-footer .reset {
+        display: inline-block;
+        border-radius: 4px;
+        width: 80px;
+        font-family: "FZLTHJW";
+        color: rgb(240, 52, 43);
+        text-align: center;
+        height: 28px;
+        line-height: 28px;
+        cursor: pointer;
+        background-color: #F0342B;
+        color: #fff;
+      }
+
+      .CityDemo-content .city-footer .reset {
+        background: #fff;
+        color: #F0342B;
+        border: 1px solid #F0342B;
+        margin-left: 18px;
+      }
+
+      [v-cloak] {
+        display: none;
+      }
+
+      .CityDemo-content .p-hover:hover {
+        background-color: rgb(208, 217, 255);
+      }
+
+      .CityDemo-content .highlights-text {
+        color: #F24F48;
+      }
+
+      .CityDemo-content .clear-x {
+        position: absolute;
+        right: 10px;
+        font-size: 12px;
+        top: 6px;
+        color: #333333;
+        cursor: pointer;
+      }
+
+      .CityDemo-content .show-message {
+        color: rgb(93, 122, 250);
+      }
+    </style>
+
+    <script>
+      var CityApp = new Vue({
+        el: '#CityDemo',
+        data() {
+          return {
+            visible: false,
+            showMessage: false,
+            inputValue: '',
+            districtIndex: -1,
+            selectName: '',
+            proviceIndex: -1,
+            cityIndex: -1,
+            selectShow: false,
+            cityList: [],
+            districtList: [],
+            proviceList: [],
+            timer: '',
+            keyList: [],
+            selectValue: false,
+            DictCode: '', // 城市code
+            confirmCallBack: null
+          }
+        },
+        mounted() {
+          var _this = this;
+          $(document).click(function (e) {
+            var target = $(e.target);
+            if (target.closest('#selectContent').length == 0) {
+              _this.inputValue = _this.selectShow ? '' : _this.inputValue;
+              _this.selectShow = false;
+            }
+          })
+          this.getCity('', '');
+        },
+        methods: {
+          showCityDialog(fn) {
+            this.visible = true
+            $('body').css({
+              height: '100%',
+              width: '100%',
+              overflow: 'hidden'
+            })
+
+            if (typeof fn == 'function') {
+              this.confirmCallBack = fn
+            }
+          },
+          onHide() {
+            this.visible = false
+            $('body').css({
+              height: 'auto',
+              width: 'auto',
+              overflow: ''
+            })
+          },
+          reset() {
+            // 重置
+            this.commonReset();;
+            this.DictCode = '';
+            this.inputValue = '';
+            this.selectName = '不限';
+          },
+          commonReset() {
+            this.cityIndex = -1;
+            this.proviceIndex = 0;
+            this.districtIndex = -1;
+            this.districtList = [];
+            this.cityList = [];
+          },
+          onConfirm() {
+            // 确认
+            if (this.selectName) {
+              var _this = this;
+              //$('#workPlaceValue').val(_this.DictCode);
+              $('#workPlaceValue').html(_this.selectName);
+              $('#workPlaceValue').attr('title', _this.selectName)
+              this.onHide() !!this.confirmCallBack && this.confirmCallBack()
+            } else {
+              alert('请选择所在地');
+            }
+          },
+          selectP(item) {
+            // 下拉框选择
+            this.commonReset();
+            this.DictCode = item.DictCode;
+            this.inputValue = item.Memo;
+            this.selectName = item.Memo;
+            this.selectShow = false;
+          },
+          searchFn() {
+            var _this = this;
+            this.inputValue = this.inputValue.replace(/^\s+|\s+$/gm, '');
+            if (this.timer) clearTimeout(this.timer)
+            this.timer = setTimeout(function () {
+              _this.showMessage = false;
+              _this.selectShow = true;
+              _this.getkeyWord();
+            }, 500)
+          },
+          getkeyWord(flag, itemCode) {
+            // 高亮关键词
+            var _this = this;
+            $.ajax({
+              url: "@HTApiUrl" + '/MohrssActivity/getMohrssCityList?needDeleted=true&keyword=' + _this
+                .inputValue,
+              type: "get",
+              data: {},
+              success: function (result) {
+                if (result.IsSuccess) {
+                  _this.showMessage = result.Data.length > 0 ? false : true;
+                  _this.keyList = result.Data;
+                  var replaceReg = new RegExp(_this.inputValue, 'g')
+                  var replaceString = '<span class="highlights-text">' + _this.inputValue + '</span>'
+                  _this.keyList.length > 0 && _this.keyList.map(item => {
+                    item.highlights = item.Memo.replace(replaceReg, replaceString)
+                  })
+                }
+              }
+            });
+          },
+          getCity(flag, itemCode) {
+            // 获取城市list
+            var _this = this;
+            $.ajax({
+              url: "@HTApiUrl" + '/MohrssActivity/loadMohrssCityList?needDeleted=true&itemCode=' + itemCode,
+              type: "get",
+              data: {},
+              dataType: 'json',
+              timeout: 30000,
+              xhrFields: {
+                withCredentials: true // 这里设置了withCredentials
+              },
+              success: function (result) {
+                @ * alert('result', result) * @
+                if (result.IsSuccess) {
+                  switch (flag) {
+                    case '':
+                      _this.proviceList = result.Data.Citys;
+                      _this.proviceList.unshift({
+                        DisplayName: "不限",
+                        DictCode: "",
+                        HasSon: false
+                      })
+                      console.log(_this.proviceList);
+                      break;
+                    case 'proviceIndex':
+                      _this.cityList = result.Data.Citys;
+                      _this.cityList.unshift({
+                        DisplayName: "全部",
+                        DictCode: _this.proviceList[_this.proviceIndex].DisplayName
+                      })
+                      break;
+                    case 'cityIndex':
+                      _this.districtList = result.Data.Citys;
+                      _this.districtList.unshift({
+                        DisplayName: "全部",
+                        DictCode: _this.cityList[_this.cityIndex].DisplayName
+                      })
+                      break;
+                    default:
+                      break;
+                  }
+
+                }
+              }
+            });
+
+          },
+          selectCity(parmars, index, item) {
+            // 选中城市 
+            this[parmars] = index;
+            if (parmars === 'proviceIndex') {
+              this.cityIndex = -1;
+              this.cityList = [];
+              this.districtList = [];
+              this.selectName = this.proviceList[index].DisplayName;
+              if (this.proviceList[index].DisplayName != '不限') {
+                this.getCity(parmars, item.DictCode)
+              }
+            }
+            if (parmars === 'cityIndex') {
+              this.districtIndex = -1;
+              this.districtList = [];
+              this.selectName = this.proviceList[this.proviceIndex].DisplayName
+              if (this.cityList[this.cityIndex].DisplayName != '全部') {
+                this.selectName += '-' + this.cityList[this.cityIndex].DisplayName;
+                this.getCity(parmars, item.DictCode)
+              }
+            }
+            if (parmars === 'districtIndex') {
+              this.selectName = this.proviceList[this.proviceIndex].DisplayName + '-' + this.cityList[this
+                .cityIndex].DisplayName
+              if (this.districtList[this.districtIndex].DisplayName != '全部') {
+                this.selectName += '-' + this.districtList[this.districtIndex].DisplayName;
+              }
+            }
+            this.DictCode = item.DictCode;
+            //parmars !== 'districtIndex' && this.getCity(parmars, item.DictCode)
+          },
+          highlights() {
+            var search = this.search
+            this.showdata = this.showdata.map(function (item) {
+              for (let key in item) {
+                if (key === 'Issuecontent') {
+                  let replaceReg = new RegExp(search, 'g') // 匹配关键字正则
+                  let replaceString = '<span class="highlights-text">' + search + '</span>' // 高亮替换v-html值
+                  item[key + '-highlights'] = item[key].replace(replaceReg, replaceString) // 开始替换
+                }
+              }
+              return item
+            })
+          }
+        }
+      })
+    </script>
+</body>
+
+</html>
