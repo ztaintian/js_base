@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script>
+  // 1、粗暴版
+  // var add = function (x) {
+  //   return function (y) {
+  //     return function (z) {
+  //       return x + y + z
+  //     }
+  //   }
+  // }
+  // console.log('粗暴版', add(1)(2)(3))
+
+  var curry = function (fn) {
+    // console.log(fn.length)
+    return judge = function(...args) {
+      console.log(fn.length,args, args.length)
+      return fn.length === args.length?fn(...args):function (...arg) {
+        return judge(...args,...arg)
+      }
+    }
+  } 
+  var add = function(a,b,c) {
+    return a+b+c
+  }
+  var curryAdd = curry(add);
+  console.log(curryAdd(1)(2)())
+</script>
+<body>
+  
+</body>
+</html>
