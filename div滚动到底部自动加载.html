@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=<div id=" contentBox">
+
+  <title>Document</title>
+</head>
+<style>
+  #contentBox {
+    flex: 1;
+    overflow: auto;
+    margin-bottom: 20px;
+    height:100px;
+  }
+</style>
+
+<body>
+  <div id="contentBox">
+    <div id="schoolDeatl">
+      <div>dasasas</div>
+      <div>dasasas</div>
+      <div>dasasas</div>
+      <div>dasasas</div>
+      <div>dasasas</div>
+      <div>dasasas</div>
+      <div>dasasas</div>
+      <div>dasasas</div>
+      <div>dasasas</div>
+      <div>dasasas</div>
+      <div>dasasas</div>
+      <div>dasasas</div>
+      <div>dasasas</div>
+      <div>dasasas</div>
+      <div>dasasas</div>
+    </div>
+    <div class="loadDiv" style="width: 100%; font-size: 15px; text-align: center; margin-top: 8px;">加载更多</div>
+  </div>
+  </div>
+</body>
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script>
+  var count = 5; //每次加载 请求的条数
+  var isLoad = true; //是否允许加载数据
+  $(function () {
+    userScroll()
+    // loadScenePage()
+  })
+  //滚动条到底就加载
+  function userScroll() {
+    $("#contentBox").scroll(function () {
+      var nHeight = $(this).outerHeight();
+      var nScrollHight = $(this)[0].scrollHeight;
+      var nScrollTop = $(this)[0].scrollTop;
+      if (nScrollHight - (nScrollTop + $(this).height()) < 10) {
+        if (!isLoad) {
+          return;
+        }
+        isLoad = false;
+        //if (Number($("#pageIndex").val()) > Number($("input[name=PageAll]").last().val())) {
+        // if (Number($("#pageIndex").val()) > 2) {
+        //   $("div[class=loadDiv]").text("已经没有更多数据");
+        //   return;
+        // }
+        console.log('到底了。。。。。')
+        var aa = '<div>append<div/><div>append<div/><div>append<div/><div>append<div/><div>append<div/><div>append<div/><div>append<div/><div>append<div/><div>append<div/>'
+        $('#schoolDeatl').append(aa)
+        isLoad = true;
+        // loadScenePage();
+      }
+    });
+  }
+</script>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script>
+  $(window).scroll(function () {
+    var scrollTop = $(window).scrollTop();
+    if (scrollTop > 280) {
+      $('#menuWarp').css({
+        'position': 'fixed',
+        'top': '0',
+        'width': '100%',
+        'zIndex': '99999'
+      })
+    } else {
+      $('#menuWarp').css({
+        'position': 'static',
+        'top': '0'
+      })
+    }
+    var leftWidth = $(window).scrollLeft();
+    $('#menuWarp').css({
+      'left': "-" + leftWidth + "px"
+    });
+  })
+</script>
+
+<body>
+  <div class="menuWarp">
+    <li>主页</li>
+    <li>菜单1</li>
+  </div>
+</body>
+
+</html>

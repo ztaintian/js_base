@@ -8,6 +8,8 @@
   <title></title>
 </head>
 <script>
+  let xhr;
+
   function ajax({
     url,
     type,
@@ -15,7 +17,7 @@
   }) {
     console.log(url, type, data)
     return new Promise((resolve, reject) => {
-      let xhr = new XMLHttpRequest();
+      xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
           resolve(xhr.responseText)
@@ -34,6 +36,13 @@
       }
     })
   }
+  // 取消ajax发送
+  window.onload = function () {
+    document.querySelector('button').onclick = function() {
+      console.log('点击取消')
+      xhr.abort()
+    }
+  }
   let parmar = {
     url: 'test.url',
     type: 'post',
@@ -42,11 +51,10 @@
     }
   }
   ajax(parmar)
-
 </script>
 
 <body>
-
+  <button>取消ajax发送</button>
 </body>
 
 </html>
