@@ -1,0 +1,11 @@
+// 使用
+// vue [fz12] <span fz12></span>
+// [fz12]{
+//   font-size: 12px;
+// }
+for $fz in (12..16){
+  [fz+{$fz}] {
+    font-size: ($fz)px;
+  }
+}
+

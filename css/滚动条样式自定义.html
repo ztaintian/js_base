@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .scroll-container {
+    height: 300px;
+    overflow: auto;
+    width: 200px;
+    margin:0 auto;
+  }
+  p{
+    height:30px;
+  }
+  
+  /* 火狐浏览器scroll样式修改 */
+  .scroll-container{
+    /* scrollbar-color: 滚条颜色 轨道颜色 */
+    scrollbar-color: red #f5f5f5;
+    /* scrollbar-width:auto | thin | none | initial | inherit */
+    scrollbar-width: thin;
+  }
+
+  /* google浏览器scroll样式修改 */
+  .scroll-container::-webkit-scrollbar{
+    width:4px;
+    height:4px;
+  }
+  /* 滚条颜色 */
+  .scroll-container::-webkit-scrollbar-thumb{ 
+    border-radius: 10px;
+    background-color: red;
+  }
+  /* 轨道颜色 */
+  .scroll-container::-webkit-scrollbar-track{  
+    border-radius: 10px; 
+    background-color:#f5f5f5;      
+  }
+
+</style>
+<body>
+  <div class="scroll-container">
+    <p>fffff</p>
+    <p>fffff</p>
+    <p>fffff</p>
+    <p>fffff</p>
+    <p>fffff</p>
+    <p>fffff</p>
+    <p>fffff</p>
+    <p>fffff</p>
+    <p>fffff</p>
+    <p>fffff</p>
+    <p>fffff</p>
+    <p>fffff</p>
+    <p>fffff</p>
+    <p>fffff</p>
+    <p>fffff</p>
+  </div>
+</body>
+</html>
