@@ -55,8 +55,8 @@ let output = {
 
 // 代码实现
 function arrayToTree(array) {
-  let root = array[0]
-  array.shift()
+  let root = array[0];
+  array.shift();
   let tree = {
     id: root.id,
     val: root.val,

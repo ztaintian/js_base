@@ -1,26 +1,45 @@
-var http = require("http");
+let input = [{
+  id: 1,
+  val: '学校',
+  parentId: null
+}, {
+  id: 2,
+  val: '班级1',
+  parentId: 1
+}, {
+  id: 3,
+  val: '班级2',
+  parentId: 1
+}, {
+  id: 4,
+  val: '学生1',
+  parentId: 2
+}, {
+  id: 5,
+  val: '学生2',
+  parentId: 3
+}, {
+  id: 6,
+  val: '学生3',
+  parentId: 3
+}, ]
 
-http.createServer(function (req, res) {
-  var fileName = "." + req.url;
-
-  if (fileName === "./stream") {
-    res.writeHead(200, {
-      "Content-Type":"text/event-stream",
-      "Cache-Control":"no-cache",
-      "Connection":"keep-alive",
-      "Access-Control-Allow-Origin": '*',
-    });
-    res.write("retry: 10000\n");
-    res.write("event: connecttime\n");
-    res.write("data: " + (new Date()) + "\n\n");
-    res.write("data: " + (new Date()) + "\n\n");
-
-    interval = setInterval(function () {
-      res.write("data: " + (new Date()) + "\n\n");
-    }, 1000);
-
-    req.connection.addListener("close", function () {
-      clearInterval(interval);
-    }, false);
+function arrToTree(arr) {
+  var tree = {};
+  tree = {
+    id:arr[0].id,
+    val:arr[0].val,
+    parentId:arr[0].parentId,
+    child: arr.length > 0 ? toTree(arr[0].id,arr) : []
   }
-}).listen(8844, "127.0.0.1");
+}
+
+function toTree(parentId,arr) {
+  var child = []
+  arr.map((item) => {
+    var newItem = {...item,child:[]}
+    if (item.parentId === parentId) {
+      child.push(newItem)
+    }
+  })
+}
