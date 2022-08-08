@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+ .multi-line {
+    height: auto;
+    line-height: 28px;
+    width: 200px;
+    background: red;
+    word-break: break-all;
+  }
+.multi-line.six{
+  height: 144px;
+}
+.open{
+  display: none;
+}
+.close{
+  display: inline-block;
+  width:100px;
+}
+</style>
+
+<body>
+  <div id="element-to-truncate" class="multi-line">大盛魁大所大2323232131232131232131所大所大所大所大所大大萨达撒大所大所大所大所大所大所大所大所大所大所大所大dsdadadas所大所大所大所大所大所大所大所大所大所大所大所大所大所大所大所大所大所大所大所大所大所大所大所</div>
+</body>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/1.7.4/jquery.dotdotdot.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/4.1.0/dotdotdot.js"></script> -->
+<!-- https://cdnjs.cloudflare.com/ajax/libs/jQuery.dotdotdot/4.1.0/dotdotdot.js -->
+<script>
+  // window.onload =function(){
+  //   let wrapper = document.querySelector('#element-to-truncate');
+  //   document.addEventListener( "DOMContentLoaded", () => {
+  //  new Dotdotdot( wrapper, {
+
+  //     callback: function( isTruncated ) {},
+  //     /* Function invoked after truncating the text.
+  //        Inside this function, "this" refers to the wrapper. */
+
+  //     ellipsis: "...",
+  //     /* The text to add as ellipsis. */
+
+  //     height: 144,
+  //     /* The (max-)height for the wrapper:
+  //        null: measure the CSS (max-)height ones;
+  //        a number: sets a specific height in pixels;
+  //        "watch": re-measures the CSS (max-)height in the "watch". */
+
+  //     keep: null,
+  //     /* Query selector for elements to keep after the ellipsis. */
+
+  //     tolerance: 0,
+  //     /* Deviation for the measured wrapper height. */
+
+  //     truncate: "word",
+  //     /* How to truncate the text: "node", "word" or "letter". */
+
+  //     watch: "window",
+  //     /* Whether to update the ellipsis:
+  //        true: Monitors the wrapper width and height;
+  //        "window": Monitors the window width and height. */
+
+  //  });
+// });
+    var $dot = $('.multi-line');
+    if ($dot.height() > 144) {
+        $dot.addClass('six');
+        $dot.append('<a class="toggle" href="#"><span class="open">展开介绍</span><span class="close">收起介绍</span></a>');
+        function createDots() {
+            $dot.dotdotdot({
+                after: 'a.toggle'
+            });
+        }
+        function destroyDots() {
+            $dot.trigger('destroy');
+        }
+        createDots();
+        $dot.on(
+            'click',
+            'a.toggle',
+            function () {
+                $dot.toggleClass('opened');
+
+                if ($dot.hasClass('opened')) {
+                    destroyDots();
+                } else {
+                    createDots();
+                }
+                // StranObj(document.getElementById("compIntroduction"));
+                return false;
+            }
+        );
+    }
+  
+
+  //   document.addEventListener( "DOMContentLoaded", () => {
+  //  let wrapper = document.querySelector( "#element-to-truncate" );
+  //  let options = {
+  //     // Options go here
+  //  };
+  //   new Dotdotdot( wrapper, options );
+  // });
+    //控制一行半隐藏
+    // (function ($) {
+    //   $.fn.displayPart = function (opts) {
+    //     $(this).each(function () {
+    //       displayPart($(this), opts);
+    //     });
+    //   }
+    //   function displayPart($el, opts) {
+    //     var defaults = {
+    //       displayLength: 50 //具体的想要显示的字数
+    //     }
+    //     this.Settings = $.extend(defaults, opts);
+    //     if (this.Settings.displayLength == defaults.displayLength && $el.data("textcount")) {
+    //       this.Settings.displayLength = $el.data("textcount");
+    //     }
+    //     var displayLength = this.Settings.displayLength;
+    //     var text = $el.text();
+    //     if (!text) return "";
+    //     var result = "";
+    //     var count = 0;
+    //     for (var i = 0; i < displayLength; i++) {
+    //       var _char = text.charAt(i);
+    //       if (count >= displayLength) break;
+    //       if (/[^x00-xff]/.test(_char)) count++; //双字节字符，//[u4e00-u9fa5]中文
+    //       result += _char;
+    //       count++;
+    //     }
+    //     if (result.length < text.length) {
+    //       result += "...";
+    //     }
+    //     $el.text(result);
+    //   }
+    // })($);
+    // $("p").displayPart();
+    //控制一行半隐藏
+</script>
+
+</html>

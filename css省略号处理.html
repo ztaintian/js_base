@@ -1,0 +1,113 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container {
+    width: 400px;
+    box-sizing: border-box;
+    height: 400px;
+    background: blue;
+  }
+
+  .green {
+    width: 200px;
+    height: 200px;
+    background: green;
+  }
+
+  .yellow {
+    width: 200px;
+    height: 200px;
+    background: yellow;
+    margin-bottom: -20px;
+  }
+</style>
+</head>
+<script>
+  var abtitle = $(".dotbox");
+  console.log(abtitle)
+  for (var i = 0; i < abtitle.length; i++) {
+    var nodom = $(abtitle[i])
+    var alength = nodom.text().length;
+    console.log('alength', alength)
+    var awidth = nodom.width();
+    console.log('awidth',)
+    var afont = nodom.css("font-size");
+    afont = afont.substr(0, 2);
+
+    console.log('afont', afont)
+    var num = Math.floor(awidth / afont);
+    console.log('num', num)
+    if (alength > (num * 1.5)) {
+      var ntex = nodom.text().substr(0, (Math.floor(num * 1.5 - 1)));
+      console.log('dada', nodom.text())
+      nodom.text(ntex + "...");
+    }
+  }
+
+</script>
+<script>
+  //计算字符串长度
+  String.prototype.strLen = function () {
+    var len = 0;
+    for (var i = 0; i < this.length; i++) {
+      if (this.charCodeAt(i) > 255 || this.charCodeAt(i) < 0) len += 2; else len++;
+    }
+    return len;
+  }
+  // 将字符串拆成字符，并存到数组中
+  String.prototype.strToChars = function () {
+    var chars = new Array();
+    for (var i = 0; i < this.length; i++) {
+      chars[i] = [this.substr(i, 1), this.isCHS(i)];
+    }
+    String.prototype.charsArray = chars;
+    return chars;
+  }
+  // 判断某个字符是否是汉字
+  String.prototype.isCHS = function (i) {
+    if (this.charCodeAt(i) > 255 || this.charCodeAt(i) < 0)
+      return true;
+    else
+      return false;
+  }
+  // 截取字符串（从start字节到end字节）
+  String.prototype.subCHString = function (start, end) {
+    var len = 0;
+    var str = "";
+    this.strToChars();
+    for (var i = 0; i < this.length; i++) {
+      if (this.charsArray[i][1])
+        len += 2;
+      else
+        len++;
+      if (end < len)
+        return str;
+      else if (start < len)
+        str += this.charsArray[i][0];
+    }
+    return str;
+  }
+  // 截取字符串（从start字节截取length个字节）
+  String.prototype.subCHStr = function (start, length) {
+    return this.subCHString(start, start + length);
+  }
+  console.log('kdksdkadkskadksada中中中  1212121中'.subCHStr(0, 32))
+</script>
+
+<body>
+  <div class="container">
+    <div class="green"></div>
+    <div class="yellow"></div>
+  </div>
+</body>
