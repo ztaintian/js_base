@@ -1,4 +1,18 @@
 // json转url参数
+let obj = {
+  'a':1,
+  'b':2,
+  'c':3,
+}
+function jsonToGet(obj) {
+  let jsonStr = JSON.stringify(obj);
+  let strLength = jsonStr.length;
+  let subStr = jsonStr.substring(1,strLength-1);
+  let finalStr = subStr.replace(/"/g,"").replace(/:/g,"=").replace(/,/g,"&");
+  return finalStr
+}
+console.log(jsonToGet(obj))
+
 function parseParam(param, key) {
   var paramStr = "";
   if (
