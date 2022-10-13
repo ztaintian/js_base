@@ -105,3 +105,9 @@ export default {
     });
   },
 };
+// 替换本地url
+var replaceUrl = function() {
+  var tempUrl = window.location.href;
+  var replaceUrl = tempUrl.replace(/&comeFrom=zgwl/ig,'');
+  window.history.replaceState("", "",replaceUrl);
+}
