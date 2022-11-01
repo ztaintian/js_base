@@ -1,29 +1,33 @@
-class eventBus {
-  constructor() {
-    this.eventList = {}
+class LoginFrame {
+  static instance = null
+  constructor(state) {
+    this.state = state
   }
-  $off(name) {
-    delete this.eventList[name]
-  }
-  $on(name, fn) {
-    this.eventList[name]
-    if (!this.eventList[name]) {
-      this.eventList[name] = []
+  show() {
+    if (this.state === 'show') {
+      console.log('登录框已显示')
+      return
     }
-    this.eventList[name].push(fn)
+    this.state = 'show'
+    console.log('登录框展示成功')
   }
-  $emit() {
-    var cc = [].slice.call(arguments)
-    var name = cc.shift()
-    let arrList = this.eventList[name]
-    for (let i = 0; i < arrList.length; i++) {
-      arrList[i].apply(null, cc)
+  hide() {
+    if (this.state === 'hide') {
+      console.log('登录框已隐藏')
+      return
     }
+    this.state = 'hide'
+    console.log('登录框隐藏成功')
+  }
+  // 通过静态方法获取静态属性instance上是否存在实例，如果没有创建一个并返回，反之直接返回已有的实例
+  static getInstance(state) {
+    if (!this.instance) {
+      this.instance = new LoginFrame(state)
+    }
+    return this.instance
   }
 }
-let arr = new eventBus()
-
-arr.$on('cc', (...cc) => {
-  console.log(cc)
-})
-arr.$emit('cc', 'bbb', 'mmm')
+const p1 = LoginFrame.getInstance('show')
+const p2 = LoginFrame.getInstance('hide')
+p1.show()
+p1.hide()
