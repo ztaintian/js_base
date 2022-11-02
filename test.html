@@ -8,12 +8,14 @@
   <title>Document</title>
 </head>
 <script>
-  function test(fn) {
-    fn('11')
-  }
-  test((aa) => {
-    console.log(aa)
-  })
+function Parent() {
+  this.name = "zhangsan";
+  this.list = [];
+}
+function Child() {
+  Parent.call(this);
+  this.age = 18;
+}
 </script>
 <style>
   template{
