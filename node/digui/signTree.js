@@ -20,6 +20,7 @@ const getChildren = (data, result, pid) => {
     if (item.pid === pid) {
       const newItem = { ...item, children: [] };
       result.push(newItem);
+      delete item
       getChildren(data, newItem.children, item.id);
     }
   }
