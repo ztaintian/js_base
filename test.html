@@ -1,30 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<script>
-function Parent() {
-  this.name = "zhangsan";
-  this.list = [];
-}
-function Child() {
-  Parent.call(this);
-  this.age = 18;
-}
+<html lang='zh'>
+
+  <head>
+
+    <meta charset='UTF-8″ />
+
+    <meta name='viewport' content='width=device-width, initial-scale=1.0″ />
+    <meta http-equiv='X-UA-Compatible' content='ie=edge' />
+
+    <title>Document</title>
+
+
+
+    <!-- 引入样式 -->
+    <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/vant@1.6/lib/index.css">
+
+    <!-- 引入组件 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vant@1.6/lib/vant.min.js"></script>
+  </head>
+
+  <body>
+
+    <div id='app'>
+
+      <van-button type='default'>默认按钮</van-button>
+
+      <van-button type='primary'>主要按钮</van-button>
+
+      <van-button type='info'>信息按钮</van-button>
+
+      <van-button type='warning'>警告按钮</van-button>
+
+      <van-button type='danger'>危险按钮</van-button>
+      <van-datetime-picker
+
+        type="datetime"
+  
+        />
+      </div>
+
+    </body>
+
+    <script>
+
+var app = new Vue({
+
+el: '#app',
+
+data: {
+  show:true
+},
+
+methods: {
+
+},
+
+created() {
+
+},
+
+})
+
 </script>
-<style>
-  template{
-    display: block;
-  }
-</style>
-<body>
-  <template>1111</template>
-  <div>ssas</div>
-</body>
-
-</html>
+  </html>

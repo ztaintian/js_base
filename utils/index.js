@@ -1,14 +1,38 @@
+function timeFilters(e, val) {
+  if (e) {
+    var d = new Date(e)
+    var month, date
+    if ((d.getMonth() + 1) < 10) {
+      month = '0' + (d.getMonth() + 1)
+    } else {
+      month = (d.getMonth() + 1)
+    }
+    if (d.getDate() < 10) {
+      date = '0' + d.getDate()
+    } else {
+      date = d.getDate()
+    }
+    if (val === 'year-month') {
+      return d.getFullYear() + '.' + month
+    }
+    return d.getFullYear() + '.' + month + '.' + date
+  } else {
+    return e
+  }
+}
+
+
 // json转url参数
 let obj = {
-  'a':1,
-  'b':2,
-  'c':3,
+  'a': 1,
+  'b': 2,
+  'c': 3,
 }
 function jsonToGet(obj) {
   let jsonStr = JSON.stringify(obj);
   let strLength = jsonStr.length;
-  let subStr = jsonStr.substring(1,strLength-1);
-  let finalStr = subStr.replace(/"/g,"").replace(/:/g,"=").replace(/,/g,"&");
+  let subStr = jsonStr.substring(1, strLength - 1);
+  let finalStr = subStr.replace(/"/g, "").replace(/:/g, "=").replace(/,/g, "&");
   return finalStr
 }
 console.log(jsonToGet(obj))
@@ -106,10 +130,10 @@ export default {
   },
 };
 // 替换本地url
-var replaceUrl = function() {
+var replaceUrl = function () {
   var tempUrl = window.location.href;
-  var replaceUrl = tempUrl.replace(/&comeFrom=zgwl/ig,'');
-  window.history.replaceState("", "",replaceUrl);
+  var replaceUrl = tempUrl.replace(/&comeFrom=zgwl/ig, '');
+  window.history.replaceState("", "", replaceUrl);
 }
 import dayjs from 'dayjs'
 let dateTimes = [
