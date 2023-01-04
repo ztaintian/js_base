@@ -1,12 +1,4 @@
-<!-- <v-tree
-ref="xyTree"
-:treeData="treeData"
-:replaceFields="{ children: 'children', key: 'id', name: 'name' }"
-:defaultOpenedKeys="defaultOpenedKeys"
-@cnecked="treeChecked"
-@afterTreeInit="afterTreeInit"
-></v-tree>
-treeData: [
+<!-- treeData: [
 {
   id: "1",
   name: "南京市",
@@ -17,15 +9,51 @@ treeData: [
       children: [
         {
           id: "1-1-1",
-          name: "东南大学",
+          name: "东南大学3",
         },
         {
           id: "1-1-2",
-          name: "南京林业大学",
+          name: "南京林业大学3",
         },
         {
           id: "1-1-3",
-          name: "南京农业大学",
+          name: "南京农业大学3",
+        },
+      ],
+    },
+    {
+      id: "1-2",
+      name: "玄武区2",
+      children: [
+        {
+          id: "1-2-1",
+          name: "东南大学3",
+        },
+        {
+          id: "1-2-2",
+          name: "南京林业大学3",
+        },
+        {
+          id: "1-2-3",
+          name: "南京农业大学3",
+        },
+      ],
+    },
+    {
+      id: "1-3",
+      name: "玄武区3",
+      children: [
+        {
+          id: "1-3-1",
+          name: "东南大学3",
+        },
+        {
+          id: "1-3-2",
+          name: "南京林业大学3",
+        },
+        {
+          id: "1-3-3",
+          name: "南京农业大学3",
         },
       ],
     },
@@ -35,20 +63,37 @@ treeData: [
 defaultOpenedKeys: [], -->
 
 <template>
-  <view class="">
-    <view class="" v-for="node in treeList" :key="node.key">
+  <view>
+    <view v-for="node in treeList" :key="node.key">
       <view
         :class="{
           'node-active': !(node.childrenid && node.childrenid.length > 0),
           'tree-node': true,
+          level1: node.rank == 0,
+          level2: node.rank == 1,
+          level3: node.rank == 2,
+          'open-active': isOpen(node.key),
         }"
         @click="toggleTree(!isOpen(node.key), node)"
         v-show="isShow(node.key) || node.rank === 0"
       >
         <block v-if="node.childrenid && node.childrenid.length > 0">
-          <i :class="{ active: !isOpen(node.key), iconfont: true }">&#xe6a5;</i>
+          <i
+            v-if="node.key.length != 1"
+            :class="{ active: isOpen(node.key), iconfont: true }"
+            >&#xe6a5;</i
+          >
+          <i
+            v-else
+            :class="{
+              active2: isOpen(node.key),
+              iconfont: true,
+              iconfont2: true,
+            }"
+            >&#xe6a1;</i
+          >
         </block>
-        <i v-else class="iconfont">&#xe68d;</i>
+        <i v-else class="iconfont iconfont3">&#xe68d;</i>
         <!-- <u-checkbox
           class="checkbox-item"
           :style="{
@@ -113,6 +158,7 @@ export default {
   },
   data() {
     return {
+      tempKey: [],
       openedList: [], // 展开节点数组（只存放带有子级的节点）
       checkedList: [], // 当前选中节点数组
       treeList: [], // 扁平化后的树数据源
@@ -307,13 +353,39 @@ export default {
       deepEach(childrenid, treeList);
       return checkedKeys;
     },
+    closeLever(node2) {
+      var arr = [];
+      this.treeList.map((item) => {
+        if (item.rank === node2.rank && node2.key != item.key) {
+          this.openedList = [
+            ...this.delItemInArr(this.openedList, item.key),
+          ];
+          item.childrenid && arr.push(...item.childrenid)
+        }
+      })
+      const closed = [
+        ...new Set(this.generationKeys(arr, this.treeList)),
+      ];
+      // 关闭时先遍历有没有存在子级的节点，如果有则级联关闭
+      closed.forEach((x) => {
+        const childNode = this.treeList.find((node) => node.key === x);
+        if (childNode && childNode.childrenid) {
+          this.openedList = [
+            ...this.delItemInArr(this.openedList, childNode.key),
+          ];
+        }
+        // 将关闭节点的子级全部隐藏
+        this.showList = this.showList.filter((k) => k !== x);
+      });
+      console.log('this.showList', this.showList)
+    },
     // 节点关闭打开事件
     toggleTree(opened, node) {
-      console.log("opened", opened, node);
+      let openedList = this.openedList;
       if (!(node.childrenid && node.childrenid.length > 0)) {
         return;
       }
-      const openedList = this.openedList;
+      
       if (!opened) {
         this.openedList = [...this.delItemInArr(openedList, node.key)];
         const closed = [
@@ -332,6 +404,7 @@ export default {
         });
       } else {
         // 打开时显示所有子级节点
+        this.closeLever(node);
         this.openedList.push(node.key);
         this.showList = [
           ...new Set([
@@ -341,6 +414,8 @@ export default {
           ]),
         ];
       }
+      console.log("this.openedList", this.openedList);
+      console.log("this.showList", this.showList);
     },
     // 删除数组中指定子项方法
     delItemInArr(arr, item) {
@@ -363,30 +438,57 @@ export default {
   margin: 0 40rpx;
   font-size: 30rpx;
   font-family: PingFangSC-Regular, PingFang SC;
-  ftWt400();
+  font-weight: 600;
   color: #FFFFFF;
 
   .iconfont {
     float: right;
-    color: #2185FF;
+    color: #ABB3C0;
     font-size: 36rpx;
+    transform: rotate(180deg);
+  }
+
+  .iconfont3 {
+    transform: rotate(0deg);
+    font-size: 32rpx;
+  }
+
+  .iconfont2 {
+    transform: rotate(180deg);
+    font-size: 13rpx;
+    margin-right: 9rpx;
   }
 
   .active {
-    transform: rotate(180deg);
-    color:#ABB3C0;
+    transform: rotate(0deg);
+    color: #2185FF;
+  }
+
+  .active2 {
+    transform: rotate(0deg);
+    color: #2185FF;
   }
 }
 
-.node-active {
+.level3 {
   background: rgba(0, 0, 0, 0.13);
   border-bottom: 0;
   margin: 0;
   padding: 0 40rpx;
   font-size: 28rpx;
   color: rgba(255, 255, 255, 0.51);
-  .iconfont{
-    color:#ABB3C0;
+
+  .iconfont {
+    color: #ABB3C0;
   }
+}
+
+.level2, .level3 {
+  font-size: 28rpx;
+  font-weight: 400;
+}
+
+.level2.open-active {
+  border: none;
 }
 </style>
