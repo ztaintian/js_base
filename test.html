@@ -1,68 +1,81 @@
 <!DOCTYPE html>
-
-<html lang='zh'>
-
+<html lang="en">
   <head>
-
-    <meta charset='UTF-8″ />
-
-    <meta name='viewport' content='width=device-width, initial-scale=1.0″ />
-    <meta http-equiv='X-UA-Compatible' content='ie=edge' />
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-
-
-    <!-- 引入样式 -->
-    <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/vant@1.6/lib/index.css">
-
-    <!-- 引入组件 -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vant@1.6/lib/vant.min.js"></script>
   </head>
+  <script>
+  const treeNode = [{
+  parentId: 0,
+  title: "目录1",
+  id: 1,
+  children: [{
+    parentId: 1,
+    title: "子目录1-1",
+    id: 22,
+  }, {
+    parentId: 1,
+    title: "子目录1-2",
+    id: 33,
+  }],
+}, {
+  parentId: 0,
+  title: "目录2",
+  id: 2,
+  children: [{
+    parentId: 2,
+    title: "子目录2-1",
+    id: 44,
+  }, {
+    parentId: 1,
+    title: "子目录2-2",
+    id: 55,
+  }],
+}];
 
+function flat(arr, parentId) {
+  var tempArr = [];
+  (function flat2(arr, parentId) {
+    arr.map((item) => {
+      tempArr.push({
+        id: item.id,
+        parentId: parentId,
+        title: item.title
+      });
+      if (item.children) {
+        flat2(item.children, item.id);
+      }
+    })
+  }(arr, parentId));
+  return tempArr;
+}
+console.log(flat(treeNode, null))
+
+function flatToTree(arr, parenId) {
+  let tempArr = [];
+  arr.map((item) => {
+    if (item.parentId === parenId) {
+      const children = flatToTree(arr.filter(v => v.parentId !== parenId), item.id);
+      if (children.length) {
+        tempArr.push({
+          children: children,
+          ...item
+        })
+      } else {
+        tempArr.push({
+          ...item
+        })
+      }
+    }
+  })
+  return tempArr
+
+}
+console.log(flatToTree(flat(treeNode, null), null))
+</script>
   <body>
 
-    <div id='app'>
-
-      <van-button type='default'>默认按钮</van-button>
-
-      <van-button type='primary'>主要按钮</van-button>
-
-      <van-button type='info'>信息按钮</van-button>
-
-      <van-button type='warning'>警告按钮</van-button>
-
-      <van-button type='danger'>危险按钮</van-button>
-      <van-datetime-picker
-
-        type="datetime"
-  
-        />
-      </div>
-
-    </body>
-
-    <script>
-
-var app = new Vue({
-
-el: '#app',
-
-data: {
-  show:true
-},
-
-methods: {
-
-},
-
-created() {
-
-},
-
-})
-
-</script>
-  </html>
+  </body>
+</html>

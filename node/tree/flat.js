@@ -28,18 +28,39 @@ const treeNode = [{
 
 function flat(arr, parentId) {
   var tempArr = [];
-    (function flat2(arr, parentId) {
-      arr.map((item) => {
-        tempArr.push({
-          id: item.id,
-          parentId: parentId,
-          title: item.title
-        });
-        if (item.children) {
-          flat2(item.children, item.id);
-        }
-      })
-    }(arr,parentId));
+  (function flat2(arr, parentId) {
+    arr.map((item) => {
+      tempArr.push({
+        id: item.id,
+        parentId: parentId,
+        title: item.title
+      });
+      if (item.children) {
+        flat2(item.children, item.id);
+      }
+    })
+  }(arr, parentId));
   return tempArr;
 }
-console.log(flat(treeNode,null))
+console.log(flat(treeNode, null))
+
+function flatToTree(arr, parenId) {
+  let tempArr = [];
+  arr.map((item) => {
+    if (item.parentId === parenId) {
+      const children = flatToTree(arr.filter(v => v.parenId !== parenId), item.id);
+      if (children.length) {
+        tempArr.push({
+          children: children,
+          ...item
+        })
+      } else {
+        tempArr.push({
+          ...item
+        })
+      }
+    }
+  })
+  return tempArr;
+}
+console.log(flatToTree(flat(treeNode, null), null))
