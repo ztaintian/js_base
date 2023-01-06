@@ -65,20 +65,20 @@ function arrayToTree(array) {
   return tree;
 }
 
-function toTree(parenId, array) {
-  let children = []
-  let len = array.length
-  for (let i = 0; i < len; i++) {
-    let node = array[i]
-    if (node.parentId === parenId) {
-      children.push({
-        id: node.id,
-        val: node.val,
-        children: toTree(node.id, array)
-      })
-    }
-  }
-  return children
-}
+// function toTree(parenId, array) {
+//   let children = []
+//   let len = array.length
+//   for (let i = 0; i < len; i++) {
+//     let node = array[i]
+//     if (node.parentId === parenId) {
+//       children.push({
+//         id: node.id,
+//         val: node.val,
+//         children: toTree(node.id, array)
+//       })
+//     }
+//   }
+//   return children
+// }
 
 console.log(arrayToTree(input))

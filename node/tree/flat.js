@@ -44,23 +44,36 @@ function flat(arr, parentId) {
 }
 console.log(flat(treeNode, null))
 
-function flatToTree(arr, parenId) {
-  let tempArr = [];
+// function flatToTree(arr, parentId) {
+//   let tempArr = [];
+//   arr.map((item) => {
+//     if (item.parentId === parentId) {
+//       const children = flatToTree(arr.filter(v => v.parentId !== parentId), item.id);
+//       if (children.length) {
+//         tempArr.push({
+//           children: children,
+//           ...item
+//         })
+//       } else {
+//         tempArr.push({
+//           ...item
+//         })
+//       }
+//     }
+//   })
+//   return tempArr;
+// }
+
+function flatToTree2(arr, parentId, tempArr = [],) {
   arr.map((item) => {
-    if (item.parentId === parenId) {
-      const children = flatToTree(arr.filter(v => v.parenId !== parenId), item.id);
-      if (children.length) {
-        tempArr.push({
-          children: children,
-          ...item
-        })
-      } else {
-        tempArr.push({
-          ...item
-        })
-      }
+    if (item.parentId === parentId) {
+      var flag = arr.some((itemC) => item.id === itemC.parentId)
+      console.log()
+      const newItem = { ...item, children: flag ? [] : '' };
+      tempArr.push(newItem)
+      flatToTree2(arr, item.id, newItem.children)
     }
   })
   return tempArr;
 }
-console.log(flatToTree(flat(treeNode, null), null))
+console.log(flatToTree2(flat(treeNode, null), null))
