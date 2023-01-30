@@ -53,39 +53,31 @@ function flat(arr, parentId) {
 }
 console.log(flat(treeNode, null))
 
-// function flatToTree(arr, parentId) {
-//   let tempArr = [];
-//   arr.map((item) => {
-//     if (item.parentId === parentId) {
-//       const children = flatToTree(arr.filter(v => v.parentId !== parentId), item.id);
-//       if (children.length) {
-//         tempArr.push({
-//           children: children,
-//           ...item
-//         })
-//       } else {
-//         tempArr.push({
-//           ...item
-//         })
-//       }
-//     }
-//   })
-//   return tempArr;
-// }
+function flatToTree(arr,parentId) {
+  let tempArr = []
 
-function flatToTree2(arr, parentId, tempArr = [],) {
-  arr.map((item) => {
-    if (item.parentId === parentId) {
-      var flag = arr.some((itemC) => item.id === itemC.parentId)
-      console.log()
-      const newItem = { ...item, children: flag ? [] : '' };
-      tempArr.push(newItem)
-      flatToTree2(arr, item.id, newItem.children)
-    }
-  })
-  return tempArr;
+    arr.map((item) => {
+      if (item.parentId === parentId) {
+        let children = flatToTree(arr,item.id);
+        if (children.length>0) {
+          tempArr.push({
+          children: children,
+          ...item
+        })
+
+        } else {
+          tempArr.push({
+          ...item
+        })
+
+        }
+      }
+    })
+    return tempArr
+  
 }
-console.log(flatToTree2(flat(treeNode, null), null))
+
+console.log(flatToTree(flat(treeNode, null), null))
 </script>
   <body>
 
