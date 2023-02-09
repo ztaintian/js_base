@@ -425,3 +425,86 @@ export default {
 </style>
 
 
+
+
+// uniapp写法
+export default {
+    data(){
+        绘制对象元素的宽高
+        wxmlCanvas: {},
+        // canvas元素的style值
+        canvasStyle: ""
+    }
+    onLoad() {
+        this.$nextTick(() => {
+          setTimeout(async () => {
+            // 获取绘制元素的宽高
+            const htmlWidthHeight = await this.getWidthHeight('#wxml-canvas')
+            Object.assign(this.wxmlCanvas, {
+              width: Math.floor(htmlWidthHeight.width),
+              height: Math.floor(htmlWidthHeight.height)
+            })
+            // 设置canvas元素的宽高
+            this.canvasStyle = `width: ${htmlWidthHeight.width}px;height: ${htmlWidthHeight.height}px`
+            setTimeout(() => {
+              this.draw()
+            }, 100)
+          }, 300)
+        })
+    },
+    methods: {
+        // 获取节点的宽高
+        getWidthHeight(selector) {
+          return new Promise((resolve) => {
+            const query = uni.createSelectorQuery().in(this)
+            query
+              .select(selector)
+              .boundingClientRect((data) => {
+                return resolve(data)
+              })
+              .exec()
+          })
+        },
+        draw() {
+          let that = this
+          let data = {
+            //直接获取wxml数据
+            list: [
+              {
+                type: 'wxml',
+                // 第一个参数是绘制对象的根元素的类名，第二个参数是需要绘制节点的类名
+                class: '.canvas_ele_limit, .draw_canvas',
+                limit: '.canvas_ele_limit',// 绘制对象的根元素的类名
+                x: 0,
+                y: 0
+              }
+            ]
+          }
+           //创建wxml2canvas对象
+          let drawImage = new Wxml2Canvas(
+            {
+              element: 'canvasId', // canvas节点的id,
+              obj: that, // 在组件中使用时，需要传入当前组件的this
+              width: that.wxmlCanvas.width, // 宽高
+              height: that.wxmlCanvas.height, // 这里的高度要动态获取
+              background: '#fff', // 默认背景色
+              progress() {
+                // 绘制进度
+              },
+              async finish(tempFilePath) {
+                console.log(tempFilePath)
+
+              },
+              error(err) {
+                console.log(err, 'err')
+              }
+            },
+            that
+          )
+          //传入数据，画制canvas图片
+          setTimeout(() => {
+            drawImage.draw(data, that)
+          }, 30)
+        },
+    }
+}
