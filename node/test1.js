@@ -1,17 +1,13 @@
-var Emit = {
-  _list: {},
-  _on:function (key,fn) {
-    if (this._list[key]) {
-      this._list[key].push(fn)
-    } else {
-      this._list[key] = [fn];
-    }
-  },
-  _emit: function (key,...args) {
-    if (this._list[key]) {
-      for (var i=0;i<this._list[key].length;i++) {
-        this._list[key][i].apply(this, args)
-      }
-    }
+function curry(protocol) {
+  return function (hostname, pathname) {
+    return `${protocol}${hostname}${pathname}`;
   }
 }
+
+const url_curry = curry('https://');
+
+const url1 = url_curry('www.baidu.com', '/hasa');
+const url2 = url_curry('www.zhihu.com', '/saandsa');
+const url3 = url_curry('www.segmentfault.com', '/hasak');
+
+console.log(url1, url2, url3)
