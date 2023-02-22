@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <script></script>
 <style>
@@ -13,87 +13,54 @@
 </style>
 
 <body>
-    <input id="file" type="file">
+  <input id="file" type="file">
 </body>
 <script>
-    window.onload = function() {
-            const fileInput = document.querySelector('#file');
-            fileInput.addEventListener('change', (file) => {
-                console.log('file', file.target.files[0])
-                sliceArray(file.target.files[0])
-                console.log('sliceArray(file.target.files[0])', sliceArray(file.target.files[0]))
-            })
+  var event = {
+    clientList: [],
 
-            function sliceArray(file, size = 1 * 1024 * 1024) {
-                const chunkList = []
-                let cur = 0
-                while (cur < file.size) {
-                    chunkList.push({
-                        file: file.slice(cur, cur + size)
-                    })
-                    cur += size
-                }
-                return chunkList
-            }
+    // 添加订阅
+    listen: function (key, fn) {
+      if (!this.clientList[key]) {
+        this.clientList[key] = [];
+      }
+
+      // 订阅的消息添加进缓存列表
+      this.clientList[key].push(fn);
+    },
+
+    // 取消订阅
+    remove: function (key, fn) {
+      var fns = this.clientList[key];
+      if (!fns) {
+        return false;
+      }
+
+      // 没有传入fn，则表示需要取消key对应的所有订阅消息
+      if (!fn) {
+        fns && (fns.length = 0);
+      } else {
+        // 取消fn的订阅
+        for (var l = fns.length - 1; l >= 0; l--) {
+          var _fn = fns[l];
+          if (_fn === fn) {
+            fns.splice(l, 1);
+          }
         }
-        //数据处理
-    async function uploadFile(list) {
-        const requestList = list.map(({
-                file,
-                fileName,
-                index,
-                chunkName
-            }) => {
-                const formData = new FormData() // 创建表单类型数据
-                formData.append('file', file) //该文件
-                formData.append('fileName', fileName) //文件名
-                formData.append('chunkName', chunkName) //切片名
-                return {
-                    formData,
-                    index
-                }
-            })
-            .map(({
-                formData,
-                index
-            }) => axiosRequest({
-                method: 'post',
-                url: 'http://localhost:3000/upload', //请求接口，要与后端一一一对应
-                data: formData
-            })     .then(res => {        
-                console.log(res);      //显示每个切片上传进度
-                     
-                let p = document.createElement('p')
-                p.innerHTML = `${list[index].chunkName}--${res.data.message}`
-                document.getElementById('progress').appendChild(p)     
-            }))
-        await Promise.all(requestList) //保证所有的切片都已经传输完毕
-    }​
-    //请求函数
-    function axiosRequest({
-        method = "post",
-        url,
-        data
-    }) {
-        return new Promise((resolve, reject) => {
-            const config = { //设置请求头
-                    headers: 'Content-Type:application/x-www-form-urlencoded',
-                }     //默认是post请求，可更改
-            axios[method](url, data, config).then((res) => {
-                resolve(res)
-            })
-        })
-    }​
-    // 文件上传
-    upload.addEventListener('click', () => {
-        const uploadList = sliceArray().map(({
-                file
-            }, index) => {
-                console.log('file', file)
-            })
-            //发请求，调用函数
-        uploadFile(uploadList)​
-    })
+      }
+    },
+
+    // 触发订阅
+    trigger: function () {
+      var key = Array.prototype.shift.call(arguments),
+        fns = this.clientList[key];
+      if (!fns || fns.length === 0) { return false }
+
+      for (var i = 0, fn; fn = fns[i++];) {
+        fn.apply(this, arguments)
+      }
+    }
+  }
 </script>
 
 </html>

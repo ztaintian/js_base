@@ -36,13 +36,13 @@
 			return p;
 		}
 		asyc().then(function(data){
-			console.log(data)
+			console.log(data) // data
 			return asyc1();
 		}).then(function(data1){
-			console.log(data1);
+			console.log(data1); // data1
 			return '直接返回数据';
 		}).then(function(data2){
-			console.log(data2);
+			console.log(data2); //  '直接返回数据'
 		})
 
 

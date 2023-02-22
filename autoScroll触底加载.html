@@ -33,7 +33,7 @@
   </style>
 </head>
 
-<body>
+<body id="body">
   <div id="parent" class="parent">
     <ul id="child1" class="child">
       <li>1</li>
@@ -50,10 +50,9 @@
     var parent = document.getElementById('parent');
     var child1 = document.getElementById('child1');
     parent.addEventListener('scroll', () => {
-      console.log(parent.scrollTop,parent.offsetHeight)
+      console.log(parent.scrollTop,parent.offsetHeight,child1.offsetHeight)
       if (parent.scrollTop + parent.offsetHeight >= child1.offsetHeight) {
         console.log('------触底了-----', child1.offsetHeight)
-        
       }
     })
     // 动画效果
