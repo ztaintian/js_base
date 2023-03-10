@@ -16,60 +16,48 @@
   <input id="file" type="file">
 </body>
 <script>
-  // 筷子序列号
-  var serialNumber = 1;
-  // 筷子构造函数
-  var Chopsticks = function (serialNumber, type) {
-    this.serialNumber = serialNumber; // 公筷序列号
-    this.type = type; // 这双公筷的使用状态
-  }
-  // 筷子管理
-  var chopsticksManager = (function () {
-    var innerData = [] // 提升为内部状态的享元池
-    var recycleData = [] // 公筷回收池
-    return {
-      // 创建公筷
-      add: function (count) {
-        for (var i = 0; i < count; i++) {
-          innerData.push(new Chopsticks(serialNumber++))
-        }
-        return innerData;
-      },
-      // 使用公筷
-      use: function (count) {
-        for (let i = 0; i < count; i++) {
-          var item = innerData.pop()
-          item.type = 'hasUsed' // 标注为已经被使用
-          recycleData.push(item);
-        }
-      },
-      // 回收公筷
-      recycle: function () {
-        let recycleDataLength = recycleData.length
-        for (let i = 0; i < recycleDataLength; i++) {
-          var item = recycleData.pop()
-          item.type = 'hasRecycled'; // 标注为已经被回收
-          innerData.push(item);
-        }
-      },
+  // ref.js
+  class Dep {
+    constructor(value) {
+      this._value = value
+      this.subscribers = new Set()
+
     }
-  })()
-  // 公筷创建，公筷创建是日常客流的二倍，以防客流突然增多
-  var chopsticksArr = chopsticksManager.add(1000);
-  console.log('chopsticksArr', chopsticksArr)
-  // 有一天客流325
-  chopsticksManager.use(325); // 筷子的使用
-  chopsticksManager.recycle(); // 筷子的回收
 
-  // 有一天客流732
-  chopsticksManager.use(732); // 筷子的使用
-  chopsticksManager.recycle(); // 筷子的回收
+    get value() {
+      this.depend()
+      return this._value
+    }
 
-  // 有一天客流210
-  chopsticksManager.use(210); // 筷子的使用
-  chopsticksManager.recycle(); // 筷子的回收
 
-// 日复一日，年复一年，筷子的使用就从公筷池中使用，洗净消毒回收
+    set value(newValue) {
+      if (newValue) {
+        this._value = newValue
+        this.notify()
+      }
+    }
+
+    depend() {
+      if (activeEffect) {
+        this.subscribers.add(activeEffect)
+      }
+    }
+
+    notify() {
+      this.subscribers.forEach(effect => {
+        effect()
+      })
+    }
+  }
+
+  let activeEffect = null
+  function watchEffect(effect) {
+    activeEffect = effect
+    effect()
+    activeEffect = null
+  }
+
+  export { Dep, watchEffect }
 </script>
 
 </html>
