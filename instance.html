@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<script>
+  function new_instance_of(L, R) {
+    let RP = R.prototype;
+    L = L.__proto__;
+    while (true) {
+      console.log('L === null', L.__proto__, L === null)
+      if (L === null) return false;
+      if (L === RP) return true;
+      console.log('L', L, RP)
+      L = L.__proto__
+    }
+  }
+  function C() {}
+
+  function B() {}
+
+  var o = new C();
+
+  console.log(new_instance_of(o, B))
+  
+</script>
+
+<body>
+
+</body>
+
+</html>

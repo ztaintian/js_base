@@ -33,118 +33,21 @@
     <p style="display: inline-block;height:30px;">222222</p><span></span>
   </div>
 </body>
-<script>
-  // plugin.js
-  (function () {
+<body>
+  <img id="imgbox"></img>
+  <script type="module">
+      // 在原生方式直接这样引用不行呢，需要使用new URL 结合import.meta.url的方式
+      // import imgUrl from './straw.jpg'
+      // import.meta是一个给 JavaScript 模块暴露特定上下文的元数据属性的对象。它包含了这个模块的信息，比如说这个模块的 URL。
+      // 注意：1.js的type类型需是module 2.返回的地址是绝对路径
+      console.log('import.meta',import.meta)
+      //new URL() 创建并返回一个URL对象，该 URL 对象引用使用绝对 URL 字符串，相对 URL 字符串和基本 URL 字符串指定的 URL。
+      // 如果url参数是相对 URL，则构造函数将使用url参数和可选的base参数作为基础。
+      const url = new URL('./001.png',import.meta.url).href
+      document.getElementById('imgbox').src = url
+      // document.getElementById('imgbox').src = imgUrl
+  </script>
+</body>
 
-    var _global;
-
-    // 插件构造函数 - 返回数组结构
-    function MyDialog(opt) {
-      this._initial(opt);
-    }
-    MyDialog.prototype = {
-      constructor: this,
-      _initial: function (opt) {
-        // 默认参数
-        var def = {
-          ok: true,
-          ok_txt: '确定',
-          cancel: false,
-          cancel_txt: '取消',
-          confirm: function () { },
-          close: function () { },
-          content: '',
-          tmpId: null
-        };
-        // this.def = extend(def, opt, true);
-        // this.tpl = this._parseTpl(this.def.tmpId);
-        // this.dom = this._parseToDom(this.tpl)[0];
-        // this.hasDom = false;
-      },
-      _parseTpl: function (tmpId) { // 将模板转为字符串
-        var data = this.def;
-        var tplStr = document.getElementById(tmpId).innerHTML.trim();
-        return templateEngine(tplStr, data);
-      },
-      _parseToDom: function (str) { // 将字符串转为dom
-        var div = document.createElement('div');
-        if (typeof str == 'string') {
-          div.innerHTML = str;
-        }
-        return div.childNodes;
-      },
-      show: function (callback) {
-        var _this = this;
-        if (this.hasDom) return;
-        document.body.appendChild(this.dom);
-        this.hasDom = true;
-        document.getElementsByClass('close', this.dom)[0].onclick = function () {
-          _this.hide();
-        };
-        document.getElementsByClass('btn-ok', this.dom)[0].onclick = function () {
-          _this.hide();
-        };
-        if (this.def.cancel) {
-          document.getElementsByClass('btn-cancel', this.dom)[0].onclick = function () {
-            _this.hide();
-          };
-        }
-        callback && callback();
-        return this;
-      },
-      hide: function (callback) {
-        document.body.removeChild(this.dom);
-        this.hasDom = false;
-        callback && callback();
-        return this;
-      },
-      modifyTpl: function (template) {
-        if (!!template) {
-          if (typeof template == 'string') {
-            this.tpl = template;
-          } else if (typeof template == 'function') {
-            this.tpl = template();
-          } else {
-            return this;
-          }
-        }
-        // this.tpl = this._parseTpl(this.def.tmpId);
-        this.dom = this._parseToDom(this.tpl)[0];
-        return this;
-      },
-      css: function (styleObj) {
-        for (var prop in styleObj) {
-          var attr = prop.replace(/[A-Z]/g, function (word) {
-            return '-' + word.toLowerCase();
-          });
-          this.dom.style[attr] = styleObj[prop];
-        }
-        return this;
-      },
-      width: function (val) {
-        this.dom.style.width = val + 'px';
-        return this;
-      },
-      height: function (val) {
-        this.dom.style.height = val + 'px';
-        return this;
-      }
-    }
-
-    _global = (function () { return this || (0, eval)('this'); }());
-    if (typeof module !== "undefined" && module.exports) {
-      module.exports = MyDialog;
-    } else if (typeof define === "function" && define.amd) {
-      define(function () { return MyDialog; });
-    } else {
-      !('MyDialog' in _global) && (_global.MyDialog = MyDialog);
-    }
-  })();
-
-
-  var app = new MyDialog();
-  console.log(app)
-</script>
 
 </html>

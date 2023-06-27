@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <img id="imgbox"></img>
+  <script type="module">
+    // 在原生方式直接这样引用不行呢，需要使用new URL 结合import.meta.url的方式
+    // import imgUrl from './straw.jpg'
+    // import.meta是一个给 JavaScript 模块暴露特定上下文的元数据属性的对象。它包含了这个模块的信息，比如说这个模块的 URL。
+    // 注意：1.js的type类型需是module 2.返回的地址是绝对路径
+    console.log('import.meta', import.meta)
+    //new URL() 创建并返回一个URL对象，该 URL 对象引用使用绝对 URL 字符串，相对 URL 字符串和基本 URL 字符串指定的 URL。
+    // 如果url参数是相对 URL，则构造函数将使用url参数和可选的base参数作为基础。
+    const url = new URL('./001.png', import.meta.url).href
+    document.getElementById('imgbox').src = url
+      // document.getElementById('imgbox').src = imgUrl
+  </script>
+</body>
+
+</html>
