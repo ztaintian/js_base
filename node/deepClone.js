@@ -75,7 +75,7 @@ function deepClone(obj) {
   return result;
 }
 
-var arr = [{a:1},2,3,4,5]
+var arr = [{a:1},2,3,4,5,new Date()]
 var cc = deepClone(arr);
 cc[0].a = 777
-console.log('asasasa', arr)
+console.log('asasasa', cc)

@@ -19,6 +19,7 @@
     //new URL() 创建并返回一个URL对象，该 URL 对象引用使用绝对 URL 字符串，相对 URL 字符串和基本 URL 字符串指定的 URL。
     // 如果url参数是相对 URL，则构造函数将使用url参数和可选的base参数作为基础。
     const url = new URL('./001.png', import.meta.url).href
+    console.log('url', url)
     document.getElementById('imgbox').src = url
       // document.getElementById('imgbox').src = imgUrl
   </script>

@@ -22,8 +22,9 @@
     </div>
   </div>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script>
+  console.log('Vue', Vue)
   new Vue({
     el: '#vueApp',
     data() {
@@ -31,22 +32,22 @@
         dataList: [{
           title: 'java',
           webList: [{
-              name: 'Spring MVC',
-              url: 'http://c.biancheng.net/view/4391.html',
-            },
-            {
-              name: 'JavaGuide',
-              url: 'https://snailclimb.gitee.io/javaguide/#/',
-
-            }
+            name: 'Spring MVC',
+            url: 'http://c.biancheng.net/view/4391.html',
+          },
+          {
+            name: 'JavaGuide',
+            url: 'https://snailclimb.gitee.io/javaguide/#/',
+          },
+          {
+            name: '编程时光',
+            url: 'https://www.coding-time.cn'
+          }
           ]
         }]
       }
     },
     mounted() {
-      console.log(111)
-      const sum = eval('10*10+5');
-      console.log(sum)
     }
   })
 </script>

@@ -19,9 +19,9 @@ var myNewTest = myNew(Test, "小明", 19);
 console.log(myNewTest.name);
 console.log(myNewTest.age);
 
-// function newNew(obj, ...args) {
-//   var _obj = {};
-//   _obj.__proto__ = obj.prototype;
-//   var result = obj.apply(_obj, args);
-//   return typeof result === "object" ? result : _obj;    
-// }
+function newNew(obj, ...args) {
+  var _obj = {};
+  _obj.__proto__ = obj.prototype;
+  var result = obj.apply(_obj, args);
+  return typeof result === "object" ? result : _obj;    
+}
