@@ -19,17 +19,17 @@ function Btree(arr) {
 }
 var treeResult = Btree(arrSouce)
 
-function hasTrage(treeResult, traget) {
-  if (!treeResult.right && !treeResult.left) {
-    return treeResult.value === traget
-  } else {
-    if (treeResult.left) {
-      return hasTrage(treeResult.left, traget - treeResult.value)
-    }
-    if (treeResult.right) {
-      return hasTrage(treeResult.right, traget - treeResult.value)
-    }
-  }
-}
+// function hasTrage(treeResult, traget) {
+//   if (!treeResult.right && !treeResult.left) {
+//     return treeResult.value === traget
+//   } else {
+//     if (treeResult.left) {
+//       return hasTrage(treeResult.left, traget - treeResult.value)
+//     }
+//     if (treeResult.right) {
+//       return hasTrage(treeResult.right, traget - treeResult.value)
+//     }
+//   }
+// }
 
-console.log(hasTrage(treeResult, 7))
+// console.log(hasTrage(treeResult, 7))

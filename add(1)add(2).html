@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,20 +20,22 @@
 
   var curry = function (fn) {
     // console.log(fn.length)
-    return judge = function(...args) {
-      console.log(fn.length,args, args.length)
-      return fn.length === args.length?fn(...args):function (...arg) {
-        return judge(...args,...arg)
+    return judge = function (...args) {
+      console.log(fn.length, args, args.length)
+      return fn.length === args.length ? fn(...args) : function (...arg) {
+        return judge(...args, ...arg)
       }
     }
-  } 
-  var add = function(a,b,c) {
-    return a+b+c
+  }
+  var add = function (a, b, c) {
+    return a + b + c
   }
   var curryAdd = curry(add);
   console.log(curryAdd(1)(2)())
 </script>
+
 <body>
-  
+
 </body>
+
 </html>
