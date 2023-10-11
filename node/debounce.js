@@ -1,17 +1,34 @@
-function debounce(fn, delay = 1000) {
-  let time = null;
-  return function (args) {
 
-    if (time) {
-      clearTimeout(time)
+// 防抖
+function debounce(fn, delay) {
+  var timer = null;
+  return function () {
+    let args = [...arguments];
+    if (timer) clearTimeout(timer);
+    let callNow = !timer;
+    setTimeout(() => {
+      fn.apply(null, args);
+    }, delay)
+    if (callNow) {
+      func.apply(null, args);
     }
-    time = setTimeout(()=> {
-      fn(args)
+  }
+}
+
+// 节流
+function throttle(fn, delay) {
+  var timer = null;
+  return function (args) {
+    if (timer) return
+    timer = true;
+    setTimeout(() => {
+      timer = null;
+      fn.apply(null, args)
     }, delay)
   }
 }
-function test(args) {
-  console.log(args)
+
+function test(){
+  console.log(11)
 }
-const aa = debounce(test, 1000)
-aa('11')
+debounce(test,1000)
