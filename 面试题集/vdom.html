@@ -3,7 +3,7 @@
 
 <body>
   <div class="shadow-host-parent" style="padding: 20px">
-    <div class="shadow-host" style="border:1px solid #000;padding:10px"></div>
+    
   </div>
   <!-- js部分-->
   <script>
@@ -62,6 +62,9 @@
       return el;
     }
     console.log(vdom.render())
+    var dom = document.querySelectorAll('.shadow-host-parent')[0];
+    console.log('dom', dom)
+    dom.appendChild(vdom.render())
   </script>
 </body>
 

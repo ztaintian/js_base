@@ -1,4 +1,5 @@
-var arr = [1,2,3,4,777,4,12,2,4,24,2,1]
+var arr = [-1,2,3,4,777,4,12,2,4,24,2,1]
+var arr1 = [1,2,3,4,4,12]
 
 function bubble(arr) {
   for (var i=0;i<arr.length;i++) {
