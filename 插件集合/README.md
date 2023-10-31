@@ -5,3 +5,8 @@
 # 浏览器黑色插件
 
   darkreader
+
+
+# https://gitee.com/running-elephant/datart/
+
+  datart

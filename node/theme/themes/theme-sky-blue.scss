@@ -1,0 +1,21 @@
+// 主题天蓝色：#00a8ff
+$theme-sky-blue: (
+    // 主色
+    main-color:#00a8ff,
+
+    //错误色
+    error-color:#f56c6c,
+
+    // 树打开的背景图
+    ztree-open-img-org-default:"~@/styles/sass/img/default-org.png",
+    ztree-open-img-org-selected:"~@/styles/sass/img/sky-blue-org.png",
+    ztree-open-img-post-default:"~@/styles/sass/img/default-post.png",
+    ztree-open-img-post-selected:"~@/styles/sass/img/sky-blue-post.png",
+    ztree-open-img-person-default:"~@/styles/sass/img/default-person.png",
+    ztree-open-img-person-selected:"~@/styles/sass/img/sky-blue-person.png",
+
+    // 环节背景图（已通过、选中、默认(在common里)）
+    link-adopt-img:"~@/styles/sass/img/adopt-sky-blue.png",
+    link-select-img:"~@/styles/sass/img/select-sky-blue.png",
+    mobileHeaderBg:"~@/styles/sass/img/mobileHeaderBg-sky-blue.png",
+);

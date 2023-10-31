@@ -1,0 +1,123 @@
+// 跟随主题色改变的样式配置
+@import "./themes/themes.scss";
+
+//遍历主题map
+@mixin themeify {
+
+    @each $theme-name,
+    $theme-map in $themes {
+        //!global 把局部变量强升为全局变量
+        $theme-map: $theme-map !global;
+
+        //& sass嵌套里的父容器标识  @content用在mixin中的混合器插槽，类似vue的slot
+        [data-theme="#{$theme-name}"] & {
+            @content;
+        }
+    }
+}
+
+//根据Key获取颜色
+@function themed($key) {
+    @return map-get($theme-map, $key);
+}
+
+//各样式样式配置：
+// 主题色透明度
+@mixin theme-color-alpha($key, $color, $alpha: 1, $important: "") {
+    @include themeify {
+        @if $important=="important" {
+            #{$key}: rgba(themed($color), $alpha) !important;
+        }
+
+        @else {
+            #{$key}: rgba(themed($color), $alpha);
+
+        }
+    }
+}
+
+//各种颜色
+@mixin theme-color($key, $color, $important: "") {
+    @include themeify {
+        @if $important=="important" {
+            #{$key}: themed($color) !important;
+        }
+
+        @else {
+            #{$key}: themed($color);
+
+        }
+    }
+}
+
+
+// 边框
+@mixin theme-border($key, $color, $alpha: 1, $important: "", $width: 1px, $line: solid) {
+    @include themeify {
+        @if $important=="important" {
+            #{$key}: $width $line rgba(themed($color), $alpha) !important;
+        }
+
+        @else {
+            #{$key}: $width $line rgba(themed($color), $alpha);
+
+        }
+    }
+}
+
+// 背景图
+@mixin theme-bg-img($imgUrl, $important: "", ) {
+    @include themeify {
+        @if $important=="important" {
+            background-image: url(#{themed($imgUrl)
+        }) !important;
+    }
+
+    @else {
+        background-image: url(#{themed($imgUrl)
+    });
+}
+}
+}
+
+// 渐变边框(上下透明，中间主题色)
+@mixin theme-border-gradient($color, $alphaT, ) {
+    @include themeify {
+        border-image: linear-gradient(180deg,
+                rgba(themed($color), $alphaT), themed($color), rgba(themed($color), $alphaT)) 1 1;
+    }
+}
+
+// 渐变边框（两边）
+@mixin theme-border-line-gradient($formColor, $fromAlpha, $toColor, $toAlpha, $direction: 180deg, ) {
+    @include themeify {
+        border-image: linear-gradient($direction,
+                rgba(themed($formColor), $fromAlpha), rgba(themed($toColor), $toAlpha)) 1;
+    }
+}
+
+// 渐变背景色
+@mixin theme-bg-gradient($deg, $colorStart, $perStart, $colorEnd, $perEnd, $alphaFrom, $alphaTo) {
+
+    //(221deg, #ffa300 0%, #ff6a00 100%)
+    @include themeify {
+        background: linear-gradient($deg, rgba(themed($colorStart), $alphaFrom) $perStart, rgba(themed($colorEnd), $alphaTo) $perEnd);
+    }
+}
+
+// 边框阴影
+@mixin theme-box-shadow($x, $y, $blur, $spread, $color, $alpha: 1) {
+    @include themeify {
+        -webkit-box-shadow: $x $y $blur $spread rgba(themed($color), $alpha);
+        box-shadow: $x $y $blur $spread rgba(themed($color), $alpha);
+    }
+}
+
+
+
+// stoke
+@mixin stoke($color) {
+    @include themeify {
+        stroke: themed($color);
+    }
+}

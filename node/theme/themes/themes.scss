@@ -1,0 +1,16 @@
+@import './theme-orange.scss';
+@import './theme-red.scss';
+@import './theme-sea-blue.scss';
+@import './theme-sky-blue.scss';
+@import './theme-green.scss';
+@import './theme-blue-green.scss';
+
+// 不同主题色
+$themes: (
+    theme-orange:$theme-orange,
+    theme-red:$theme-red,
+    theme-sea-blue:$theme-sea-blue,
+    theme-sky-blue:$theme-sky-blue,
+    theme-green:$theme-green,
+    theme-blue-green:$theme-blue-green,
+);

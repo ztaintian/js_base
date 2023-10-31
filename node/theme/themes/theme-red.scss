@@ -1,0 +1,22 @@
+// 主题红色：#ff6969
+$theme-red: (
+    // 主色
+    main-color:#ff6969,
+
+    //错误色
+    error-color:#e50b0b,
+
+    // 树打开的背景图
+    ztree-open-img-org-default:"~@/styles/sass/img/default-org.png",
+    ztree-open-img-org-selected:"~@/styles/sass/img/red-org.png",
+    ztree-open-img-post-default:"~@/styles/sass/img/default-post.png",
+    ztree-open-img-post-selected:"~@/styles/sass/img/red-post.png",
+    ztree-open-img-person-default:"~@/styles/sass/img/default-person.png",
+    ztree-open-img-person-selected:"~@/styles/sass/img/red-person.png",
+
+
+    // 环节背景图（已通过、选中、默认(在common里)）
+    link-adopt-img:"~@/styles/sass/img/adopt-red.png",
+    link-select-img:"~@/styles/sass/img/select-red.png",
+    mobileHeaderBg:"~@/styles/sass/img/mobileHeaderBg-red.png",
+);
