@@ -23,5 +23,18 @@ function newNew(obj, ...args) {
   var _obj = {};
   _obj.__proto__ = obj.prototype;
   var result = obj.apply(_obj, args);
-  return typeof result === "object" ? result : _obj;    
+  return typeof result === "object" ? result : _obj;
+}
+
+
+
+
+
+function my_new(fn, ...args) {
+  var obj = {
+    name:'cc'
+  };
+  obj.__proto__ = fn.prototype;
+  var result = fn.apply(obj, args);
+  return typeof (result) === 'object' ? result : obj
 }

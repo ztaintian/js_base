@@ -18,37 +18,42 @@
   //   return this.property;
   // }
   // function Child() {
+
+  //   this.arr2 = [1]
   //   this.sonProperty = false;
   // }
+  // var cc = new Parent()
+  // console.log('cc', cc)
   // Child.prototype = new Parent()
   // Child.prototype.getChildVlaue = function () {
   //   return this.sonProperty;
   // }
   // var son = new Child()
   // son.arr.push(77)
+  // son.arr2.push(55)
   // var son2 = new Child()
   // console.log('son', son, 'son2', son2)
-  // // 继承引用的属性 不能独立
+  // 继承引用的属性 不能独立
 
-  // // 构造函数继承 引用属性可以独立
-  // function Parent(age) {
-  //   this.arr = [1,2,3,4]
-  // }
-  // function Child(name) {
-  //   Parent.call(this) // 可以传参
-  //   this.name = name
-  // }
-  // var son1 = new Child()
-  // var son2 = new Child()
-  // son1.arr.push(44)
-  // console.log('son', son1, 'son2', son2)
+  // 构造函数继承 引用属性可以独立
+  function Parent(age) {
+    this.arr = [1,2,3,4]
+  }
+  function Child(name) {
+    Parent.call(this) // 可以传参
+    this.name = name
+  }
+  var son1 = new Child()
+  var son2 = new Child()
+  son1.arr.push(44)
+  console.log('son', son1, 'son2', son2)
   // 组合继承
-  function Parent() {
-  }
-  function Child() {
-    Parent.call(this)
-  }
-  Child.prototype = new Parent()
+  // function Parent() {
+  // }
+  // function Child() {
+  //   Parent.call(this)
+  // }
+  // Child.prototype = new Parent()
 </script>
 
 <body>

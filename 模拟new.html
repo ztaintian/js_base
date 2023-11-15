@@ -12,6 +12,7 @@
     console.log(args)
     var _obj = {}
     _obj.__proto__ = obj.prototype
+    console.log('_obj', _obj)
     var result = obj.apply(_obj, args)
     return typeof result === 'object' ? reslut : _obj
   }
@@ -19,19 +20,20 @@
     this.name = name
     this.age = age
   }
-  var myNewTest = myNew(Test, '小明', 19)
-  console.log(myNewTest.name)
-  console.log(myNewTest.age)
-  var newTest = new Test('小天', 28)
-  console.log(newTest.name)
-  console.log(newTest.age)
-  var myNew2 = function (obj,...arges) {
-    console.log(args)
-    var _obj = {}
-    _obj.__proto__ = obj.prototype
-    var result = obj.apply(_obj, args)
-    return typeof result === 'object' ? reslut : _obj
-  }
+  console.log('bbbb', new Test())
+  // var myNewTest = myNew(Test, '小明', 19)
+  // console.log(myNewTest.name)
+  // console.log(myNewTest.age)
+  // var newTest = new Test('小天', 28)
+  // console.log(newTest.name)
+  // console.log(newTest.age)
+  // var myNew2 = function (obj,...arges) {
+  //   console.log(args)
+  //   var _obj = {}
+  //   _obj.__proto__ = obj.prototype
+  //   var result = obj.apply(_obj, args)
+  //   return typeof result === 'object' ? reslut : _obj
+  // }
 </script>
 
 <body>

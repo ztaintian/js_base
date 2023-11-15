@@ -31,7 +31,7 @@ const LazyLoad = {
         }
       }
     })
-    io.observe(el)
+    io.observe(el);
   },
   // 监听scroll事件
   listenerScroll(el) {
@@ -91,4 +91,4 @@ Vue.use(LazyLoad, {
 
 
 // 使用
-{/* <img v-lazy="xxx.jpg" /> */}
+{/* <img v-lazy="xxx.jpg" /> */ }
