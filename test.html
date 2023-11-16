@@ -85,6 +85,59 @@
     }
   </style>
 </head>
+<script>
+  // // 寄生组合式继承
+function Father(name,cc) {
+  // 属性
+  console.log(name, cc)
+  this.name = name || 'father';
+  // 实例方法
+  this.sleep = function () {
+    console.log(this.name + "asas")
+  }
+}
+// 原型方法
+Father.prototype.look = function (book) {
+  console.log(this.name + "sasa:" + book);
+}
+function Son(parm) {
+  console.log(parm)
+  Father.apply(this,parm)
+}
+Son.prototype = createObject(Father.prototype)
+console.log('createObject(Father.prototype)', createObject(Father.prototype))
+// Son.prototype = createObject(Father.prototype)
+Son.prototype.constructor = Son;
+
+function createObject(o) {
+  function fn() { }
+  fn.prototype = o;
+  console.log('fn', fn)
+  return new fn;
+}
+var cc = new Son([1,2,3])
+console.log('cc', cc)
+cc.look(44)
+function Parent(name) {
+  console.log(2222)
+  this.name = name
+}
+Parent.prototype.say = function () {
+  console.log(this.name)
+}
+  function Child(name, age) {
+    Parent.call(this, name)
+    this.age = age
+  }
+  Child.prototype = new Parent();
+  Child.prototype.constructor = Child;
+
+  var cc = new Child('father', 18)
+  var bb = new Child('vvv', 88)
+  console.log('cc', cc, 'bb', bb)
+  // cc.say()
+  // bb.say()
+</script>
 
 <body>
   <div class="column">

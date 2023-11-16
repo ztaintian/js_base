@@ -46,7 +46,7 @@ function Child(name, age) {
   this.age = age
 }
 Child.prototype = new Parent();
-Child.constructor = Child;
+Child.prototype.constructor = Child;
 
 var cc = new Child('father', 18)
 var bb = new Child('vvv', 88)
@@ -54,31 +54,31 @@ cc.say()
 bb.say()
 console.log(cc.say === bb.say)
 
-// // 寄生组合式继承
-function Father(name,cc) {
-  // 属性
-  console.log(name, cc)
-  this.name = name || 'father';
-  // 实例方法
-  this.sleep = function () {
-    console.log(this.name + "asas")
-  }
-}
-// 原型方法
-Father.prototype.look = function (book) {
-  console.log(this.name + "sasa:" + book);
-}
-function Son(parm) {
-  console.log(parm)
-  Father.apply(this,parm)
-}
-Son.prototype = createObject(Father.prototype)
-Son.prototype.constructor = Son;
+// // // 寄生组合式继承
+// function Father(name,cc) {
+//   // 属性
+//   console.log(name, cc)
+//   this.name = name || 'father';
+//   // 实例方法
+//   this.sleep = function () {
+//     console.log(this.name + "asas")
+//   }
+// }
+// // 原型方法
+// Father.prototype.look = function (book) {
+//   console.log(this.name + "sasa:" + book);
+// }
+// function Son(parm) {
+//   console.log(parm)
+//   Father.apply(this,parm)
+// }
+// Son.prototype = createObject(Father.prototype)
+// Son.prototype.constructor = Son;
 
-function createObject(o) {
-  function fn() { }
-  fn.prototype = o;
-  return new fn;
-}
-var cc = new Son([1,2,3])
-cc.look(44)
+// function createObject(o) {
+//   function fn() { }
+//   fn.prototype = o;
+//   return new fn;
+// }
+// var cc = new Son([1,2,3])
+// cc.look(44)
