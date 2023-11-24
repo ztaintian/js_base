@@ -86,35 +86,19 @@
   </style>
 </head>
 <script>
-  // 防抖
-  function debounce(fn, delay) {
-    let timer;
-    return function (...args) {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => {
-        fn.apply(null, args);
-      }, delay)
-
-    }
+  function myNew(fn, ...args) {
+    let obj = {}
+    obj.__proto__ = fn.prototype;
+    let cc = fn.call(obj, ...args);
+    return typeof cc === 'object' ? cc : obj;
   }
-
-  function throttle(fn, delay) {
-    let timer;
-    let preTime;
-    return function (...args) {
-      let nowTime = new Date().getTime();
-      if (preTime && nowTime - preTime < delay) {
-        clearTimeout(timer)
-        setTimeout(() => {
-          fn.apply(null, args);
-          preTime = new Date().getTime();
-        })
-      } else {
-        fn.apply(null, args);
-        preTime = new Date().getTime();
-      }
-    }
+  function test() {
+    this.aa = 88
   }
+  var bb = myNew(test);
+  console.log('bb',bb.__proto__)
+  var mm = new test();
+  console.log('mm', mm)
 </script>
 
 <body>
@@ -123,11 +107,11 @@
       <div class="resize-bar"></div>
       <div class="resize-line"></div>
       <div class="resize-save">
-        左侧的内容，左侧的内容，左侧的内容，左侧的内容
+        <!-- 左侧的内容，左侧的内容，左侧的内容，左侧的内容 -->
       </div>
     </div>
     <div class="column-right">
-      右侧的内容，右侧的内容，右侧的内容，右侧的内容
+      <!-- 右侧的内容，右侧的内容，右侧的内容，右侧的内容 -->
     </div>
   </div>
 </body>
