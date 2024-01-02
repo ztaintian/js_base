@@ -2,7 +2,7 @@ let p1 = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(1)
-    }, 1000)
+    }, 3000)
   })
 }
 

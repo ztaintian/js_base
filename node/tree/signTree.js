@@ -10,19 +10,43 @@ var arr = [
   { id: 8, name: "菜单设置", pid: 6 },
 ];
 
-const arrayToTree = (data, pid) => {
-  const result = [];
-  getChildren(data, result, pid);
-  return result;
-};
-const getChildren = (data, result, pid) => {
-  for (const item of data) {
-    if (item.pid === pid) {
-      const newItem = { ...item, children: [] };
-      result.push(newItem);
-      delete item
-      getChildren(data, newItem.children, item.id);
-    }
-  }
-};
-console.log(arrayToTree(arr, 0));
+// const arrayToTree = (data, pid) => {
+//   const result = [];
+//   getChildren(data, result, pid);
+//   return result;
+// };
+// const getChildren = (data, result, pid) => {
+//   for (const item of data) {
+//     if (item.pid === pid) {
+//       const newItem = { ...item, children: [] };
+//       result.push(newItem);
+//       delete item
+//       getChildren(data, newItem.children, item.id);
+//     }
+//   }
+// };
+// console.log(arrayToTree(arr, 0));
+
+function arrayToCascader(data, pid) {
+  let result = [];
+  if (!Array.isArray(data)) return result;
+  let map = {};
+  data.forEach(item => {
+      map[item.id] = item;
+  });
+
+  data.forEach(item => {
+      if (map[item[pid]]) {
+          if(map[item[pid]].children){
+              map[item[pid]].children.push(item)
+          }else{
+              map[item[pid]].children = []
+              map[item[pid]].children.push(item)
+          }
+          // (map[item.pid].children || map[item.pid].children = []).push(item);
+      } else {
+          result.push(item);
+      }
+  });
+  return result
+}

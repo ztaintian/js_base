@@ -1,118 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <style>
-    .column {
-      overflow: hidden;
-    }
-
-    .column-left {
-      height: 400px;
-      background-color: #fff;
-      position: relative;
-      float: left;
-    }
-
-    .column-right {
-      height: 400px;
-      padding: 16px;
-      background-color: #eee;
-      box-sizing: border-box;
-      overflow: hidden;
-    }
-
-    .resize-save {
-      position: absolute;
-      top: 0;
-      right: 5px;
-      bottom: 0;
-      left: 0;
-      padding: 16px;
-      overflow-x: hidden;
-    }
-
-    .resize-bar {
-      width: 200px;
-      height: inherit;
-      resize: horizontal;
-      cursor: ew-resize;
-      cursor: col-resize;
-      opacity: 0;
-      overflow: scroll;
-    }
-
-    /* 拖拽线 */
-    .resize-line {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      border-right: 2px solid #eee;
-      border-left: 1px solid #bbb;
-      pointer-events: none;
-    }
-
-    .resize-bar:hover~.resize-line,
-    .resize-bar:active~.resize-line {
-      border-left: 1px dashed skyblue;
-    }
-
-    .resize-bar::-webkit-scrollbar {
-      width: 200px;
-      height: inherit;
-    }
-
-    /* Firefox只有下面一小块区域可以拉伸 */
-    @supports (-moz-user-select: none) {
-
-      .resize-bar:hover~.resize-line,
-      .resize-bar:active~.resize-line {
-        border-left: 1px solid #bbb;
-      }
-
-      .resize-bar:hover~.resize-line::after,
-      .resize-bar:active~.resize-line::after {
-        content: '';
-        position: absolute;
-        width: 16px;
-        height: 16px;
-        bottom: 0;
-        right: -8px;
-        background: url(./resize.svg);
-        background-size: 100% 100%;
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
+<style>
+  .warp {
+    display: flex;
+    width: 100%;
+  }
+
+  p {
+    height: 50px;
+  }
+
+  p:nth-of-type(1) {
+    width: 100px;
+    background: red;
+  }
+
+  p:nth-of-type(2) {
+    flex: 1
+  }
+</style>
 <script>
-  function myNew(fn, ...args) {
-    let obj = {}
-    obj.__proto__ = fn.prototype;
-    let cc = fn.call(obj, ...args);
-    return typeof cc === 'object' ? cc : obj;
+
+  var arr = [
+    { id: 1, name: "用户管理", pid: 0 },
+    { id: 2, name: "菜单申请", pid: 1 },
+    { id: 3, name: "信息申请", pid: 1 },
+    { id: 4, name: "模块记录", pid: 2 },
+    { id: 5, name: "系统设置", pid: 0 },
+    { id: 6, name: "权限管理", pid: 5 },
+    { id: 7, name: "用户角色", pid: 6 },
+    { id: 8, name: "菜单设置", pid: 6 },
+  ];
+
+  // const arrayToTree = (data, pid) => {
+  //   const result = [];
+  //   getChildren(data, result, pid);
+  //   return result;
+  // };
+  // const getChildren = (data, result, pid) => {
+  //   for (const item of data) {
+  //     if (item.pid === pid) {
+  //       const newItem = { ...item, children: [] };
+  //       result.push(newItem);
+  //       delete item
+  //       getChildren(data, newItem.children, item.id);
+  //     }
+  //   }
+  // };
+  console.log(arrayToTree(arr, 0));
+
+  function arrayToTree(data, pid) {
+    let result = [];
+    if (!Array.isArray(data)) return result;
+    let map = {};
+    data.forEach(item => {
+      map[item.id] = item;
+    });
+    console.log('map', map)
+    data.forEach(item => {
+      console.log('map[item[pid]', map[item['pid']], item)
+      if (map[item['pid']]) {
+        // if (map[item['pid']].children) {
+        //   map[item['pid']].children.push(item)
+        // } else {
+        //   map[item['pid']].children = []
+        //   map[item['pid']].children.push(item)
+        // }
+        // (map[item.pid].children || map[item.pid].children = []).push(item);
+      } else {
+        result.push(item);
+      }
+    });
+    console.log('resultresult', result)
+    return result
   }
-  function test() {
-    this.aa = 88
-  }
-  var bb = myNew(test);
-  console.log('bb',bb.__proto__)
-  var mm = new test();
-  console.log('mm', mm)
+
 </script>
 
 <body>
-  <div class="column">
-    <div class="column-left">
-      <div class="resize-bar"></div>
-      <div class="resize-line"></div>
-      <div class="resize-save">
-        <!-- 左侧的内容，左侧的内容，左侧的内容，左侧的内容 -->
-      </div>
-    </div>
-    <div class="column-right">
-      <!-- 右侧的内容，右侧的内容，右侧的内容，右侧的内容 -->
-    </div>
+  <div class="warp">
+    <p>11111</p>
+    <p>22222</p>
   </div>
 </body>
 
