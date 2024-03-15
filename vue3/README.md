@@ -1,5 +1,4 @@
-  
-  # vite.config.js
+# vite.config.js
 
     import { defineConfig } from 'vite'
     import vue from '@vitejs/plugin-vue'
@@ -20,23 +19,23 @@
       },
       plugins: [vue()],
     })
-  # main.js
+
+# main.js
 
     import { createApp } from 'vue'
     import App from './App.vue'
     import router from '@router/index.js'
-    
+
     createApp(App).use(router).mount('#app')
 
-  # index.html
+# index.html
 
     引入js加上随机数去缓存
 
     <script src="/config.js?<%= _.random(0, 100, true) %>"></script>
 
-  # axios 
+# axios
 
-    
     //增加随机数，防止缓存
     if (config.method === 'post') {
       config.data = {
@@ -50,4 +49,14 @@
       }
     }
 
+# vite.config.ts - 自动导入配置
 
+    // vite.config.ts
+
+    import AutoImport from "unplugin-auto-import/vite";
+
+    plugins: [
+      AutoImport({
+      // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
+      imports: ["vue"]
+    ]
