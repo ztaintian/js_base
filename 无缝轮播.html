@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .wrap {
+    width: 100px;
+    height: 50px;
+    overflow: hidden;
+    display: flex;
+  }
+
+  .box {
+    display: flex;
+  }
+
+  p {
+    height: 50px;
+    width: 100px;
+    flex-shrink: 0;
+  }
+
+  .p1 {
+    background: red;
+  }
+
+  .p2 {
+    background: yellow;
+  }
+
+  .p3 {
+    background: green;
+  }
+
+  /* .box {
+    transform: translateX(-100px)
+  } */
+</style>
+
+<body>
+  <div class="wrap">
+    <div class="box">
+      <p class="p1">1</p>
+      <p class="p2">2</p>
+      <p class="p3">3</p>
+    </div>
+    <div class="box2"><p class="p1">1</p></div>
+  </div>
+</body>
+
+</html>
+<script>
+  window.onload = function () {
+    let boxDom = document.querySelector('.box');
+    let boxDom2 = document.querySelector('.box2');
+    // boxDom2.innerHTML = boxDom.innerHTML;
+    let index = 0
+    setInterval(() => {
+      index++
+      let x = index * 100
+      boxDom.style.transition = 'all 0.5s ease'
+      boxDom.style.transform = 'translateX(' + -x + 'px)'
+      boxDom2.style.transition = 'all 0.5s ease'
+      boxDom2.style.transform = 'translateX(' + -x + 'px)'
+    }, 1000)
+    boxDom.addEventListener('transitionend', () => {
+      if (index === 3) {
+        index = 0
+        boxDom.style.transition = 'none'
+        boxDom.style.transform = 'translateX(0px)'
+        boxDom2.style.transition = 'none'
+        boxDom2.style.transform = 'translateX(0px)'
+      }
+    })
+  }
+</script>
