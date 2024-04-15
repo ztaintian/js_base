@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,21 +8,39 @@
   <title>Document</title>
 </head>
 <style>
-  *{
-    margin:0;
-    padding:0;
+  * {
+    margin: 0;
+    padding: 0;
   }
-  .grid-box{
+
+  .grid-box {
     display: grid;
     grid-template-columns: 100px auto;
     justify-content: space-evenly;
-    height:600px;
+    height: 600px;
     align-content: center;
   }
-  p{
+
+  p {
     /* height:400px; */
   }
 </style>
+<script>
+
+  var timer = setInterval(function () {
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+    // 如果被卷曲的高度大于吸顶元素到顶端位置 的距离
+    _this.isFixed = scrollTop > _this.offsetTop - 10 ? true : false;
+
+    console.info(12121);
+    var ispeed = Math.floor(-_this.scrollTop / 5);
+    document.documentElement.scrollTop = document.body.scrollTop = _this.scrollTop + ispeed;
+    if (_this.scrollTop === 0) {
+      clearInterval(timer);
+    }
+  }, 16);
+</script>
+
 <body>
   <div class="grid-box">
     <p>lll</p>
@@ -29,4 +48,5 @@
     <p>eee</p>
   </div>
 </body>
+
 </html>
