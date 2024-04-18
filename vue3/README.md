@@ -60,3 +60,48 @@
       // 自动导入 Vue 相关函数，如：ref, reactive, toRef 等
       imports: ["vue"]
     ]
+
+# pinia 数据持久化插件
+
+    // store/index
+    import { createPinia } from "pinia";
+    import piniaPersist from "pinia-plugin-persistedstate";
+
+    const pinia = createPinia();
+    pinia.use(piniaPersist)
+    export default pinia;
+
+    // main
+    import pinia from "./stores/index";
+
+    app.use(router);
+    app.use(pinia);
+    app.mount("#app");
+
+# ts 组件全局化
+    // main
+    import "./assets/main.css";
+    import { createApp } from "vue";
+    import pinia from "./stores/index";
+    import router from "./router";
+    import App from "./App.vue";
+    import components from './components/index'
+    const app = createApp(App);
+
+    console.log('components', components)
+    Object.keys(components).map((item) => {
+      console.log('itemitem', item)
+      app.component(item, components[item as keyof typeof components]);
+    })
+    app.use(router);
+    app.use(pinia);
+    app.mount("#app");
+
+    // components/index
+    import "@vueup/vue-quill/dist/vue-quill.snow.css";
+    import { QuillEditor } from "@vueup/vue-quill";
+
+    export default {
+      QuillEditor,
+    };
+
