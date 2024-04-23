@@ -77,42 +77,54 @@
 
 <body>
   <div class="content" id="content">
-    <ul class="tab-type">
+    <!-- <ul class="tab-type">
       <li id="light">浅色主题</li>
       <li id="dark">暗色主题</li>
     </ul>
     <h2>微信公众号：[布依前端]，布衣前端，专注于前端知识分享的up</h2>
-    <div class="scheme-tip"></div>
+    <div class="scheme-tip"></div> -->
   </div>
   <script>
-    // 手动修改主题颜色
-    const light = document.getElementById('light')
-    const dark = document.getElementById('dark')
-    const content = document.getElementsByTagName('body')[0]
-    const tipText = document.getElementsByClassName('scheme-tip')[0]
-    let lightTip = '当前自定义主题：light亮色', darkTip = '当前自定义主题：dark暗色'
 
-    light.onclick = function (params) {
-      content.setAttribute('class', 'light-scheme')
-      tipText.innerHTML = lightTip
-    }
-    dark.onclick = function (params) {
-      content.setAttribute('class', 'dark-scheme')
-      tipText.innerHTML = darkTip
+    //寄生组合式继承的核心方法
+    function inherit(child, parent) {
+      // 继承父类的原型
+      const p = Object.create(parent.prototype);
+      // 重写子类的原型
+      child.prototype = p;
+      // 重写被污染的子类的constructor
+      p.constructor = child;
     }
 
-    // js 监听系统主题模式
-    const scheme = window.matchMedia('(prefers-color-scheme: dark)')
-    if (scheme.matches) {
-      // 深色模式业务处理代码
-      console.log('深色模式');
-      tipText.innerHTML = darkTip
-    } else {
-      // 浅色模式业务处理代码
-      console.log('浅色模式');
-      tipText.innerHTML = lightTip
+    //User, 父类
+    function User(username, password) {
+      let _password = password
+      this.username = username
     }
+
+    User.prototype.login = function () {
+      console.log(this.username + '要登录Github，密码是' + _password);
+      //>> ReferenceError: _password is not defined
+    }
+
+    //CoffeUser, 子类
+    function CoffeUser(username, password) {
+      User.call(this, username, password) // 继承属性
+      this.articles = 3 // 文章数量
+    }
+
+    //继承
+    inherit(CoffeUser, User);
+
+    //在原型上添加新方法
+    CoffeUser.prototype.readArticle = function () {
+      console.log('Read article');
+    }
+
+    const user1 = new CoffeUser("Coffe1891", "123456");
+    console.log(user1);
+
   </script>
 </body>
 
-</html> 作者：布依前端 https://www.bilibili.com/read/cv18661145/ 出处：bilibili
+</html>
