@@ -48,7 +48,7 @@
     var self = this;
     var args = Array.prototype.slice.call(arguments, 1);
 
-    var fNOP = function () {};
+    var fNOP = function () { };
 
     var fBound = function () {
       var funArgs = Array.prototype.slice.call(arguments);
@@ -78,7 +78,7 @@
     // 获取除第一个参数之后的所有参数
     const args = Array.from(arguments).slice(1)
 
-    function O() {}
+    function O() { }
 
     function fn() {
       // 第一个参数的判断是为了忽略使用new实例化函数时让this指向它自己，否则就指向这个context指定对象
@@ -89,6 +89,30 @@
     fn.prototype = new O()
     return fn
   }
+
+
+
+  /**
+ * 用原生JavaScript实现bind
+ */
+  Function.prototype.myBind = function (objThis, ...params) {
+    const thisFn = this;//存储调用函数，以及上方的params(函数参数)
+    //对返回的函数 secondParams 二次传参
+    let funcForBind = function (...secondParams) {
+      //检查this是否是funcForBind的实例？也就是检查funcForBind是否通过new调用
+      const isNew = this instanceof funcForBind;
+
+      //new调用就绑定到this上,否则就绑定到传入的objThis上
+      const thisArg = isNew ? this : Object(objThis);
+
+      //用call执行调用函数，绑定this的指向，并传递参数。返回执行结果
+      return thisFn.call(thisArg, ...params, ...secondParams);
+    };
+
+    //复制调用函数的prototype给funcForBind
+    funcForBind.prototype = Object.create(thisFn.prototype);
+    return funcForBind;//返回拷贝的函数
+  };
 </script>
 
 <body>
